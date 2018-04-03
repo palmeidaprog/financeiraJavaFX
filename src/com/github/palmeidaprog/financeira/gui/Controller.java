@@ -33,15 +33,12 @@ public class Controller {
     public void okCpfBtnClicked() {
         if(cpfRadio.isSelected()) {
             try {
-                Cpf cpf = new Cpf(cpfText.getText(),"SSP",
-                        new Estado("PE"));
+                Cpf cpf = new Cpf(cpfText.getText());
                 clientes.procurar(cpf);
             } catch(InscricaoInvalidaException e) {
                 dialogoErro("CPF Inválido", e.getMessage());
-                e.printStackTrace();
             } catch(ProcuraSemResultadoException e) {
                 dialogoErro("Procura Sem Resultado", e.getMessage());
-                e.printStackTrace();
             }
         } else {
             try {
@@ -49,12 +46,18 @@ public class Controller {
                 clientes.procurar(cnpj);
             } catch(InscricaoInvalidaException e) {
                 dialogoErro("CNPJ Inválido", e.getMessage());
-                e.printStackTrace();
             } catch(ProcuraSemResultadoException e) {
                 dialogoErro("Procura Sem Resultado", e.getMessage());
-                e.printStackTrace();
             }
         }
+    }
+
+    public void cpfRadioSelected() {
+        cnpjRadio.setSelected(!cpfRadio.isSelected());
+    }
+
+    public void cnpjRadioSelected() {
+        cpfRadio.setSelected(!cnpjRadio.isSelected());
     }
 
     private void dialogoErro(String titulo, String texto) {

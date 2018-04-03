@@ -37,14 +37,14 @@ public class Cpf extends InscricaoFiscal {
                 "33333333333", "44444444444", "55555555555", "66666666666",
                 "77777777777", "88888888888", "99999999999");
 
-        if(CPF.length() == 11) {
-            throw new InscricaoInvalidaException("CPF: " + this);
+        if(CPF.length() != 11) {
+            throw new InscricaoInvalidaException("CPF Invalido: " + this);
         }
         // verifica se todos digitos sao iguais
 
         for(String i : cpfInvalidos) {
             if(i.equals(CPF)) {
-                throw new InscricaoInvalidaException("CPF: " + this);
+                throw new InscricaoInvalidaException("CPF Invalido: " + this);
             }
         }
 
@@ -58,15 +58,16 @@ public class Cpf extends InscricaoFiscal {
             }
 
             if(CPF.charAt(i) < 48 || CPF.charAt(i) > 57) { // contem nao numeros
-                throw new InscricaoInvalidaException("CPF: " + this);
+                throw new InscricaoInvalidaException("CPF Invalido: " + this);
             }
             --multiplicador;
         }
         primeiroDigito = restoCPF(primeiroDigito);
         segundoDigito = restoCPF(segundoDigito);
 
-        if(primeiroDigito != (CPF.charAt(9) - '0') || segundoDigito != (CPF.charAt(10) - '0')) {
-            throw new InscricaoInvalidaException("CPF: " + this);
+        if(primeiroDigito != (CPF.charAt(9) - '0') || segundoDigito != (CPF
+                .charAt(10) - '0')) {
+            throw new InscricaoInvalidaException("CPF Invalido: " + this);
         }
     }
 
@@ -87,7 +88,11 @@ public class Cpf extends InscricaoFiscal {
 
     @Override
     public String toString() {
-        return CPF.substring(0, 2) + "." + CPF.substring(3, 5) + "." + CPF.substring(6, 8) + "-" +
-            CPF.substring(9, 10);
+        if(CPF.length() != 11) {
+            return CPF;
+        } else {
+            return CPF.substring(0, 3) + "." + CPF.substring(3, 6) + "." + CPF
+                    .substring(6, 9) + "-" + CPF.substring(9, 11);
+        }
     }
 }

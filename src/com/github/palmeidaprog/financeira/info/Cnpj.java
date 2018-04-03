@@ -31,7 +31,7 @@ public class Cnpj extends InscricaoFiscal {
 
     // TODO: validacao de CNPJ
     private void valida() throws InscricaoInvalidaException {
-        if(CNPJ.equals("0")) {
+        if(CNPJ.equals("")) {
             throw new InscricaoInvalidaException("CNPJ: " + this);
         }
     }
@@ -46,7 +46,12 @@ public class Cnpj extends InscricaoFiscal {
 
     @Override
     public String toString() {
-        return CNPJ.substring(0, 1) + "." + CNPJ.substring(2,4) + "." + CNPJ.substring(5, 7) + "/" +
-                CNPJ.substring(8, 11) + "-" + CNPJ.substring(12, 13);
+        if(CNPJ.length() != 14) {
+            return CNPJ;
+        } else {
+            return CNPJ.substring(0, 2) + "." + CNPJ.substring(2, 5) + "." +
+                    CNPJ.substring(5, 8) + "/" + CNPJ.substring(8, 12) + "-" +
+                    CNPJ.substring(12, 14);
+        }
     }
 }
