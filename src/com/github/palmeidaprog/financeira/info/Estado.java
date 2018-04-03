@@ -10,23 +10,17 @@ package com.github.palmeidaprog.financeira.info;
  * Professor: Antonio Canvalcanti
  */
 
-import com.github.palmeidaprog.financeira.exception.DadoVazioException;
-
 public class Estado {
     private String nome;
     private String sigla;
 
-    public Estado(String nome, String sigla) throws DadoVazioException {
-        atributoVazio(nome, "nome");
-        atributoVazio(sigla, "sigla");
-        this.nome = nome;
+    public Estado(String sigla) {
         this.sigla = sigla;
     }
 
-    private void atributoVazio(String atributo, String atrNome) throws DadoVazioException {
-        if(atributo.trim().isEmpty()) {
-            throw new DadoVazioException("Atributo " + atrNome + " vazio");
-        }
+    public Estado(String nome, String sigla) {
+        this.nome = nome;
+        this.sigla = sigla;
     }
 
     public String getSigla() {
@@ -45,7 +39,13 @@ public class Estado {
         this.nome = nome;
     }
 
+    public boolean equals(Estado estado) {
+        return (estado != null && (this.sigla.equals(estado.getSigla()) ||
+                this.nome.equals(estado.getNome())));
+    }
+
     public String toString() {
-        return getNome() + " (" + getSigla() + ")";
+        return (nome == null) ? getSigla() : getNome() + " (" + getSigla()
+                + ")";
      }
 }

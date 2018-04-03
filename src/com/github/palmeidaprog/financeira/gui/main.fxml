@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
    <left>
       <VBox prefHeight="400.0" prefWidth="129.0" style="-fx-background-color: #2f2f2f;" BorderPane.alignment="CENTER">
          <children>
@@ -20,28 +20,19 @@
             </HBox>
             <HBox alignment="CENTER" prefHeight="52.0" prefWidth="129.0">
                <children>
-                  <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="90.0" text="Escolhe" />
+                  <Button fx:id="escolherBtn" disable="true" mnemonicParsing="false" onAction="#escolherBtnClicked" prefHeight="26.0" prefWidth="90.0" text="Escolher" />
                </children>
             </HBox>
             <HBox alignment="CENTER" prefHeight="52.0" prefWidth="129.0">
                <children>
-                  <Button mnemonicParsing="false" prefWidth="90.0" text="Cria" />
+                  <Button fx:id="criaBtn" mnemonicParsing="false" onAction="#criaBtnClicked" prefWidth="90.0" text="Cria" />
                </children>
             </HBox>
-            <HBox alignment="CENTER" prefHeight="52.0" prefWidth="129.0">
-               <children>
-                  <Button mnemonicParsing="false" prefWidth="90.0" text="Altera" />
-               </children>
-            </HBox>
-            <HBox alignment="CENTER" prefHeight="52.0" prefWidth="129.0">
-               <children>
-                  <Button mnemonicParsing="false" prefWidth="90.0" text="Remove" />
-               </children>
-            </HBox>
+            <HBox alignment="CENTER" prefHeight="52.0" prefWidth="129.0" />
          </children></VBox>
    </left>
    <center>
-      <VBox prefHeight="377.0" prefWidth="447.0" BorderPane.alignment="CENTER">
+      <VBox fx:id="escolherVBox" prefHeight="377.0" prefWidth="447.0" BorderPane.alignment="CENTER">
          <children>
             <HBox alignment="CENTER_LEFT" prefHeight="31.0" prefWidth="471.0">
                <children>

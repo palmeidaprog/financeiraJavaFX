@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="771.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <HBox alignment="CENTER_LEFT">
+         <children>
+            <Label text="Informacoes do novo cliente:">
+               <font>
+                  <Font name="System Bold" size="13.0" />
+               </font></Label>
+         </children>
+         <VBox.margin>
+            <Insets left="20.0" right="20.0" top="20.0" />
+         </VBox.margin>
+      </HBox>
+      <VBox alignment="CENTER_LEFT" prefHeight="48.0" prefWidth="731.0" spacing="15.0">
+         <children>
+            <RadioButton fx:id="cpfRadio" mnemonicParsing="false" onAction="#cpfRadioSelected" selected="true" text="Pessoa Física" />
+            <RadioButton fx:id="cnpjRadio" mnemonicParsing="false" onAction="#cnpjRadioSelected" text="Pessoa Juridica" />
+         </children>
+         <VBox.margin>
+            <Insets left="20.0" right="20.0" top="20.0" />
+         </VBox.margin>
+      </VBox>
+      <HBox alignment="CENTER_LEFT" prefHeight="39.0" prefWidth="731.0" spacing="5.0">
+         <children>
+            <Label fx:id="primeiroNomeLabel" prefHeight="16.0" prefWidth="112.0" text="Primeiro Nome:" />
+            <TextField fx:id="primeiroNomeText" prefHeight="26.0" prefWidth="601.0" />
+         </children>
+         <VBox.margin>
+            <Insets left="20.0" right="20.0" top="20.0" />
+         </VBox.margin></HBox>
+      <HBox alignment="CENTER_LEFT" prefHeight="39.0" prefWidth="731.0" spacing="8.0">
+         <children>
+            <Label fx:id="meioNomeLabel" prefHeight="16.0" prefWidth="112.0" text="Nome do Meio:">
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
+            </Label>
+            <TextField fx:id="meioNomeText" prefHeight="26.0" prefWidth="215.0" />
+            <Label fx:id="sobrenomeLabel" prefHeight="16.0" prefWidth="85.0" text="Sobrenome:" />
+            <TextField fx:id="sobrenomeText" prefHeight="26.0" prefWidth="281.0" />
+         </children>
+         <VBox.margin>
+            <Insets left="20.0" right="20.0" />
+         </VBox.margin>
+      </HBox>
+      <HBox alignment="CENTER_LEFT" prefHeight="39.0" prefWidth="731.0" spacing="5.0">
+         <children>
+            <Label fx:id="cpfLabel" prefHeight="16.0" prefWidth="136.0" text="CPF (Sem pontos):" />
+            <TextField fx:id="cpfText" prefHeight="26.0" prefWidth="222.0" />
+            <Label fx:id="sobrenomeLabel1" prefHeight="16.0" prefWidth="85.0" text="Orgao Exp.:" />
+            <TextField fx:id="orgaoText" prefHeight="26.0" prefWidth="53.0" />
+            <Label fx:id="sobrenomeLabel11" text="Estado do Orgao:" />
+            <TextField fx:id="estadoOrgText" prefHeight="26.0" prefWidth="53.0" />
+         </children>
+         <VBox.margin>
+            <Insets left="20.0" right="20.0" />
+         </VBox.margin>
+      </HBox>
+      <HBox prefHeight="19.0" prefWidth="731.0">
+         <children>
+            <Label text="Endereco:" />
+         </children>
+         <VBox.margin>
+            <Insets left="20.0" right="20.0" top="10.0" />
+         </VBox.margin>
+      </HBox>
+      <HBox alignment="CENTER_LEFT" prefHeight="39.0" prefWidth="731.0" spacing="5.0">
+         <children>
+            <Label prefHeight="16.0" prefWidth="37.0" text="Rua:" />
+            <TextField fx:id="ruaText" prefHeight="26.0" prefWidth="260.0" />
+            <Label prefHeight="16.0" prefWidth="28.0" text="No.:" />
+            <TextField fx:id="noText" prefHeight="26.0" prefWidth="42.0" />
+            <Label text="Complemento:" />
+            <TextField fx:id="complText" prefHeight="26.0" prefWidth="231.0" />
+         </children>
+         <VBox.margin>
+            <Insets left="20.0" right="20.0" />
+         </VBox.margin>
+      </HBox>
+      <HBox alignment="CENTER_LEFT" prefHeight="39.0" prefWidth="731.0" spacing="5.0">
+         <children>
+            <Label text="Bairro:" />
+            <TextField fx:id="bairroText" prefHeight="26.0" prefWidth="162.0" />
+            <Label text="Cidade:" />
+            <TextField fx:id="cidadeText" prefHeight="26.0" prefWidth="160.0" />
+            <Label text="Estado:" />
+            <TextField fx:id="estadoText" prefHeight="26.0" prefWidth="229.0" />
+         </children>
+         <VBox.margin>
+            <Insets left="20.0" right="20.0" />
+         </VBox.margin>
+      </HBox>
+      <HBox alignment="CENTER_LEFT" prefHeight="39.0" prefWidth="731.0" spacing="5.0">
+         <children>
+            <Label text="Pais:" />
+            <TextField fx:id="paisText" prefHeight="26.0" prefWidth="162.0" />
+            <Label disable="true" text="Outro:" />
+            <TextField disable="true" prefHeight="26.0" prefWidth="160.0" />
+            <Label text="CEP:" />
+            <TextField fx:id="cepText" prefHeight="26.0" prefWidth="147.0" />
+         </children>
+         <VBox.margin>
+            <Insets left="20.0" right="20.0" />
+         </VBox.margin>
+      </HBox>
+      <HBox alignment="CENTER_LEFT" prefHeight="39.0" prefWidth="731.0" spacing="5.0">
+         <children>
+            <Label text="Tipo de Endereco:" />
+            <ComboBox fx:id="tipoEnderecoCombo" prefHeight="26.0" prefWidth="134.0" promptText="Residencial" />
+         </children>
+         <VBox.margin>
+            <Insets left="20.0" right="20.0" />
+         </VBox.margin>
+      </HBox>
+      <HBox prefHeight="19.0" prefWidth="731.0">
+         <children>
+            <Label text="Telefone:" />
+         </children>
+         <VBox.margin>
+            <Insets left="20.0" right="20.0" top="10.0" />
+         </VBox.margin>
+      </HBox>
+      <HBox alignment="CENTER_LEFT" prefHeight="39.0" prefWidth="731.0" spacing="5.0">
+         <children>
+            <Label text="Codigo de Pais::" />
+            <TextField fx:id="codPaisText" prefHeight="26.0" prefWidth="36.0" text="55" />
+            <Label text="Codigo de Area:" />
+            <TextField fx:id="codAreaText" prefHeight="26.0" prefWidth="42.0" />
+            <Label text="Numero:" />
+            <TextField fx:id="numText" prefHeight="26.0" prefWidth="150.0" />
+            <Label text="Tipo:" />
+            <ComboBox fx:id="tipoNumeroCombo" prefHeight="26.0" prefWidth="153.0" promptText="Residencial" />
+         </children>
+         <VBox.margin>
+            <Insets left="20.0" right="20.0" />
+         </VBox.margin>
+      </HBox>
+      <HBox alignment="CENTER_LEFT" prefHeight="39.0" prefWidth="731.0" spacing="5.0">
+         <children>
+            <Label prefHeight="16.0" prefWidth="90.0" text="Comentario:" />
+            <TextField fx:id="comentText" prefHeight="23.0" prefWidth="625.0" />
+         </children>
+         <VBox.margin>
+            <Insets left="20.0" right="20.0" />
+         </VBox.margin>
+      </HBox>
+      <HBox alignment="CENTER" prefHeight="43.0" prefWidth="771.0">
+         <children>
+            <Button fx:id="criarClienteBtn" mnemonicParsing="false" prefHeight="26.0" prefWidth="273.0" text="Criar Cliente" />
+         </children>
+      </HBox>
+   </children>
+</VBox>
