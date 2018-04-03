@@ -15,10 +15,7 @@ import com.github.palmeidaprog.financeira.exception.DadoVazioException;
 public class Bairro {
     private String nome;
 
-    public Bairro(String nome) throws DadoVazioException {
-        if(nome.trim().isEmpty()) {
-            throw new DadoVazioException("Atributo nome vazio");
-        }
+    public Bairro(String nome) {
         this.nome = nome;
     }
 

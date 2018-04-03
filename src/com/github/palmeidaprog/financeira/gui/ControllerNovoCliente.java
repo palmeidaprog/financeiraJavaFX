@@ -1,27 +1,45 @@
 package com.github.palmeidaprog.financeira.gui;
 
-import com.github.palmeidaprog.financeira.info.Cpf;
-import com.github.palmeidaprog.financeira.info.Estado;
-import com.github.palmeidaprog.financeira.info.TipoEndereco;
+import com.github.palmeidaprog.financeira.clientes.Cadastro;
+import com.github.palmeidaprog.financeira.clientes.Cliente;
+import com.github.palmeidaprog.financeira.clientes.ClienteController;
+import com.github.palmeidaprog.financeira.clientes.PessoaFisica;
+import com.github.palmeidaprog.financeira.exception.InscricaoInvalidaException;
+import com.github.palmeidaprog.financeira.exception.ProcuraSemResultadoException;
+import com.github.palmeidaprog.financeira.info.*;
+import com.github.palmeidaprog.financeira.info.telefone.CodigoArea;
+import com.github.palmeidaprog.financeira.info.telefone.NumeroTelefone;
+import com.github.palmeidaprog.financeira.info.telefone.Telefone;
 import com.github.palmeidaprog.financeira.info.telefone.TipoTelefone;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 
 import java.io.IOException;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.ResourceBundle;
 
-public class ControllerNovoCliente {
+public class ControllerNovoCliente implements Initializable {
     @FXML private RadioButton cpfRadio;
     @FXML private RadioButton cnpjRadio;
     @FXML private Label primeiroNomeLabel, meioNomeLabel, sobrenomeLabel;
     @FXML private TextField primeiroNomeText, meioNomeText, sobrenomeText;
-    @FXML private Label cpfLabel;
+    @FXML private Label cpfLabel, outroLabel;
     @FXML private TextField cpfText, ruaText, noText, complText, bairroText;
     @FXML private TextField cidadeText, estadoText, paisText, cepText;
     @FXML private ComboBox<TipoTelefone> tipoNumeroCombo;
     @FXML private ComboBox<TipoEndereco> tipoEnderecoCombo;
+    @FXML private ComboBox<Pais> paisCombo;
     @FXML private TextField codPaisText, codAreaText, numText, comentText;
-    @FXML private TextField orgaoText, estadoOrgText;
+    @FXML private TextField orgaoText, estadoOrgText, outroText, siglaText;
     @FXML private Button criarClienteBtn;
+
+    private ClienteController clientes = ClienteController.getInstance();
 
     private static volatile ControllerNovoCliente instance;
     private ControllerNovoCliente() { }
@@ -32,9 +50,35 @@ public class ControllerNovoCliente {
         return instance;
     }
 
+    public void initialize(URL u, ResourceBundle rb) {
+        ObservableList<Pais> itens = FXCollections.observableArrayList();
+        for(Pais p : Pais.values()) {
+            itens.add(p);
+        }
+        paisCombo.setItems(itens);
+        paisCombo.setValue(Pais.BRAZIL);
+
+        ObservableList<TipoTelefone> tiposTel = FXCollections
+                .observableArrayList();
+        for(TipoTelefone t : TipoTelefone.values()) {
+            tiposTel.add(t);
+        }
+        tipoNumeroCombo.setItems(tiposTel);
+        tipoNumeroCombo.setValue(TipoTelefone.RESIDENCIAL);
+
+        ObservableList<TipoEndereco> tiposEnd = FXCollections
+                .observableArrayList();
+        for(TipoEndereco t : TipoEndereco.values()) {
+            tiposEnd.add(t);
+        }
+        tipoEnderecoCombo.setItems(tiposEnd);
+        tipoEnderecoCombo.setValue(TipoEndereco.RESIDENCIAL);
+
+    }
+
     private boolean campoVazio(TextField textField, String nome) {
         if(textField.getText().trim().isEmpty()) {
-            dialogoErro("Campo Vazio", nome + " deve ser preench"
+            dialogoErro("Campo Vazio ", nome + " deve ser preench"
                 + "ido.");
             textField.requestFocus();
             return false;
@@ -42,33 +86,139 @@ public class ControllerNovoCliente {
         return true;
     }
 
-    private boolean validarCampos() {
-        /*primeiroNomeText, meioNomeText, sobrenomeText
-        cpfText, ruaText, noText, complText, bairroText
-        cidadeText, estadoText, paisText, cepText
-        codPaisText, codAreaText, numText, comentText
-        orgaoText, estadoOrgText*/
+    public void paisComboSelected() {
+        if(paisCombo.getValue() == Pais.OUTRO) {
+            outroLabel.setDisable(false);
+            outroText.setDisable(false);
+        } else {
+            outroLabel.setDisable(true);
+            outroText.setDisable(true);
+        }
+    }
 
+    private boolean validarCampos() {
+        if(!campoVazio(primeiroNomeText, (cnpjRadio.isSelected() ? "Razão Social" : "Primeiro Nome"))) {
+            return false;
+        }
+        if(!campoVazio(meioNomeText, (cnpjRadio.isSelected() ? "Nome Fantasia" : "Nome do Meio"))) {
+            return false;
+        }
+        if(cpfRadio.isSelected()) {
+            if (!campoVazio(sobrenomeText, "Sobrenome")) {
+                return false;
+            }
+        }
+        if(!campoVazio(cpfText, (cnpjRadio.isSelected() ? "CPF" : "CNPJ"))) {
+            return false;
+        }
+        if(!campoVazio(cpfText, (cnpjRadio.isSelected() ? "CPF" : "CNPJ"))) {
+            return false;
+        }
+        if(!campoVazio(ruaText, "Rua")) {
+            return false;
+        }
+        if(!campoVazio(noText, "Numero (Endereço)")) {
+            return false;
+        }
+        if(!campoVazio(bairroText, "Bairro")) {
+            return false;
+        }
+        if(!campoVazio(cidadeText, "Cidade")) {
+            return false;
+        }
+        if(!campoVazio(estadoText, "Estado")) {
+            return false;
+        }
+        if(!campoVazio(siglaText, "Sigla do Estado")) {
+            return false;
+        }
+        if(paisCombo.getValue().equals("Outro") && !campoVazio(outroText,
+                "País (Outro / Especificar)")) {
+            return false;
+        }
+        if(!campoVazio(cepText, "CEP")) {
+            return false;
+        }
+        if(!campoVazio(codPaisText, "Telefone Codigo do Pais")) {
+            return false;
+        }
+        if(!campoVazio(codAreaText, "Telefone Codigo de área")) {
+            return false;
+        }
+        if(!campoVazio(numText, "Telefone Número")) {
+            return false;
+        }
+        if(!campoVazio(orgaoText, "Orgão Expedidor")) {
+            return false;
+        }
+        if(!campoVazio(estadoOrgText, "Estado do Orgão Expedidor")) {
+            return false;
+        }
+
+        return true;
     }
 
     public void criarClienteBtnClicked() {
-        /*if(cpfRadio.isSelected()) {
-            Cpf cpf;
-            try {
-
-                cpf = new Cpf(cpfText.getText(), orgaoText.getText(),
-                    new Estado(estadoOrgText.getText()));
-
-                criaPessoaFisica(cpf);
-            } catch(IOException e) {
-
-            } catch()
-
-        }*/
-
+        if(validarCampos()) {
+            if (cpfRadio.isSelected()) {
+                try {
+                    Cpf cpf = new Cpf(cpfText.getText(), orgaoText.getText(),
+                            new Estado(estadoOrgText.getText()));
+                    try {
+                        clientes.procurar(cpf);
+                        dialogoErro("Cliente já existe",
+                                "Cliente com CPF " + cpf + " já" +
+                                        " existe.");
+                    } catch (ProcuraSemResultadoException e) {
+                        criaPessoaFisica(cpf);
+                    }
+                } catch (InscricaoInvalidaException e) {
+                   dialogoErro("CPF Inválido", "O CPF " + cpfText
+                           .getText() + "não é válido.");
+                }
+            } else {
+                try {
+                    Cnpj cnpj = new Cnpj(cpfText.getText(), orgaoText.getText(),
+                            new Estado(estadoOrgText.getText()));
+                    try {
+                        clientes.procurar(cnpj);
+                        dialogoErro("Cliente já existe",
+                                "Cliente com CNPJ " + cnpj + " já" +
+                                        " existe.");
+                    } catch (ProcuraSemResultadoException e) {
+                        //criaPessoaJuridica(cnpj);
+                    }
+                } catch (InscricaoInvalidaException e) {
+                    dialogoErro("CNPJ Inválido", "O CNPJ " + cpfText
+                            .getText() + "não é válido.");
+                }
+            }
+        }
     }
 
-    private void criaPessoaFisica
+    private void criaPessoaFisica(Cpf cpf) {
+        PessoaFisica pf = new PessoaFisica(criaEndereco(), criaTelefone(), new
+                Cadastro(), primeiroNomeText.getText(), meioNomeText.getText()
+                , sobrenomeText.getText(), cpf);
+        if(!comentText.getText().trim().isEmpty()) {
+            pf.setComentario(comentText.getText());
+        }
+        clientes.inserir(pf);
+    }
+
+    private Telefone criaTelefone() {
+        return new Telefone(new CodigoArea(codAreaText.getText()), new
+                NumeroTelefone(noText.getText()),Pais.getPais(codPaisText
+                .getText()), tipoNumeroCombo.getValue());
+    }
+
+    private Endereco criaEndereco() {
+        return new Endereco(ruaText.getText(), noText.getText(),
+                paisCombo.getValue(), new Estado(estadoText.getText(),
+                siglaText.getText()), new Cidade(cidadeText.getText()), new
+                Bairro(bairroText.getText()), new Cep(cepText.getText()),
+                tipoEnderecoCombo.getValue());
+    }
 
     public void cpfRadioSelected() {
         if(!cpfRadio.isSelected()) {
@@ -76,8 +226,10 @@ public class ControllerNovoCliente {
         }
         cnpjRadio.setSelected(false);
         cpfLabel.setText("CPF (Sem Pontos):");
-        cpfText.setPromptText("Digite o CPF do cliente");
-
+        primeiroNomeLabel.setText("Primeiro Nome:");
+        meioNomeLabel.setText("Nome do Meio:");
+        sobrenomeLabel.setVisible(true);
+        sobrenomeText.setVisible(true);
     }
 
     public void cnpjRadioSelected() {
@@ -86,7 +238,10 @@ public class ControllerNovoCliente {
         }
         cpfRadio.setSelected(false);
         cpfLabel.setText("CNPJ (Sem Pontos):");
-        cpfText.setPromptText("Digite o CNPJ do cliente");
+        primeiroNomeLabel.setText("Razão Social:");
+        meioNomeLabel.setText("Nome Fantasia:");
+        sobrenomeLabel.setVisible(false);
+        sobrenomeText.setVisible(false);
     }
 
     private void dialogoErro(String titulo, String texto) {

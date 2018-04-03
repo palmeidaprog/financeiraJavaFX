@@ -24,12 +24,10 @@ public class Endereco {
     //opcional
     private String complemento;
     private String referencia;
-    private boolean ehPrincipal; // se nao especificado = false
     // construtor basico
-    public Endereco(String rua, String numero, Pais pais, Estado estado, Cidade cidade,
-                        Bairro bairro, Cep cep, TipoEndereco tipo) throws DadoVazioException {
-        atributoVazio(rua, "rua");
-        atributoVazio(numero, "numero");
+    public Endereco(String rua, String numero, Pais pais, Estado estado,
+                    Cidade cidade, Bairro bairro, Cep cep, TipoEndereco
+                    tipo) {
         this.rua = rua;
         this.numero = numero;
         this.pais = pais;
@@ -41,33 +39,11 @@ public class Endereco {
     }
 
     // const c/ complemento
-    public Endereco(String rua, String numero, Pais pais, Estado estado, Cidade cidade,
-                    Bairro bairro, Cep cep, TipoEndereco tipo, String complemento) throws
-                    DadoVazioException {
+    public Endereco(String rua, String numero, Pais pais, Estado estado,
+                    Cidade cidade, Bairro bairro, Cep cep, TipoEndereco tipo,
+                    String complemento) {
         this(rua, numero, pais, estado, cidade, bairro, cep, tipo);
-        atributoVazio(complemento, "complemento");
         this.complemento = complemento;
-    }
-
-    // constr. como endereço principal
-    public Endereco(String rua, String numero, Pais pais, Estado estado, Cidade cidade,
-                    Bairro bairro, Cep cep, TipoEndereco tipo, boolean ehPrincipal) throws
-                    DadoVazioException {
-        this(rua, numero, pais, estado, cidade, bairro, cep, tipo);
-        this.ehPrincipal = ehPrincipal;
-    }
-
-    public Endereco(String rua, String numero, Pais pais, Estado estado, Cidade cidade,
-                    Bairro bairro, Cep cep, TipoEndereco tipo, String complemento,
-                    boolean ehPrincipal) throws DadoVazioException {
-        this(rua, numero, pais, estado, cidade, bairro, cep, tipo, complemento);
-        this.ehPrincipal = ehPrincipal;
-    }
-
-    private void atributoVazio(String atributo, String atrNome) throws DadoVazioException {
-        if(atributo.trim().isEmpty()) {
-            throw new DadoVazioException("Atributo " + atrNome + " vazio");
-        }
     }
 
     public String getRua() {
@@ -150,11 +126,4 @@ public class Endereco {
         this.referencia = referencia;
     }
 
-    public boolean isEhPrincipal() {
-        return ehPrincipal;
-    }
-
-    public void setEhPrincipal(boolean ehPrincipal) {
-        this.ehPrincipal = ehPrincipal;
-    }
 }

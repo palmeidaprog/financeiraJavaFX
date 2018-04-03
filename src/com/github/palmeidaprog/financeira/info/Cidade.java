@@ -9,15 +9,11 @@ package com.github.palmeidaprog.financeira.info;
  * Professor: Antonio Canvalcanti
  */
 
-import com.github.palmeidaprog.financeira.exception.DadoVazioException;
 
 public class Cidade {
     private String nome;
 
-    public Cidade(String nome) throws DadoVazioException {
-        if(nome.trim().isEmpty()) {
-            throw new DadoVazioException("Atributo nome vazio");
-        }
+    public Cidade(String nome) {
         this.nome = nome;
     }
 

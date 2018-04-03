@@ -16,7 +16,7 @@ import javafx.scene.layout.VBox;
 import java.io.IOException;
 
 public class Controller {
-    private ClienteController clientes = new ClienteController();
+    private ClienteController clientes = ClienteController.getInstance();
 
     private volatile static Controller instance;
     @FXML private BorderPane mainPane;

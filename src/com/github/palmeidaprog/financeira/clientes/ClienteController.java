@@ -20,6 +20,16 @@ import java.util.List;
 public class ClienteController {
     private List<Cliente> clientes = new ArrayList<>();
 
+    // Singleton
+    private static volatile ClienteController instance;
+    private ClienteController() { }
+    public synchronized static ClienteController getInstance() {
+        if(instance == null) {
+            instance = new ClienteController();
+        }
+        return instance;
+    }
+
     public void inserir(Cliente cliente) {
         clientes.add(cliente);
     }

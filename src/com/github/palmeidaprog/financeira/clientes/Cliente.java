@@ -15,8 +15,8 @@ import com.github.palmeidaprog.financeira.info.telefone.Telefone;
 import com.github.palmeidaprog.financeira.info.telefone.TelefoneController;
 
 public class Cliente {
-    private EnderecoController enderecos;
-    private TelefoneController telefones;
+    private final EnderecoController enderecos;
+    private final TelefoneController telefones;
     private String comentario;
     private final Cadastro cadastro;
 
@@ -36,16 +36,8 @@ public class Cliente {
         return enderecos;
     }
 
-    public void setEnderecos(EnderecoController enderecos) {
-        this.enderecos = enderecos;
-    }
-
     public TelefoneController getTelefones() {
         return telefones;
-    }
-
-    public void setTelefones(TelefoneController telefones) {
-        this.telefones = telefones;
     }
 
     public String getComentario() {

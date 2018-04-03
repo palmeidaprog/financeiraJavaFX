@@ -14,10 +14,7 @@ import com.github.palmeidaprog.financeira.exception.DadoVazioException;
 public class Cep {
     private String numero;
 
-    public Cep(String numero) throws DadoVazioException {
-        if(numero.trim().isEmpty()) {
-            throw new DadoVazioException("Atributo numero vazio");
-        }
+    public Cep(String numero) {
         this.numero = numero;
     }
 

@@ -96,7 +96,9 @@
             <Label text="Cidade:" />
             <TextField fx:id="cidadeText" prefHeight="26.0" prefWidth="160.0" />
             <Label text="Estado:" />
-            <TextField fx:id="estadoText" prefHeight="26.0" prefWidth="229.0" />
+            <TextField fx:id="estadoText" prefHeight="27.0" prefWidth="136.0" />
+            <Label fx:id="siglaLabel" text="Sigla:" />
+            <TextField fx:id="siglaText" prefHeight="27.0" prefWidth="42.0" />
          </children>
          <VBox.margin>
             <Insets left="20.0" right="20.0" />
@@ -105,9 +107,9 @@
       <HBox alignment="CENTER_LEFT" prefHeight="39.0" prefWidth="731.0" spacing="5.0">
          <children>
             <Label text="Pais:" />
-            <TextField fx:id="paisText" prefHeight="26.0" prefWidth="162.0" />
-            <Label disable="true" text="Outro:" />
-            <TextField disable="true" prefHeight="26.0" prefWidth="160.0" />
+            <ComboBox fx:id="paisCombo" onAction="#paisComboSelected" prefHeight="26.0" prefWidth="153.0" promptText="Brasil" />
+            <Label fx:id="outroLabel" disable="true" text="Outro:" />
+            <TextField fx:id="outroText" disable="true" prefHeight="26.0" prefWidth="160.0" />
             <Label text="CEP:" />
             <TextField fx:id="cepText" prefHeight="26.0" prefWidth="147.0" />
          </children>
@@ -158,7 +160,7 @@
       </HBox>
       <HBox alignment="CENTER" prefHeight="43.0" prefWidth="771.0">
          <children>
-            <Button fx:id="criarClienteBtn" mnemonicParsing="false" prefHeight="26.0" prefWidth="273.0" text="Criar Cliente" />
+            <Button fx:id="criarClienteBtn" mnemonicParsing="false" onAction="#criarClienteBtnClicked" prefHeight="26.0" prefWidth="273.0" text="Criar Cliente" />
          </children>
       </HBox>
    </children>

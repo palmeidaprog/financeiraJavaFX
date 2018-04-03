@@ -42,7 +42,7 @@ public enum Pais {
     BOSNIA_AND_HERZEGOVINA("Bosnia and Herzegovina",	"070"),
     BOTSWANA("Botswana",	"072"),
     BOUVET_ISLAND("Bouvet Island",	"074"),
-    BRAZIL("Brazil",	"076"),
+    BRAZIL("Brazil",	"055"),
     BRITISH_VIRGIN_ISLANDS("British Virgin Islands",	"092"),
     BRITISH_INDIAN_OCEAN_TERRITORY("British Indian Ocean Territory",	"086"),
     BRUNEI_DARUSSALAM("Brunei Darussalam",	"096"),
@@ -275,14 +275,13 @@ public enum Pais {
      * @return  Pais    Retorna a constante literal referente do pais com o
      *                  codigo no parametro
      */
-    public Pais getPais(String codigo) throws IllegalArgumentException {
+    public static Pais getPais(String codigo) {
         for(Pais p : values()) {
             if(p.getCodigo().equalsIgnoreCase(codigo)) {
                 return p;
             }
         }
-        throw new IllegalArgumentException("Pais com codigo " + codigo +
-                " inexistente.");
+        return Pais.OUTRO;
     }
 
     public String getCodigo() {

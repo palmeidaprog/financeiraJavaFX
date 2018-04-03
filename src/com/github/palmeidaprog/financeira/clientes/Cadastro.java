@@ -16,6 +16,8 @@ public class Cadastro {
     private final RendaController rendas = new RendaController();;
     private final BemController bens = new BemController();
 
+    public Cadastro() { }
+
     public Cadastro(Renda renda) {
         rendas.inserir(renda);
     }
