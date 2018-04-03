@@ -7,10 +7,7 @@ import com.github.palmeidaprog.financeira.info.Cnpj;
 import com.github.palmeidaprog.financeira.info.Cpf;
 import com.github.palmeidaprog.financeira.info.Estado;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.RadioButton;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 
 public class Controller {
     private ClienteController clientes = new ClienteController();
@@ -19,6 +16,7 @@ public class Controller {
     @FXML private TextField cpfText;
     @FXML private Button okCpfBtn;
     @FXML private RadioButton cpfRadio, cnpjRadio;
+    @FXML private Label cpfLabel;
 
     private Controller() { }
     public synchronized static Controller getInstance() {
@@ -53,11 +51,22 @@ public class Controller {
     }
 
     public void cpfRadioSelected() {
-        cnpjRadio.setSelected(!cpfRadio.isSelected());
+        if(!cpfRadio.isSelected()) {
+            cpfRadio.setSelected(true);
+        }
+        cnpjRadio.setSelected(false);
+        cpfLabel.setText("CPF (Sem Pontos):");
+        cpfText.setPromptText("Digite o CPF do cliente");
+
     }
 
     public void cnpjRadioSelected() {
-        cpfRadio.setSelected(!cnpjRadio.isSelected());
+        if(!cnpjRadio.isSelected()) {
+            cnpjRadio.setSelected(true);
+        }
+        cpfRadio.setSelected(false);
+        cpfLabel.setText("CNPJ (Sem Pontos):");
+        cpfText.setPromptText("Digite o CNPJ do cliente");
     }
 
     private void dialogoErro(String titulo, String texto) {

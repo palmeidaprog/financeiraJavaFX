@@ -63,7 +63,7 @@
             </VBox>
             <HBox alignment="CENTER_LEFT" prefHeight="67.0" prefWidth="456.0" spacing="10.0">
                <children>
-                  <Label fx:id="cpfLabel" prefHeight="16.0" prefWidth="50.0" text="CPF" />
+                  <Label fx:id="cpfLabel" prefHeight="16.0" prefWidth="138.0" text="CPF (Sem Pontos):" />
                   <TextField fx:id="cpfText" prefHeight="26.0" prefWidth="163.0" promptText="Digite o CPF do cliente" />
                   <Button fx:id="okCpfBtn" defaultButton="true" mnemonicParsing="false" onAction="#okCpfBtnClicked" prefHeight="26.0" prefWidth="76.0" text="OK" />
                </children>
