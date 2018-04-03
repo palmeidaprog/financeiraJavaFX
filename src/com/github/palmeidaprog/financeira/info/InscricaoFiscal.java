@@ -15,6 +15,9 @@ public class InscricaoFiscal {
     private String orgaoExpedidor;
     private Estado estado;
 
+    // construtor para ser utilizado em procuras com CPF e CNPJ
+    public InscricaoFiscal() { }
+
     public InscricaoFiscal(String orgaoExpedidor, Estado estado) {
         this.orgaoExpedidor = orgaoExpedidor;
         this.estado = estado;

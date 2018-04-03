@@ -17,7 +17,13 @@ import com.github.palmeidaprog.financeira.exception.InscricaoInvalidaException;
 public class Cpf extends InscricaoFiscal {
     private final String CPF;
 
-    // TODO: implementar construtor
+    // construtor para procura com CPF
+    public Cpf(String cpf) throws InscricaoInvalidaException {
+        super();
+        this.CPF = cpf;
+        valida();
+    }
+
     public Cpf(String cpf, String orgaoExpedidor, Estado estado) throws
             InscricaoInvalidaException {
         super(orgaoExpedidor, estado);
@@ -72,6 +78,11 @@ public class Cpf extends InscricaoFiscal {
 
     public String getCPF() {
         return CPF;
+    }
+
+
+    public boolean equals(Cpf cpf) {
+        return (cpf != null && this.CPF.equals(cpf.getCPF()));
     }
 
     @Override

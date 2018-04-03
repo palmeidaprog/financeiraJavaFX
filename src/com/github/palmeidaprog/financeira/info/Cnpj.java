@@ -15,6 +15,13 @@ import com.github.palmeidaprog.financeira.exception.InscricaoInvalidaException;
 public class Cnpj extends InscricaoFiscal {
     private final String CNPJ;
 
+    // construtor par procura com CNPJ
+    public Cnpj(String cnpj) throws InscricaoInvalidaException {
+        super();
+        this.CNPJ = cnpj;
+        valida();
+    }
+
     public Cnpj(String cnpj, String orgaoExpedidor, Estado estado) throws
             InscricaoInvalidaException {
         super(orgaoExpedidor, estado);
@@ -31,6 +38,10 @@ public class Cnpj extends InscricaoFiscal {
 
     public String getCNPJ() {
         return CNPJ;
+    }
+
+    public boolean equals(Cnpj cnpj) {
+        return (cnpj != null && this.CNPJ.equals(cnpj.getCNPJ()));
     }
 
     @Override
