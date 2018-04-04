@@ -1,9 +1,6 @@
 package com.github.palmeidaprog.financeira.gui;
 
-import com.github.palmeidaprog.financeira.clientes.Cadastro;
-import com.github.palmeidaprog.financeira.clientes.Cliente;
-import com.github.palmeidaprog.financeira.clientes.ClienteController;
-import com.github.palmeidaprog.financeira.clientes.PessoaFisica;
+import com.github.palmeidaprog.financeira.clientes.*;
 import com.github.palmeidaprog.financeira.exception.InscricaoInvalidaException;
 import com.github.palmeidaprog.financeira.exception.ProcuraSemResultadoException;
 import com.github.palmeidaprog.financeira.info.*;
@@ -14,8 +11,10 @@ import com.github.palmeidaprog.financeira.info.telefone.TipoTelefone;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.layout.VBox;
 
 import java.io.IOException;
 import java.net.URL;
@@ -28,8 +27,8 @@ public class ControllerNovoCliente implements Initializable {
     @FXML private RadioButton cpfRadio;
     @FXML private RadioButton cnpjRadio;
     @FXML private Label primeiroNomeLabel, meioNomeLabel, sobrenomeLabel;
-    @FXML private TextField primeiroNomeText, meioNomeText, sobrenomeText;
     @FXML private Label cpfLabel, outroLabel;
+    @FXML private TextField primeiroNomeText, meioNomeText, sobrenomeText;
     @FXML private TextField cpfText, ruaText, noText, complText, bairroText;
     @FXML private TextField cidadeText, estadoText, paisText, cepText;
     @FXML private ComboBox<TipoTelefone> tipoNumeroCombo;
@@ -40,6 +39,7 @@ public class ControllerNovoCliente implements Initializable {
     @FXML private Button criarClienteBtn;
 
     private ClienteController clientes = ClienteController.getInstance();
+    private VBox viewCliente;
 
     private static volatile ControllerNovoCliente instance;
     private ControllerNovoCliente() { }
@@ -49,6 +49,8 @@ public class ControllerNovoCliente implements Initializable {
         }
         return instance;
     }
+
+
 
     public void initialize(URL u, ResourceBundle rb) {
         ObservableList<Pais> itens = FXCollections.observableArrayList();
@@ -95,6 +97,7 @@ public class ControllerNovoCliente implements Initializable {
             outroText.setDisable(true);
         }
     }
+
 
     private boolean validarCampos() {
         if(!campoVazio(primeiroNomeText, (cnpjRadio.isSelected() ? "Razão Social" : "Primeiro Nome"))) {
@@ -159,6 +162,8 @@ public class ControllerNovoCliente implements Initializable {
     }
 
     public void criarClienteBtnClicked() {
+        Cliente cliente = null;
+        boolean sucesso = false;
         if(validarCampos()) {
             if (cpfRadio.isSelected()) {
                 try {
@@ -170,7 +175,9 @@ public class ControllerNovoCliente implements Initializable {
                                 "Cliente com CPF " + cpf + " já" +
                                         " existe.");
                     } catch (ProcuraSemResultadoException e) {
-                        criaPessoaFisica(cpf);
+                        cliente = criaPessoaFisica(cpf);
+                        sucesso = true;
+
                     }
                 } catch (InscricaoInvalidaException e) {
                    dialogoErro("CPF Inválido", "O CPF " + cpfText
@@ -186,7 +193,8 @@ public class ControllerNovoCliente implements Initializable {
                                 "Cliente com CNPJ " + cnpj + " já" +
                                         " existe.");
                     } catch (ProcuraSemResultadoException e) {
-                        //criaPessoaJuridica(cnpj);
+                        cliente = criaPessoaJuridica(cnpj);
+                        sucesso = true;
                     }
                 } catch (InscricaoInvalidaException e) {
                     dialogoErro("CNPJ Inválido", "O CNPJ " + cpfText
@@ -194,9 +202,12 @@ public class ControllerNovoCliente implements Initializable {
                 }
             }
         }
+        if(sucesso) {
+            showViewCliente(cliente);
+        }
     }
 
-    private void criaPessoaFisica(Cpf cpf) {
+    private Cliente criaPessoaFisica(Cpf cpf) {
         PessoaFisica pf = new PessoaFisica(criaEndereco(), criaTelefone(), new
                 Cadastro(), primeiroNomeText.getText(), meioNomeText.getText()
                 , sobrenomeText.getText(), cpf);
@@ -204,6 +215,18 @@ public class ControllerNovoCliente implements Initializable {
             pf.setComentario(comentText.getText());
         }
         clientes.inserir(pf);
+        return pf;
+    }
+
+    private Cliente criaPessoaJuridica(Cnpj cnpj) {
+        PessoaJuridica pj = new PessoaJuridica(criaEndereco(), criaTelefone(),
+                new Cadastro(), primeiroNomeText.getText(), meioNomeText
+                .getText(), cnpj);
+        if(!comentText.getText().trim().isEmpty()) {
+            pj.setComentario(comentText.getText());
+        }
+        clientes.inserir(pj);
+        return pj;
     }
 
     private Telefone criaTelefone() {
@@ -250,6 +273,21 @@ public class ControllerNovoCliente implements Initializable {
         alert.setHeaderText(null);
         alert.setContentText(texto);
         alert.showAndWait();
+    }
+
+    private void showViewCliente(Cliente cliente) {
+        if(viewCliente == null) {
+            FXMLLoader vClienteLoad = new FXMLLoader(getClass()
+                    .getResource("view_cliente.fxml"));
+            vClienteLoad.setController(ControllerViewCliente.getInstance());
+            try {
+                viewCliente = vClienteLoad.load();
+                Controller.getInstance().getMain().setCenter(viewCliente);
+                ControllerViewCliente.getInstance().mostraCliente(cliente);
+            } catch(IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
 

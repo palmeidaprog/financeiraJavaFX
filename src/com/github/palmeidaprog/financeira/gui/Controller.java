@@ -34,6 +34,10 @@ public class Controller {
         return instance;
     }
 
+    public BorderPane getMain() {
+        return mainPane;
+    }
+
     //--Eventos Menu Clientes-------------------------------------------------
 
     public void resetButtons() {
