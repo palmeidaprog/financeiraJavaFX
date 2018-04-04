@@ -13,14 +13,15 @@ import com.github.palmeidaprog.financeira.info.Endereco;
 import com.github.palmeidaprog.financeira.info.EnderecoController;
 import com.github.palmeidaprog.financeira.info.telefone.Telefone;
 import com.github.palmeidaprog.financeira.info.telefone.TelefoneController;
+import java.io.Serializable;
 
-public class Cliente {
+public class Cliente implements Serializable {
     private final EnderecoController enderecos;
     private final TelefoneController telefones;
     private String comentario;
     private final Cadastro cadastro;
 
-    public Cliente(Endereco endereco, Telefone telefone, Cadastro cadastro) {
+    protected Cliente(Endereco endereco, Telefone telefone, Cadastro cadastro) {
         enderecos = new EnderecoController(endereco);
         telefones = new TelefoneController(telefone);
         this.cadastro = cadastro;
@@ -47,4 +48,5 @@ public class Cliente {
     public void setComentario(String comentario) {
         this.comentario = comentario;
     }
+
 }

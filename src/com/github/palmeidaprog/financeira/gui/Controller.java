@@ -1,11 +1,13 @@
 package com.github.palmeidaprog.financeira.gui;
 
+import com.github.palmeidaprog.financeira.clientes.Cliente;
 import com.github.palmeidaprog.financeira.clientes.ClienteController;
 import com.github.palmeidaprog.financeira.exception.InscricaoInvalidaException;
 import com.github.palmeidaprog.financeira.exception.ProcuraSemResultadoException;
 import com.github.palmeidaprog.financeira.info.Cnpj;
 import com.github.palmeidaprog.financeira.info.Cpf;
 import com.github.palmeidaprog.financeira.info.Estado;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -16,7 +18,7 @@ import javafx.scene.layout.VBox;
 import java.io.IOException;
 
 public class Controller {
-    private ClienteController clientes = ClienteController.getInstance();
+    private ClienteController clientes;
 
     private volatile static Controller instance;
     @FXML private BorderPane mainPane;
@@ -26,7 +28,15 @@ public class Controller {
     @FXML private Label cpfLabel;
     @FXML private VBox escolherVBox;
 
-    private Controller() { }
+    private Controller() {
+        try {
+            clientes = ClienteController.getInstance();
+        } catch (IOException e) {
+            dialogoErro("Erro", e.getMessage());
+            Platform.exit();
+        }
+    }
+
     public synchronized static Controller getInstance() {
         if(instance == null) {
             instance = new Controller();
@@ -67,13 +77,18 @@ public class Controller {
     }
 
 
+
+
     //--Eventos---------------------------------------------------------------
 
     public void okCpfBtnClicked() {
+        Cliente cliente = null;
         if(cpfRadio.isSelected()) {
+
             try {
                 Cpf cpf = new Cpf(cpfText.getText());
-                clientes.procurar(cpf);
+                cliente = clientes.procurar(cpf);
+
             } catch(InscricaoInvalidaException e) {
                 dialogoErro("CPF Inválido", e.getMessage());
             } catch(ProcuraSemResultadoException e) {
@@ -82,13 +97,14 @@ public class Controller {
         } else {
             try {
                 Cnpj cnpj = new Cnpj(cpfText.getText());
-                clientes.procurar(cnpj);
+                cliente = clientes.procurar(cnpj);
             } catch(InscricaoInvalidaException e) {
                 dialogoErro("CNPJ Inválido", e.getMessage());
             } catch(ProcuraSemResultadoException e) {
                 dialogoErro("Procura Sem Resultado", e.getMessage());
             }
         }
+        ControllerViewCliente.getInstance().mostraCliente(cliente);
     }
 
     public void cpfRadioSelected() {

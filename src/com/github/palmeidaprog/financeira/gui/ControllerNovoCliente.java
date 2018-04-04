@@ -38,11 +38,17 @@ public class ControllerNovoCliente implements Initializable {
     @FXML private TextField orgaoText, estadoOrgText, outroText, siglaText;
     @FXML private Button criarClienteBtn;
 
-    private ClienteController clientes = ClienteController.getInstance();
+    private ClienteController clientes;
     private VBox viewCliente;
 
     private static volatile ControllerNovoCliente instance;
-    private ControllerNovoCliente() { }
+    private ControllerNovoCliente() {
+        try {
+            clientes = ClienteController.getInstance();
+        } catch (IOException e) {
+            dialogoErro("Erro", e.getMessage());
+        }
+    }
     public synchronized static ControllerNovoCliente getInstance() {
         if(instance == null) {
             instance = new ControllerNovoCliente();
@@ -177,7 +183,6 @@ public class ControllerNovoCliente implements Initializable {
                     } catch (ProcuraSemResultadoException e) {
                         cliente = criaPessoaFisica(cpf);
                         sucesso = true;
-
                     }
                 } catch (InscricaoInvalidaException e) {
                    dialogoErro("CPF Inválido", "O CPF " + cpfText
@@ -214,7 +219,11 @@ public class ControllerNovoCliente implements Initializable {
         if(!comentText.getText().trim().isEmpty()) {
             pf.setComentario(comentText.getText());
         }
-        clientes.inserir(pf);
+        try {
+            clientes.inserir(pf);
+        } catch(IOException e) {
+            dialogoErro("Erro", e.getMessage());
+        }
         return pf;
     }
 
@@ -225,7 +234,11 @@ public class ControllerNovoCliente implements Initializable {
         if(!comentText.getText().trim().isEmpty()) {
             pj.setComentario(comentText.getText());
         }
-        clientes.inserir(pj);
+        try {
+            clientes.inserir(pj);
+        } catch(IOException e) {
+            dialogoErro("Erro", e.getMessage());
+        }
         return pj;
     }
 

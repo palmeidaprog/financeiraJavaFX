@@ -13,7 +13,9 @@ import com.github.palmeidaprog.financeira.info.Cpf;
 import com.github.palmeidaprog.financeira.info.Endereco;
 import com.github.palmeidaprog.financeira.info.telefone.Telefone;
 
-public class PessoaFisica extends Cliente {
+import java.io.Serializable;
+
+public class PessoaFisica extends Cliente  {
     private String primeiroNome;
     private String nomeDoMeio;
     private String sobrenome;

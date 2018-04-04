@@ -26,16 +26,19 @@ public class TelefoneController {
 
     public TelefoneController(Telefone telefone) {
         this();
+        principal = telefone;
         telefones.add(telefone);
-    }
-
-    public TelefoneController(Telefone telefone, boolean isPrincipal) {
-        this(telefone);
-        this.principal = telefone;
     }
 
     public void inserir(Telefone telefone) {
         telefones.add(telefone);
+    }
+
+    public void inserir(Telefone telefone, boolean isPrincipal) {
+        telefones.add(telefone);
+        if(isPrincipal) {
+            principal = telefone;
+        }
     }
 
     public void remover(Telefone telefone) throws ImpossivelRemoverException {
