@@ -35,4 +35,11 @@ public class Financiamento extends OperacaoCredito {
     public void setGarantia(Bem garantia) {
         this.garantia = garantia;
     }
+
+    @Override
+    public String toString() {
+        return "Financiamento{" +
+                "garantia=" + garantia +
+                '}';
+    }
 }

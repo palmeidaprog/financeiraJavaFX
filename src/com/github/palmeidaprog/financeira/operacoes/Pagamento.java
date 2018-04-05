@@ -9,9 +9,10 @@ package com.github.palmeidaprog.financeira.operacoes;
  * Professor: Antonio Canvalcanti
  */
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class Pagamento {
+public class Pagamento implements Serializable {
     private final Date dataDePagto;
     private final double valor;
     private final double desconto;
@@ -22,6 +23,7 @@ public class Pagamento {
         this.desconto = 0;
     }
 
+    // deserializacao
     public Pagamento(Date dataDePagto, double valor, double desconto) {
         this.dataDePagto = dataDePagto;
         this.valor = valor;
@@ -40,4 +42,12 @@ public class Pagamento {
         return desconto;
     }
 
+    @Override
+    public String toString() {
+        return "Pagamento{" +
+                "dataDePagto=" + dataDePagto +
+                ", valor=" + valor +
+                ", desconto=" + desconto +
+                '}';
+    }
 }

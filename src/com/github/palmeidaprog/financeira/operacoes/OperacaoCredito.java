@@ -11,13 +11,25 @@ package com.github.palmeidaprog.financeira.operacoes;
 
 import com.github.palmeidaprog.financeira.clientes.Cliente;
 
-public class OperacaoCredito {
+import java.io.Serializable;
+
+public class OperacaoCredito implements Serializable {
     private double valorNominal;
     private double jurosAoMes;
     private String descricao;
     private Cliente avalista;
     private final ParcelaController parcelas;
     private final PagamentoController pagamentos = new PagamentoController();
+
+    // deserializacao
+    public OperacaoCredito(double valorNominal, double jurosAoMes, String
+            descricao, Cliente avalista, ParcelaController parcelas) {
+        this.valorNominal = valorNominal;
+        this.jurosAoMes = jurosAoMes;
+        this.descricao = descricao;
+        this.avalista = avalista;
+        this.parcelas = parcelas;
+    }
 
     public OperacaoCredito(double valorNominal, int numeroDeParcelas, double
             jurosAoMes, Parcela primeiraParcela) {
@@ -70,5 +82,17 @@ public class OperacaoCredito {
 
     public void setAvalista(Cliente avalista) {
         this.avalista = avalista;
+    }
+
+    @Override
+    public String toString() {
+        return "OperacaoCredito{" +
+                "valorNominal=" + valorNominal +
+                ", jurosAoMes=" + jurosAoMes +
+                ", descricao='" + descricao + '\'' +
+                ", avalista=" + avalista +
+                ", parcelas=" + parcelas +
+                ", pagamentos=" + pagamentos +
+                '}';
     }
 }

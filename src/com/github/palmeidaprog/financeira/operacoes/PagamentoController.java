@@ -11,12 +11,13 @@ package com.github.palmeidaprog.financeira.operacoes;
 
 import com.github.palmeidaprog.financeira.exception.ProcuraSemResultadoException;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
-public class PagamentoController {
+public class PagamentoController implements Serializable {
     private List<Pagamento> pagamentos = new ArrayList<>();
 
     public void inserir(Pagamento pagamento) {
@@ -93,5 +94,12 @@ public class PagamentoController {
             soma += p.getValor();
         }
         return soma;
+    }
+
+    @Override
+    public String toString() {
+        return "PagamentoController{" +
+                "pagamentos=" + pagamentos +
+                '}';
     }
 }

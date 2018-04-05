@@ -9,13 +9,23 @@ package com.github.palmeidaprog.financeira.operacoes;
  * Professor: Antonio Canvalcanti
  */
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class Quitacao extends Debito {
+public class Quitacao extends Debito implements Serializable {
     private double total;
     private double desconto;
 
-    public Quitacao(double valor, Date vencimento, double total, double desconto) {
+    public Quitacao(double valor, Date vencimento, double multa, double
+            jurosPorDia, Pagamento pagamento, double total, double desconto) {
+        super(valor, vencimento, multa, jurosPorDia, pagamento);
+        this.total = total;
+        this.desconto = desconto;
+    }
+
+    // deserializacao
+    public Quitacao(double valor, Date vencimento, double total, double
+            desconto) {
         super(valor, vencimento);
         construct(total, desconto);
     }
@@ -45,5 +55,14 @@ public class Quitacao extends Debito {
 
     public void setDesconto(double desconto) {
         this.desconto = desconto;
+    }
+
+
+    @Override
+    public String toString() {
+        return "Quitacao{" +
+                "total=" + total +
+                ", desconto=" + desconto +
+                '}';
     }
 }

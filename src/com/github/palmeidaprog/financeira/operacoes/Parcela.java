@@ -9,12 +9,14 @@ package com.github.palmeidaprog.financeira.operacoes;
  * Professor: Antonio Canvalcanti
  */
 
+import java.io.Serializable;
 import java.util.Calendar;
 import java.util.Date;
 
-public class Parcela extends Debito {
+public class Parcela extends Debito implements Serializable {
     private final int numeroDaParcela;
 
+    // deserializacao
     public Parcela(double valor, Date vencimento, int numeroDaParcela) {
         super(valor, vencimento);
         this.numeroDaParcela = numeroDaParcela;
@@ -37,5 +39,12 @@ public class Parcela extends Debito {
         return new Parcela(this.getValor(), calendar.getTime(), this
                 .getMulta(), this.getJurosPorDia(), this.getNumeroDaParcela()
                  + 1);
+    }
+
+    @Override
+    public String toString() {
+        return "Parcela{" +
+                "numeroDaParcela=" + numeroDaParcela +
+                '}';
     }
 }

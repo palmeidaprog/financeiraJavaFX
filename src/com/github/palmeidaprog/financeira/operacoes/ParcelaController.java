@@ -9,16 +9,26 @@ package com.github.palmeidaprog.financeira.operacoes;
  * Professor: Antonio Canvalcanti
  */
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-public class ParcelaController {
+public class ParcelaController implements Serializable {
     private final List<Parcela> parcelas;
     private int numeroDeParcelas;
     private double valorParcela;
     private int parcelasRestantes;
+
+    // deserializacao
+    public ParcelaController(List<Parcela> parcelas, int numeroDeParcelas,
+                             double valorParcela, int parcelasRestantes) {
+        this.parcelas = parcelas;
+        this.numeroDeParcelas = numeroDeParcelas;
+        this.valorParcela = valorParcela;
+        this.parcelasRestantes = parcelasRestantes;
+    }
 
     public ParcelaController(int numeroDeParcelas, Parcela primeiraParcela) {
         parcelas = new ArrayList<>(numeroDeParcelas);
@@ -50,5 +60,13 @@ public class ParcelaController {
         return parcelas.get(0);
     }
 
-
+    @Override
+    public String toString() {
+        return "ParcelaController{" +
+                "parcelas=" + parcelas +
+                ", numeroDeParcelas=" + numeroDeParcelas +
+                ", valorParcela=" + valorParcela +
+                ", parcelasRestantes=" + parcelasRestantes +
+                '}';
+    }
 }
