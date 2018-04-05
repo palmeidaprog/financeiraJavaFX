@@ -10,7 +10,9 @@ package com.github.palmeidaprog.financeira.info;
  * Professor: Antonio Canvalcanti
  */
 
-public class Estado {
+import java.io.Serializable;
+
+public class Estado implements Serializable {
     private String nome;
     private String sigla;
 
@@ -44,8 +46,16 @@ public class Estado {
                 this.nome.equals(estado.getNome())));
     }
 
-    public String toString() {
+    public String formatado() {
         return (nome == null) ? getSigla() : getNome() + " (" + getSigla()
                 + ")";
      }
+
+    @Override
+    public String toString() {
+        return "Estado{" +
+                "nome='" + nome + '\'' +
+                ", sigla='" + sigla + '\'' +
+                '}';
+    }
 }

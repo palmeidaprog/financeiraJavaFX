@@ -12,7 +12,9 @@ package com.github.palmeidaprog.financeira.info;
 
 import com.github.palmeidaprog.financeira.exception.DadoVazioException;
 
-public class Bairro {
+import java.io.Serializable;
+
+public class Bairro implements Serializable {
     private String nome;
 
     public Bairro(String nome) {
@@ -27,8 +29,14 @@ public class Bairro {
         return nome;
     }
 
+    public String formatado() {
+        return nome;
+    }
+
     @Override
     public String toString() {
-        return nome;
+        return "Bairro{" +
+                "nome='" + nome + '\'' +
+                '}';
     }
 }

@@ -1,5 +1,6 @@
 package com.github.palmeidaprog.financeira.info;
 
+import java.io.Serializable;
 import java.util.Arrays;
 import java.util.List;
 import com.github.palmeidaprog.financeira.exception.InscricaoInvalidaException;
@@ -14,7 +15,7 @@ import com.github.palmeidaprog.financeira.exception.InscricaoInvalidaException;
  * Professor: Antonio Canvalcanti
  */
 
-public class Cpf extends InscricaoFiscal {
+public class Cpf extends InscricaoFiscal implements Serializable {
     private final String CPF;
 
     // construtor para procura com CPF
@@ -86,13 +87,19 @@ public class Cpf extends InscricaoFiscal {
         return (cpf != null && this.CPF.equals(cpf.getCPF()));
     }
 
-    @Override
-    public String toString() {
+    public String formatado() {
         if(CPF.length() != 11) {
             return CPF;
         } else {
             return CPF.substring(0, 3) + "." + CPF.substring(3, 6) + "." + CPF
                     .substring(6, 9) + "-" + CPF.substring(9, 11);
         }
+    }
+
+    @Override
+    public String toString() {
+        return "Cpf{" +
+                "CPF='" + CPF + '\'' +
+                '}';
     }
 }

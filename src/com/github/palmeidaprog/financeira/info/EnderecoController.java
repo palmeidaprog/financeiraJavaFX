@@ -13,10 +13,11 @@ package com.github.palmeidaprog.financeira.info;
 import com.github.palmeidaprog.financeira.exception.ImpossivelRemoverException;
 import com.github.palmeidaprog.financeira.exception.ProcuraSemResultadoException;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class EnderecoController {
+public class EnderecoController implements Serializable {
     private final List<Endereco> enderecos;
     private Endereco principal;
 
@@ -24,6 +25,11 @@ public class EnderecoController {
         enderecos = new ArrayList<>();
         principal = endereco;
         enderecos.add(endereco);
+    }
+
+    public EnderecoController(List<Endereco> enderecos, Endereco principal) {
+        this.enderecos = enderecos;
+        this.principal = principal;
     }
 
     public void inserir(Endereco endereco) {
@@ -176,5 +182,13 @@ public class EnderecoController {
                     + pais + ".");
         }
         return resultado;
+    }
+
+    @Override
+    public String toString() {
+        return "EnderecoController{" +
+                "enderecos=" + enderecos +
+                ", principal=" + principal +
+                '}';
     }
 }

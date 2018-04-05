@@ -12,7 +12,9 @@ package com.github.palmeidaprog.financeira.info;
 
 import com.github.palmeidaprog.financeira.exception.InscricaoInvalidaException;
 
-public class Cnpj extends InscricaoFiscal {
+import java.io.Serializable;
+
+public class Cnpj extends InscricaoFiscal implements Serializable {
     private final String CNPJ;
 
     // construtor par procura com CNPJ
@@ -44,8 +46,7 @@ public class Cnpj extends InscricaoFiscal {
         return (cnpj != null && this.CNPJ.equals(cnpj.getCNPJ()));
     }
 
-    @Override
-    public String toString() {
+    public String formatado() {
         if(CNPJ.length() != 14) {
             return CNPJ;
         } else {
@@ -53,5 +54,12 @@ public class Cnpj extends InscricaoFiscal {
                     CNPJ.substring(5, 8) + "/" + CNPJ.substring(8, 12) + "-" +
                     CNPJ.substring(12, 14);
         }
+    }
+
+    @Override
+    public String toString() {
+        return "Cnpj{" +
+                "CNPJ='" + CNPJ + '\'' +
+                '}';
     }
 }

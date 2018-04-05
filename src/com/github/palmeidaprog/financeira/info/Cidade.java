@@ -10,7 +10,9 @@ package com.github.palmeidaprog.financeira.info;
  */
 
 
-public class Cidade {
+import java.io.Serializable;
+
+public class Cidade implements Serializable {
     private String nome;
 
     public Cidade(String nome) {
@@ -25,9 +27,15 @@ public class Cidade {
         return nome;
     }
 
+    public String formatado() {
+        return nome;
+    }
+
     @Override
     public String toString() {
-        return nome;
+        return "Cidade{" +
+                "nome='" + nome + '\'' +s
+                '}';
     }
 }
 

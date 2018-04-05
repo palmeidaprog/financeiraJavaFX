@@ -9,11 +9,12 @@ package com.github.palmeidaprog.financeira.info;
  * Professor: Antonio Canvalcanti
  */
 
-import com.github.palmeidaprog.financeira.exception.DadoVazioException;
+import java.io.Serializable;
 
-public class Cep {
+public class Cep implements Serializable {
     private String numero;
 
+    // deserializaco
     public Cep(String numero) {
         this.numero = numero;
     }
@@ -26,8 +27,14 @@ public class Cep {
         return numero;
     }
 
+    public String formatado() {
+        return numero;
+    }
+
     @Override
     public String toString() {
-        return numero;
+        return "Cep{" +
+                "numero='" + numero + '\'' +
+                '}';
     }
 }

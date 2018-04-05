@@ -11,7 +11,9 @@ package com.github.palmeidaprog.financeira.info;
  */
 
 
-public enum Pais {
+import java.io.Serializable;
+
+public enum Pais implements Serializable{
     AFGHANISTAN("Afghanistan",	"004"),
     ALAND_ISLANDS("Aland Islands",	"248"),
     ALBANIA("Albania",	"008"),
@@ -304,9 +306,15 @@ public enum Pais {
         }
     }
 
-    @Override
-    public String toString() {
+    public String formatado() {
         return nome + " (+" + codigo + ")";
     }
 
+    @Override
+    public String toString() {
+        return "Pais{" +
+                "nome='" + nome + '\'' +
+                ", codigo='" + codigo + '\'' +
+                '}';
+    }
 }

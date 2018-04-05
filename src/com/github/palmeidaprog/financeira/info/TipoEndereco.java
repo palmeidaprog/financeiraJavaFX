@@ -10,7 +10,9 @@ package com.github.palmeidaprog.financeira.info;
  * Professor: Antonio Canvalcanti
  */
 
-public enum TipoEndereco {
+import java.io.Serializable;
+
+public enum TipoEndereco implements Serializable {
     RESIDENCIAL("Residencial"),
     COMERCIAL("Comercial"),
     OUTRO("Outro");
@@ -21,8 +23,14 @@ public enum TipoEndereco {
         this.tipoEndereco = tipoEndereco;
     }
 
+    public String formatado() {
+        return tipoEndereco;
+    }
+
     @Override
     public String toString() {
-        return tipoEndereco;
+        return "TipoEndereco{" +
+                "tipoEndereco='" + tipoEndereco + '\'' +
+                '}';
     }
 }

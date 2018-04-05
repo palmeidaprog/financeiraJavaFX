@@ -11,7 +11,9 @@ package com.github.palmeidaprog.financeira.info;
  */
 
 
-public class InscricaoFiscal {
+import java.io.Serializable;
+
+public class InscricaoFiscal implements Serializable {
     private String orgaoExpedidor;
     private Estado estado;
 
@@ -37,5 +39,13 @@ public class InscricaoFiscal {
 
     public String getOrgaoExpedidor() {
         return orgaoExpedidor;
+    }
+
+    @Override
+    public String toString() {
+        return "InscricaoFiscal{" +
+                "orgaoExpedidor='" + orgaoExpedidor + '\'' +
+                ", estado=" + estado +
+                '}';
     }
 }

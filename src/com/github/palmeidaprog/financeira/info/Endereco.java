@@ -10,9 +10,9 @@ package com.github.palmeidaprog.financeira.info;
  * Professor: Antonio Canvalcanti
  */
 
-import com.github.palmeidaprog.financeira.exception.DadoVazioException;
+import java.io.Serializable;
 
-public class Endereco {
+public class Endereco implements Serializable{
     private String rua;
     private String numero;
     private Pais pais;
@@ -36,6 +36,22 @@ public class Endereco {
         this.bairro = bairro;
         this.cep = cep;
         this.tipo = tipo;
+    }
+
+    // deserializacao
+    public Endereco(String rua, String numero, Pais pais, Estado estado,
+                    Cidade cidade, Bairro bairro, Cep cep, TipoEndereco tipo,
+                    String complemento, String referencia) {
+        this.rua = rua;
+        this.numero = numero;
+        this.pais = pais;
+        this.estado = estado;
+        this.cidade = cidade;
+        this.bairro = bairro;
+        this.cep = cep;
+        this.tipo = tipo;
+        this.complemento = complemento;
+        this.referencia = referencia;
     }
 
     // const c/ complemento
@@ -126,4 +142,19 @@ public class Endereco {
         this.referencia = referencia;
     }
 
+    @Override
+    public String toString() {
+        return "Endereco{" +
+                "rua='" + rua + '\'' +
+                ", numero='" + numero + '\'' +
+                ", pais=" + pais +
+                ", estado=" + estado +
+                ", cidade=" + cidade +
+                ", bairro=" + bairro +
+                ", cep=" + cep +
+                ", tipo=" + tipo +
+                ", complemento='" + complemento + '\'' +
+                ", referencia='" + referencia + '\'' +
+                '}';
+    }
 }
