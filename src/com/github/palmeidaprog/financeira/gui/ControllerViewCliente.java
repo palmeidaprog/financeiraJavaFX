@@ -51,7 +51,7 @@ public class ControllerViewCliente {
         sobrenomeLabel.setVisible(false);
         sobrenomeLabel2.setVisible(false);
         cpfLabel2.setText("CNPJ (Sem pontos):");
-        cpfLabel2.setText("" + cliente.getCnpj());
+        cpfLabel2.setText(cliente.getCnpj().formatado());
         orgaoLabel2.setText(cliente.getCnpj().getOrgaoExpedidor() + "/" +
             cliente.getCnpj().getEstado().getSigla());
     }
@@ -64,7 +64,7 @@ public class ControllerViewCliente {
         sobrenomeLabel.setVisible(true);
         sobrenomeLabel2.setVisible(true);
         cpfLabel2.setText("CPF (Sem pontos):");
-        cpfLabel2.setText("" + cliente.getCpf());
+        cpfLabel2.setText("" + cliente.getCpf().formatado());
         orgaoLabel2.setText(cliente.getCpf().getOrgaoExpedidor() + "/" +
                 cliente.getCpf().getEstado().getSigla());
     }
@@ -73,18 +73,20 @@ public class ControllerViewCliente {
         Endereco e = cliente.getEnderecos().getPrincipal();
         ruaLabel2.setText(e.getRua() + ", " + e.getNumero());
 
-        bairroLabel2.setText("" + e.getBairro());
-        cidadeLabel2.setText(e.getCidade() + "-" + e.getEstado().getSigla());
-        cepLabel2.setText(e.getCep() + "");
+        bairroLabel2.setText(e.getBairro().formatado());
+        cidadeLabel2.setText(e.getCidade().formatado() + "-" + e.getEstado()
+                .getSigla());
+        cepLabel2.setText(e.getCep().formatado());
         paisLabel2.setText(e.getPais().getNome());
-        tipoEndLabel2.setText(e.getTipo() + "");
+        tipoEndLabel2.setText(e.getTipo().formatado());
     }
 
     private void mostraTelefone(Cliente cliente) {
         Telefone t = cliente.getTelefones().getPrincipal();
         telefoneLabel2.setText(t.getPais().getCodigo() + " " +
-                t.getCodigoArea() + "-" + t.getNumero());
-        tipoTelLabel2.setText(t.getTipo() + "");
+                t.getCodigoArea().formatado() + "-" + t.getNumero()
+                .formatado());
+        tipoTelLabel2.setText(t.getTipo().formatado());
     }
 
     private String formataValor(double v) {
@@ -94,7 +96,8 @@ public class ControllerViewCliente {
     private void mostraCadastro(Cadastro c) {
         bensLabel.setText(formataValor(c.getBens().totalLiquido()));
         rendasLabel.setText(formataValor(c.getRendas().total()));
-        credTotalLabel.setText(formataValor(c.getCredito().getFinanciamento()));
+        credTotalLabel.setText(formataValor(c.getCredito()
+                .getFinanciamento()));
         credDispLabel.setText(formataValor(c.getCredito().getPessoal()));
     }
     /*

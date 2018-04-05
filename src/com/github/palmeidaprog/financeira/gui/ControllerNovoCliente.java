@@ -31,9 +31,9 @@ public class ControllerNovoCliente implements Initializable {
     @FXML private TextField primeiroNomeText, meioNomeText, sobrenomeText;
     @FXML private TextField cpfText, ruaText, noText, complText, bairroText;
     @FXML private TextField cidadeText, estadoText, paisText, cepText;
-    @FXML private ComboBox<TipoTelefone> tipoNumeroCombo;
-    @FXML private ComboBox<TipoEndereco> tipoEnderecoCombo;
-    @FXML private ComboBox<Pais> paisCombo;
+    @FXML private ComboBox<String> tipoNumeroCombo;
+    @FXML private ComboBox<String> tipoEnderecoCombo;
+    @FXML private ComboBox<String> paisCombo;
     @FXML private TextField codPaisText, codAreaText, numText, comentText;
     @FXML private TextField orgaoText, estadoOrgText, outroText, siglaText;
     @FXML private Button criarClienteBtn;
@@ -59,35 +59,35 @@ public class ControllerNovoCliente implements Initializable {
 
 
     public void initialize(URL u, ResourceBundle rb) {
-        ObservableList<Pais> itens = FXCollections.observableArrayList();
+        ObservableList<String> itens = FXCollections.observableArrayList();
         for(Pais p : Pais.values()) {
-            itens.add(p);
+            itens.add(p.formatado());
         }
         paisCombo.setItems(itens);
-        paisCombo.setValue(Pais.BRAZIL);
+        paisCombo.setValue(Pais.BRAZIL.formatado());
 
-        ObservableList<TipoTelefone> tiposTel = FXCollections
+        ObservableList<String> tiposTel = FXCollections
                 .observableArrayList();
         for(TipoTelefone t : TipoTelefone.values()) {
-            tiposTel.add(t);
+            tiposTel.add(t.formatado());
         }
         tipoNumeroCombo.setItems(tiposTel);
-        tipoNumeroCombo.setValue(TipoTelefone.RESIDENCIAL);
+        tipoNumeroCombo.setValue(TipoTelefone.RESIDENCIAL.formatado());
 
-        ObservableList<TipoEndereco> tiposEnd = FXCollections
+        ObservableList<String> tiposEnd = FXCollections
                 .observableArrayList();
         for(TipoEndereco t : TipoEndereco.values()) {
-            tiposEnd.add(t);
+            tiposEnd.add(t.formatado());
         }
         tipoEnderecoCombo.setItems(tiposEnd);
-        tipoEnderecoCombo.setValue(TipoEndereco.RESIDENCIAL);
+        tipoEnderecoCombo.setValue(TipoEndereco.RESIDENCIAL.formatado());
 
     }
 
     private boolean campoVazio(TextField textField, String nome) {
         if(textField.getText().trim().isEmpty()) {
-            dialogoErro("Campo Vazio ", nome + " deve ser preench"
-                + "ido.");
+            dialogoErro("Campo Vazio ", nome + " deve ser preen"
+                + "chido.");
             textField.requestFocus();
             return false;
         }
@@ -95,7 +95,7 @@ public class ControllerNovoCliente implements Initializable {
     }
 
     public void paisComboSelected() {
-        if(paisCombo.getValue() == Pais.OUTRO) {
+        if(Pais.getPaisPeloNome(paisCombo.getValue()) == Pais.OUTRO) {
             outroLabel.setDisable(false);
             outroText.setDisable(false);
         } else {
@@ -106,10 +106,12 @@ public class ControllerNovoCliente implements Initializable {
 
 
     private boolean validarCampos() {
-        if(!campoVazio(primeiroNomeText, (cnpjRadio.isSelected() ? "Razão Social" : "Primeiro Nome"))) {
+        if(!campoVazio(primeiroNomeText, (cnpjRadio.isSelected() ?
+                "Razão Social" : "Primeiro Nome"))) {
             return false;
         }
-        if(!campoVazio(meioNomeText, (cnpjRadio.isSelected() ? "Nome Fantasia" : "Nome do Meio"))) {
+        if(cnpjRadio.isSelected() && !campoVazio(meioNomeText,
+                "Nome Fantasia")) {
             return false;
         }
         if(cpfRadio.isSelected()) {
@@ -208,6 +210,7 @@ public class ControllerNovoCliente implements Initializable {
             }
         }
         if(sucesso) {
+            Controller.getInstance().resetButtons();
             showViewCliente(cliente);
         }
     }
@@ -245,15 +248,16 @@ public class ControllerNovoCliente implements Initializable {
     private Telefone criaTelefone() {
         return new Telefone(new CodigoArea(codAreaText.getText()), new
                 NumeroTelefone(noText.getText()),Pais.getPais(codPaisText
-                .getText()), tipoNumeroCombo.getValue());
+                .getText()), TipoTelefone.getTipo(tipoNumeroCombo
+                .getValue()));
     }
 
     private Endereco criaEndereco() {
         return new Endereco(ruaText.getText(), noText.getText(),
-                paisCombo.getValue(), new Estado(estadoText.getText(),
+                Pais.getPaisPeloNome(paisCombo.getValue()), new Estado(estadoText.getText(),
                 siglaText.getText()), new Cidade(cidadeText.getText()), new
                 Bairro(bairroText.getText()), new Cep(cepText.getText()),
-                tipoEnderecoCombo.getValue());
+                TipoEndereco.getTipo(tipoEnderecoCombo.getValue()));
     }
 
     public void cpfRadioSelected() {

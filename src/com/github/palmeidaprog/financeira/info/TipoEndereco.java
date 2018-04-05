@@ -27,6 +27,17 @@ public enum TipoEndereco implements Serializable {
         return tipoEndereco;
     }
 
+    public static TipoEndereco getTipo(String nome) throws
+            IllegalArgumentException {
+        for(TipoEndereco t : values()) {
+            if(t.formatado().equals(nome)) {
+                return t;
+            }
+        }
+        throw new IllegalArgumentException("Não existe tipo de endereço com "
+                + "descrição " + nome + ".");
+    }
+
     @Override
     public String toString() {
         return "TipoEndereco{" +

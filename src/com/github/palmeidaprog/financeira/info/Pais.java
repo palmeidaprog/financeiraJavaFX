@@ -286,6 +286,16 @@ public enum Pais implements Serializable{
         return Pais.OUTRO;
     }
 
+    public static Pais getPaisPeloNome(String nome) throws
+            IllegalArgumentException {
+        for(Pais pais : values()) {
+            if(pais.formatado().equals(nome)) {
+                return pais;
+            }
+        }
+        throw new IllegalArgumentException("Não existe país com esse nome");
+    }
+
     public String getCodigo() {
         return codigo;
     }
@@ -294,10 +304,12 @@ public enum Pais implements Serializable{
         return nome;
     }
 
-    public void setNome(String nome) {
+    public void setNome(String nome) throws IllegalArgumentException {
         if(this == OUTRO) {
             this.nome = nome;
         }
+        throw new IllegalArgumentException("Só é possível especificar nomes" +
+                "para paises quando selecionado \"Outro\"");
     }
 
     public void setCodigo(String codigo) {

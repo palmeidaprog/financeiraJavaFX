@@ -90,7 +90,7 @@
          <children>
             <Label text="Bairro:" />
             <Label fx:id="bairroLabel2" prefHeight="17.0" prefWidth="137.0" />
-            <Label text="Cidade - Estado" />
+            <Label text="Cidade - Estado:" />
             <Label fx:id="cidadeLabel2" prefHeight="17.0" prefWidth="119.0" />
             <Label text="CEP:" />
             <Label fx:id="cepLabel2" prefHeight="17.0" prefWidth="78.0" />

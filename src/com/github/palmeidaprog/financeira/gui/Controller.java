@@ -6,11 +6,9 @@ import com.github.palmeidaprog.financeira.exception.InscricaoInvalidaException;
 import com.github.palmeidaprog.financeira.exception.ProcuraSemResultadoException;
 import com.github.palmeidaprog.financeira.info.Cnpj;
 import com.github.palmeidaprog.financeira.info.Cpf;
-import com.github.palmeidaprog.financeira.info.Estado;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
@@ -57,13 +55,13 @@ public class Controller {
 
     public void escolherBtnClicked() {
         resetButtons();
-        escolherBtn.setDisable(true);
         mainPane.setCenter(escolherVBox);
     }
 
     public void criaBtnClicked() {
         VBox root;
         resetButtons();
+        criaBtn.setDisable(true);
         FXMLLoader novoClienteLoaader = new FXMLLoader(getClass()
                 .getResource("novo_cliente.fxml"));
         novoClienteLoaader.setController(ControllerNovoCliente.getInstance());

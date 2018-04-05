@@ -28,6 +28,16 @@ public enum TipoTelefone implements Serializable {
         return tipo;
     }
 
+    public static TipoTelefone getTipo(String tipo) throws
+            IllegalArgumentException {
+        for(TipoTelefone t : values()) {
+            if(t.formatado() == tipo) {
+                return t;
+            }
+        }
+        throw new IllegalArgumentException("Tipo inválido: " + tipo + ".");
+    }
+
     @Override
     public String toString() {
         return "TipoTelefone{" +
