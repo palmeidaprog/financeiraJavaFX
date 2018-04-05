@@ -14,10 +14,29 @@ import com.github.palmeidaprog.financeira.info.Endereco;
 import com.github.palmeidaprog.financeira.info.telefone.Telefone;
 import com.github.palmeidaprog.financeira.info.telefone.TelefoneController;
 
-public class Imovel extends Bem {
+import java.io.Serializable;
+
+public class Imovel extends Bem implements Serializable {
     private String descricao;
     private Endereco endereco;
     private final TelefoneController telefones;
+
+    // deserialização
+    public Imovel(double valor, String descricao, PendenciaController
+            pendencias, String descricao1, Endereco endereco,
+                  TelefoneController telefones) {
+        super(valor, descricao, pendencias);
+        this.descricao = descricao1;
+        this.endereco = endereco;
+        this.telefones = telefones;
+    }
+
+    public Imovel(double valor, String descricao, Endereco endereco, TelefoneController telefones) {
+        super(valor);
+        this.descricao = descricao;
+        this.endereco = endereco;
+        this.telefones = telefones;
+    }
 
     public Imovel(Endereco endereco, double valor) {
         super(valor);
@@ -55,5 +74,14 @@ public class Imovel extends Bem {
 
     public void setDescricao(String descricao) {
         this.descricao = descricao;
+    }
+
+    @Override
+    public String toString() {
+        return "Imovel{" +
+                "descricao='" + descricao + '\'' +
+                ", endereco=" + endereco +
+                ", telefones=" + telefones +
+                '}';
     }
 }

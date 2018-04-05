@@ -11,15 +11,20 @@ package com.github.palmeidaprog.financeira.clientes;
 
 import com.github.palmeidaprog.financeira.exception.ProcuraSemResultadoException;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Locale;
 
-public class RendaController {
+public class RendaController implements Serializable {
     private List<Renda> rendas;
 
+    //deserializacao
+    public RendaController(List<Renda> rendas) {
+        this.rendas = rendas;
+    }
 
     public RendaController(Renda renda) {
         this();
@@ -129,8 +134,14 @@ public class RendaController {
         });
     }
 
+    public String formatado() {
+        return formataValor(total());
+    }
+
     @Override
     public String toString() {
-        return formataValor(total());
+        return "RendaController{" +
+                "rendas=" + rendas +
+                '}';
     }
 }

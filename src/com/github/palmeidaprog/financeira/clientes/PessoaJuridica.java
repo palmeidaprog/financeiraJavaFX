@@ -13,7 +13,9 @@ import com.github.palmeidaprog.financeira.info.Cnpj;
 import com.github.palmeidaprog.financeira.info.Endereco;
 import com.github.palmeidaprog.financeira.info.telefone.Telefone;
 
-public class PessoaJuridica extends Cliente {
+import java.io.Serializable;
+
+public class PessoaJuridica extends Cliente implements Serializable {
     private String razaoSocial;
     private String nomeFantasia;
     private final Cnpj cnpj;
@@ -25,6 +27,7 @@ public class PessoaJuridica extends Cliente {
         this.cnpj = cnpj;
     }
 
+    // deserializaçao
     public PessoaJuridica(Endereco endereco, Telefone telefone, Cadastro
             cadastro, String comentario, String razaoSocial, String
             nomeFantasia, Cnpj cnpj) {
@@ -56,5 +59,14 @@ public class PessoaJuridica extends Cliente {
 
     public Cnpj getCnpj() {
         return cnpj;
+    }
+
+    @Override
+    public String toString() {
+        return "PessoaJuridica{" +
+                "razaoSocial='" + razaoSocial + '\'' +
+                ", nomeFantasia='" + nomeFantasia + '\'' +
+                ", cnpj=" + cnpj +
+                '}';
     }
 }

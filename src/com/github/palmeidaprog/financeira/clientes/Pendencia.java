@@ -9,11 +9,18 @@ package com.github.palmeidaprog.financeira.clientes;
  * Professor: Antonio Canvalcanti
  */
 
+import java.io.Serializable;
 import java.util.Locale;
 
-public class Pendencia {
+public class Pendencia implements Serializable {
     private double valor;
     private String descricao;
+
+    // deserialização
+    public Pendencia(double valor, String descricao) {
+        this.valor = valor;
+        this.descricao = descricao;
+    }
 
     public double getValor() {
         return valor;
@@ -31,8 +38,16 @@ public class Pendencia {
         this.descricao = descricao;
     }
 
+    public String formatado() {
+        return String.format(Locale.getDefault(), "%.2f", valor) + " "
+                + descricao;
+    }
+
     @Override
     public String toString() {
-        return String.format(Locale.getDefault(), "%.2f", valor) + " " + descricao;
+        return "Pendencia{" +
+                "valor=" + valor +
+                ", descricao='" + descricao + '\'' +
+                '}';
     }
 }

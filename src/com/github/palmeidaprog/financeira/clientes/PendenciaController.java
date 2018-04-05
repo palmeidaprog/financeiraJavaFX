@@ -11,12 +11,18 @@ package com.github.palmeidaprog.financeira.clientes;
 
 import com.github.palmeidaprog.financeira.exception.ProcuraSemResultadoException;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-public class PendenciaController {
+public class PendenciaController implements Serializable {
     private final List<Pendencia> pendencias;
+
+    // desserialização
+    public PendenciaController(List<Pendencia> pendencias) {
+        this.pendencias = pendencias;
+    }
 
     public PendenciaController() {
         pendencias = new ArrayList<>();
@@ -96,8 +102,14 @@ public class PendenciaController {
         return retorno;
     }
 
+    public String formatado() {
+        return formataValor(total());
+    }
+
     @Override
     public String toString() {
-        return formataValor(total());
+        return "PendenciaController{" +
+                "pendencias=" + pendencias +
+                '}';
     }
 }

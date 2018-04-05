@@ -1,5 +1,6 @@
 package com.github.palmeidaprog.financeira.gui;
 
+import com.github.palmeidaprog.financeira.clientes.Cadastro;
 import com.github.palmeidaprog.financeira.clientes.Cliente;
 import com.github.palmeidaprog.financeira.clientes.PessoaFisica;
 import com.github.palmeidaprog.financeira.clientes.PessoaJuridica;
@@ -14,10 +15,10 @@ public class ControllerViewCliente {
     @FXML private Label cpfLabel2, outroLabel2, CpfLabel1, orgaoLabel2;
     @FXML private Label ruaLabel2, complLabel2, bairroLabel2, cidadeLabel2;
     @FXML private Label cepLabel2, paisLabel2, tipoEndLabel2, telefoneLabel2;
-    @FXML private Label comentLabel2, tipoTelLabel2;
+    @FXML private Label comentLabel2, tipoTelLabel2, credTotalLabel;
+    @FXML private Label credDispLabel, debTotLabel, debNomLabel, rendasLabel;
+    @FXML private Label bensLabel;
     private Cliente c;
-
-
 
     private static volatile ControllerViewCliente instance;
     private ControllerViewCliente() { }
@@ -39,6 +40,7 @@ public class ControllerViewCliente {
         mostraEndereco(cliente);
         mostraTelefone(cliente);
         complLabel2.setText(cliente.getComentario());
+        mostraCadastro(cliente.getCadastro());
     }
 
     private void mostraCliente(PessoaJuridica cliente) {
@@ -84,4 +86,19 @@ public class ControllerViewCliente {
                 t.getCodigoArea() + "-" + t.getNumero());
         tipoTelLabel2.setText(t.getTipo() + "");
     }
+
+    private String formataValor(double v) {
+        return String.format("%.2f", v);
+    }
+
+    private void mostraCadastro(Cadastro c) {
+        bensLabel.setText(formataValor(c.getBens().totalLiquido()));
+        rendasLabel.setText(formataValor(c.getRendas().total()));
+        credTotalLabel.setText(formataValor(c.getCredito().getFinanciamento()));
+        credDispLabel.setText(formataValor(c.getCredito().getPessoal()));
+    }
+    /*
+    redDispLabel, debTotLabel, debNomLabel, rendasLabel;
+    @FXML private Label bensLabel;
+     */
 }

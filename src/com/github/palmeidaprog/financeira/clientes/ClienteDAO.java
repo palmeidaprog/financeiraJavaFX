@@ -6,26 +6,23 @@ import java.util.List;
 import com.github.palmeidaprog.financeira.info.*;
 import com.github.palmeidaprog.financeira.info.telefone.*;
 import com.github.palmeidaprog.financeira.operacoes.*;
-import com.thoughtworks.xstream.XStream;
-import com.thoughtworks.xstream.io.StreamException;
+//import com.thoughtworks.xstream.XStream;
+//import com.thoughtworks.xstream.io.StreamException;
 
 
 public class ClienteDAO {
     private final String ARQUIVO = "clientes.xml";
-    private List<Cliente> clientes; // persistencia
-    private XStream xstream = new XStream();
+    private List<Cliente> clientes = new ArrayList<>(); // persistenciaa
+    // private XStream xstream = new XStream();
 
     public ClienteDAO() throws IOException {
         File file = new File(ARQUIVO);
         if(!file.exists()) {
-            clientes = new ArrayList<>();
             if(!file.createNewFile()) {
                 throw new IOException("Problemas ao criar arquivo de dados");
             }
         } else if(file.length() > 0) {
-            le();
-        } else {
-            clientes = new ArrayList<>();
+            //le();
         }
     }
 
@@ -65,7 +62,7 @@ public class ClienteDAO {
     }
 
     private void salva() throws IOException {
-        xstream.alias("cliente", Cliente.class);
+        /*xstream.alias("cliente", Cliente.class);
         xstream.alias("automovel", Automovel.class);
         xstream.alias("bem", Bem.class);
         xstream.alias("cadastro", Cadastro.class);
@@ -101,12 +98,12 @@ public class ClienteDAO {
         xstream.alias("TelefoneController", TelefoneController.class);
         xstream.alias("TipoTelefone", TipoTelefone.class);
 
-        String xml = xstream.toXML(clientes);
+        String xml = xstream.toXML(clientes.get(0));
         try(FileWriter fw = new FileWriter(ARQUIVO)) {
             fw.write(xml);
             fw.close();
         }
-        stringToDom(xml);
+        stringToDom(xml);*/
     }
 
     public void stringToDom(String xmlSource) throws IOException {
@@ -124,16 +121,17 @@ public class ClienteDAO {
         return xml;
     }
 
-    private void le() throws IOException {
+    /*private void le() throws IOException {
         try {
-            clientes = (List<Cliente>) xstream.fromXML(domToString());
-        } catch (StreamException e) {
+            //Cliente cliente = (Cliente) xstream.fromXML(domToString());
+            //clientes.add(cliente);
+        } /*catch (StreamException e) {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
             throw new IOException("Não foi possivel ler o arquivo de " +
                     "clientes");
         }
-    }
+    }*/
 }
 

@@ -149,8 +149,8 @@
                <children>
                   <HBox>
                      <children>
-                        <Label text="Credito Total:" />
-                        <Label fx:id="credTotalLabel" prefHeight="16.0" prefWidth="154.0" />
+                        <Label text="Credito Financiamento:" />
+                        <Label fx:id="credTotalLabel" prefHeight="17.0" prefWidth="175.0" />
                      </children>
                   </HBox>
                   <HBox>
@@ -171,7 +171,7 @@
                <children>
                   <HBox>
                      <children>
-                        <Label text="Credito Disponivel:" />
+                        <Label text="Credito Pessoal:" />
                         <Label fx:id="credDispLabel" prefHeight="16.0" prefWidth="188.0" />
                      </children>
                   </HBox>

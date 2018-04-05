@@ -10,10 +10,19 @@ package com.github.palmeidaprog.financeira.clientes;
  * Professor: Antonio Canvalcanti
  */
 
-public class Bem {
+import java.io.Serializable;
+
+public class Bem implements Serializable {
     private double valor;
     private String descricao;
     private final PendenciaController pendencias;
+
+    // construtor de deserializacao
+    public Bem(double valor, String descricao, PendenciaController pendencias) {
+        this.valor = valor;
+        this.descricao = descricao;
+        this.pendencias = pendencias;
+    }
 
     public Bem(double valor) {
         this.valor = valor;
@@ -42,5 +51,14 @@ public class Bem {
 
     public void setDescricao(String descricao) {
         this.descricao = descricao;
+    }
+
+    @Override
+    public String toString() {
+        return "Bem{" +
+                "valor=" + valor +
+                ", descricao='" + descricao + '\'' +
+                ", pendencias=" + pendencias +
+                '}';
     }
 }

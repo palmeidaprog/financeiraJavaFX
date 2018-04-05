@@ -9,7 +9,9 @@ package com.github.palmeidaprog.financeira.clientes;
  * Professor: Antonio Canvalcanti
  */
 
-public class Credito {
+import java.io.Serializable;
+
+public class Credito implements Serializable {
     private double financiamento;
     private double pessoal;
 
@@ -18,6 +20,7 @@ public class Credito {
         pessoal = 0;
     }
 
+    // deserialização
     public Credito(double financiamento, double pessoal) {
         this.financiamento = financiamento;
         this.pessoal = pessoal;
@@ -37,5 +40,13 @@ public class Credito {
 
     public void setPessoal(double pessoal) {
         this.pessoal = pessoal;
+    }
+
+    @Override
+    public String toString() {
+        return "Credito{" +
+                "financiamento=" + financiamento +
+                ", pessoal=" + pessoal +
+                '}';
     }
 }

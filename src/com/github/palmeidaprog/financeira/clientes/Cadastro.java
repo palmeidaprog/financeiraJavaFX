@@ -9,12 +9,21 @@ package com.github.palmeidaprog.financeira.clientes;
  * Professor: Antonio Canvalcanti
  */
 
+import java.io.Serializable;
 import java.util.List;
 
-public class Cadastro {
-    private final Credito credito = new Credito();;
-    private final RendaController rendas = new RendaController();;
-    private final BemController bens = new BemController();
+public class Cadastro implements Serializable {
+    private Credito credito = new Credito();;
+    private RendaController rendas = new RendaController();;
+    private BemController bens = new BemController();
+
+    //construtor de deserialzacao
+    public Cadastro(Credito credito, RendaController rendas, BemController
+            bens) {
+        this.credito = credito;
+        this.rendas = rendas;
+        this.bens = bens;
+    }
 
     public Cadastro() { }
 
@@ -52,4 +61,12 @@ public class Cadastro {
         return rendas;
     }
 
+    @Override
+    public String toString() {
+        return "Cadastro{" +
+                "credito=" + credito +
+                ", rendas=" + rendas +
+                ", bens=" + bens +
+                '}';
+    }
 }

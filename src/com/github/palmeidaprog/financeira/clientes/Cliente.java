@@ -21,12 +21,16 @@ public class Cliente implements Serializable {
     private String comentario;
     private final Cadastro cadastro;
 
-    protected Cliente(Endereco endereco, Telefone telefone, Cadastro cadastro) {
+
+
+    protected Cliente(Endereco endereco, Telefone telefone, Cadastro
+            cadastro) {
         enderecos = new EnderecoController(endereco);
         telefones = new TelefoneController(telefone);
         this.cadastro = cadastro;
     }
 
+    // usado tambem para deserializacao
     public Cliente(Endereco endereco, Telefone telefone, Cadastro cadastro,
                    String comentario) {
         this(endereco, telefone, cadastro);
@@ -49,4 +53,17 @@ public class Cliente implements Serializable {
         this.comentario = comentario;
     }
 
+    public Cadastro getCadastro() {
+        return cadastro;
+    }
+
+    @Override
+    public String toString() {
+        return "Cliente{" +
+                "enderecos=" + enderecos +
+                ", telefones=" + telefones +
+                ", comentario='" + comentario + '\'' +
+                ", cadastro=" + cadastro +
+                '}';
+    }
 }

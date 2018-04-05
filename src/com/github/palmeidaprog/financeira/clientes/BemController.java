@@ -12,14 +12,21 @@ package com.github.palmeidaprog.financeira.clientes;
 
 import com.github.palmeidaprog.financeira.exception.ProcuraSemResultadoException;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Locale;
 
-public class BemController {
+public class BemController implements Serializable {
     public List<Bem> bens;
+
+    //construtor de deserialização
+    public BemController(List<Bem> bens) {
+        this();
+        inserir(bens);
+    }
 
     public BemController() {
         bens = new ArrayList<>();
@@ -29,12 +36,6 @@ public class BemController {
         this();
         inserir(bem);
     }
-
-    public BemController(List<Bem> bens) {
-        this();
-        inserir(bens);
-    }
-
 
     public void inserir(Bem bem) {
         bens.add(bem);
@@ -141,5 +142,12 @@ public class BemController {
 
     private String formataValor(double valor) {
         return String.format(Locale.getDefault(), "%.2f", valor);
+    }
+
+    @Override
+    public String toString() {
+        return "BemController{" +
+                "bens=" + bens +
+                '}';
     }
 }

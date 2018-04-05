@@ -1,5 +1,6 @@
 package com.github.palmeidaprog.financeira.clientes;
 
+import java.io.Serializable;
 import java.security.InvalidParameterException;
 
 /*
@@ -12,11 +13,21 @@ import java.security.InvalidParameterException;
  * Professor: Antonio Canvalcanti
  */
 
-public class Automovel extends Bem {
+public class Automovel extends Bem implements Serializable {
     private final String marca;
     private final String modelo;
     private final int anoFabricacao;
     private final int anoModelo;
+
+    public Automovel(double valor, String descricao, PendenciaController
+            pendencias, String marca, String modelo, int anoFabricacao, int
+            anoModelo) {
+        super(valor, descricao, pendencias);
+        this.marca = marca;
+        this.modelo = modelo;
+        this.anoFabricacao = anoFabricacao;
+        this.anoModelo = anoModelo;
+    }
 
     public Automovel(double valor, String marca, String modelo, int
             anoModelo) throws InvalidParameterException  {
@@ -55,5 +66,15 @@ public class Automovel extends Bem {
 
     public int getAnoModelo() {
         return anoModelo;
+    }
+
+    @Override
+    public String toString() {
+        return "Automovel{" +
+                "marca='" + marca + '\'' +
+                ", modelo='" + modelo + '\'' +
+                ", anoFabricacao=" + anoFabricacao +
+                ", anoModelo=" + anoModelo +
+                '}';
     }
 }

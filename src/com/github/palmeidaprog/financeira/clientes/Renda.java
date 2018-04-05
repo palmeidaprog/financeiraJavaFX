@@ -9,9 +9,10 @@ package com.github.palmeidaprog.financeira.clientes;
  * Professor: Antonio Canvalcanti
  */
 
+import java.io.Serializable;
 import java.util.Locale;
 
-public class Renda {
+public class Renda implements Serializable {
     private double valor;
     private String descricao;
 
@@ -36,9 +37,16 @@ public class Renda {
         this.descricao = descricao;
     }
 
-    @Override
-    public String toString() {
+    public String formatado() {
         return String.format(Locale.getDefault(), "%.2f", valor) + " - " +
                 descricao + ".";
+    }
+
+    @Override
+    public String toString() {
+        return "Renda{" +
+                "valor=" + valor +
+                ", descricao='" + descricao + '\'' +
+                '}';
     }
 }

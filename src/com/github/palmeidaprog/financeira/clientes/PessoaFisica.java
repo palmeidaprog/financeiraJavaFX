@@ -15,7 +15,7 @@ import com.github.palmeidaprog.financeira.info.telefone.Telefone;
 
 import java.io.Serializable;
 
-public class PessoaFisica extends Cliente  {
+public class PessoaFisica extends Cliente implements Serializable {
     private String primeiroNome;
     private String nomeDoMeio;
     private String sobrenome;
@@ -29,11 +29,22 @@ public class PessoaFisica extends Cliente  {
         this.cpf = cpf;
     }
 
+    // deserializaçao
     public PessoaFisica(Endereco endereco, Telefone telefone, String
             comentario, Cadastro cadastro, String primeiroNome, String
             nomeDoMeio, String sobrenome, Cpf cpf) {
         super(endereco, telefone, cadastro, comentario);
         construct(primeiroNome, nomeDoMeio, sobrenome);
+        this.cpf = cpf;
+    }
+
+    // deserializaçao
+    public PessoaFisica(Endereco endereco, Telefone telefone, String
+            comentario, Cadastro cadastro, String primeiroNome, String
+            sobrenome, Cpf cpf) {
+        super(endereco, telefone, cadastro, comentario);
+        this.primeiroNome = primeiroNome;
+        this.sobrenome = sobrenome;
         this.cpf = cpf;
     }
 
@@ -70,5 +81,15 @@ public class PessoaFisica extends Cliente  {
 
     public Cpf getCpf() {
         return cpf;
+    }
+
+    @Override
+    public String toString() {
+        return "PessoaFisica{" +
+                "primeiroNome='" + primeiroNome + '\'' +
+                ", nomeDoMeio='" + nomeDoMeio + '\'' +
+                ", sobrenome='" + sobrenome + '\'' +
+                ", cpf=" + cpf +
+                '}';
     }
 }
