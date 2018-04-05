@@ -64,7 +64,6 @@ public class Controller {
     public void criaBtnClicked() {
         VBox root;
         resetButtons();
-        criaBtn.setDisable(true);
         FXMLLoader novoClienteLoaader = new FXMLLoader(getClass()
                 .getResource("novo_cliente.fxml"));
         novoClienteLoaader.setController(ControllerNovoCliente.getInstance());
@@ -76,9 +75,6 @@ public class Controller {
         }
     }
 
-
-
-
     //--Eventos---------------------------------------------------------------
 
     public void okCpfBtnClicked() {
@@ -88,7 +84,7 @@ public class Controller {
             try {
                 Cpf cpf = new Cpf(cpfText.getText());
                 cliente = clientes.procurar(cpf);
-
+                ControllerNovoCliente.getInstance().showViewCliente(cliente);
             } catch(InscricaoInvalidaException e) {
                 dialogoErro("CPF Inválido", e.getMessage());
             } catch(ProcuraSemResultadoException e) {
@@ -98,13 +94,13 @@ public class Controller {
             try {
                 Cnpj cnpj = new Cnpj(cpfText.getText());
                 cliente = clientes.procurar(cnpj);
+                ControllerNovoCliente.getInstance().showViewCliente(cliente);
             } catch(InscricaoInvalidaException e) {
                 dialogoErro("CNPJ Inválido", e.getMessage());
             } catch(ProcuraSemResultadoException e) {
                 dialogoErro("Procura Sem Resultado", e.getMessage());
             }
         }
-        ControllerViewCliente.getInstance().mostraCliente(cliente);
     }
 
     public void cpfRadioSelected() {

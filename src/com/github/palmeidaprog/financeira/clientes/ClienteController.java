@@ -25,7 +25,7 @@ public class ClienteController {
     // Singleton
     private static volatile ClienteController instance;
     private ClienteController() throws IOException {
-        dao = new ClienteDAO();
+        dao = ClienteDAO.getInstance();
         clientes = dao.getClientes();
     }
 

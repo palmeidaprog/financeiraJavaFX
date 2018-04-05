@@ -288,7 +288,7 @@ public class ControllerNovoCliente implements Initializable {
         alert.showAndWait();
     }
 
-    private void showViewCliente(Cliente cliente) {
+    public void showViewCliente(Cliente cliente) {
         if(viewCliente == null) {
             FXMLLoader vClienteLoad = new FXMLLoader(getClass()
                     .getResource("view_cliente.fxml"));

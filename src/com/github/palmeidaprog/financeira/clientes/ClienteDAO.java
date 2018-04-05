@@ -11,20 +11,38 @@ import com.github.palmeidaprog.financeira.operacoes.*;
 
 
 public class ClienteDAO {
-    private final String ARQUIVO = "clientes.xml";
+    private final String ARQUIVO = "clientes.ser";
     private List<Cliente> clientes = new ArrayList<>(); // persistenciaa
     // private XStream xstream = new XStream();
 
-    public ClienteDAO() throws IOException {
+    // Singleton
+    private static volatile ClienteDAO instance;
+    private ClienteDAO() throws IOException {
         File file = new File(ARQUIVO);
         if(!file.exists()) {
             if(!file.createNewFile()) {
                 throw new IOException("Problemas ao criar arquivo de dados");
             }
         } else if(file.length() > 0) {
-            //le();
+            le();
         }
     }
+
+    public synchronized static ClienteDAO getInstance() throws
+            IOException {
+        if(instance == null) {
+            try {
+                instance = new ClienteDAO();
+            } catch (IOException e) {
+                e.printStackTrace();
+                throw new IOException("Não foi possivel ler o banco de dados"
+                        + "do programa.");
+            }
+        }
+        return instance;
+    }
+
+    //public ClienteDAO() throws IOException {    }
 
     public void inserir(Cliente cliente) throws IOException {
         clientes.add(cliente);
@@ -61,7 +79,7 @@ public class ClienteDAO {
         return clientes;
     }
 
-    private void salva() throws IOException {
+    /*private void salva() throws IOException {
         /*xstream.alias("cliente", Cliente.class);
         xstream.alias("automovel", Automovel.class);
         xstream.alias("bem", Bem.class);
@@ -75,7 +93,13 @@ public class ClienteDAO {
         xstream.alias("renda", Renda.class);
         xstream.alias("rendacontroller", RendaController.class);
         xstream.alias("bairro", Bairro.class);
-        xstream.alias("cep", Cep.class);
+        xstream.alias("cep", Cep.class);File file = new File(ARQUIVO);
+        if(!file.exists()) {
+            if(!file.createNewFile()) {
+                throw new IOException("Problemas ao criar arquivo de dados");
+            }
+        } else if(file.length() > 0) {
+            //le();
         xstream.alias("cidade", Cidade.class);
         xstream.alias("cnpj", Cnpj.class);
         xstream.alias("cpf", Cpf.class);
@@ -103,23 +127,25 @@ public class ClienteDAO {
             fw.write(xml);
             fw.close();
         }
-        stringToDom(xml);*/
-    }
+        stringToDom(xml);
+    }*/
 
-    public void stringToDom(String xmlSource) throws IOException {
-        try(FileWriter fw = new FileWriter(ARQUIVO)) {
-            fw.write(xmlSource);
-            fw.close();
+    public void salva() throws IOException {
+        try(ObjectOutputStream objOut  = new ObjectOutputStream(new
+                FileOutputStream(ARQUIVO))) {
+            objOut.writeObject(clientes.get(0));
         }
     }
 
-    public String domToString() throws IOException {
-        String xml;
-        try(FileReader fr = new FileReader(ARQUIVO)) {
-           xml = new String(fr.toString());
+    public void le() throws IOException {
+        try(ObjectInputStream objIn  = new ObjectInputStream(new
+                FileInputStream(ARQUIVO))) {
+            clientes.add((Cliente) objIn.readObject());
+        } catch(ClassNotFoundException e) {
+            e.printStackTrace();
         }
-        return xml;
     }
+
 
     /*private void le() throws IOException {
         try {
