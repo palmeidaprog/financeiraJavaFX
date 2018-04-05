@@ -12,12 +12,15 @@ package com.github.palmeidaprog.financeira.info.telefone;
 
 import com.github.palmeidaprog.financeira.info.Pais;
 
-public class Telefone {
+import java.io.Serializable;
+
+public class Telefone implements Serializable {
     private CodigoArea codigoArea;
     private NumeroTelefone numero;
     private TipoTelefone tipo;
     private Pais pais;
 
+    // deserializacao
     public Telefone(CodigoArea codigoArea, NumeroTelefone numero, Pais pais,
                     TipoTelefone tipo) {
         this.codigoArea = codigoArea;
@@ -58,9 +61,17 @@ public class Telefone {
         return tipo;
     }
 
+    public String formatado() {
+        return "+" + pais.getCodigo() + "-" + codigoArea + "-" + numero;
+    }
 
     @Override
     public String toString() {
-        return "+" + pais.getCodigo() + "-" + codigoArea + "-" + numero;
+        return "Telefone{" +
+                "codigoArea=" + codigoArea +
+                ", numero=" + numero +
+                ", tipo=" + tipo +
+                ", pais=" + pais +
+                '}';
     }
 }

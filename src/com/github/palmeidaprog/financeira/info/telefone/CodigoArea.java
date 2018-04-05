@@ -10,9 +10,12 @@ package com.github.palmeidaprog.financeira.info.telefone;
  * Professor: Antonio Canvalcanti
  */
 
-public class CodigoArea {
+import java.io.Serializable;
+
+public class CodigoArea implements Serializable {
     private final String codigo;
 
+    // deserializacao
     public CodigoArea(String codigo) {
         this.codigo = codigo;
     }
@@ -21,8 +24,14 @@ public class CodigoArea {
         return codigo;
     }
 
+    public String formatado() {
+        return codigo;
+    }
+
     @Override
     public String toString() {
-        return codigo;
+        return "CodigoArea{" +
+                "codigo='" + codigo + '\'' +
+                '}';
     }
 }

@@ -10,9 +10,12 @@ package com.github.palmeidaprog.financeira.info.telefone;
  * Professor: Antonio Canvalcanti
  */
 
-public class NumeroTelefone {
+import java.io.Serializable;
+
+public class NumeroTelefone implements Serializable {
     private final String numero;
 
+    // deserializacap
     public NumeroTelefone(String numero) {
         this.numero = numero;
     }
@@ -21,8 +24,14 @@ public class NumeroTelefone {
         return numero;
     }
 
+    public String formatado() {
+        return numero;
+    }
+
     @Override
     public String toString() {
-        return numero;
+        return "NumeroTelefone{" +
+                "numero='" + numero + '\'' +
+                '}';
     }
 }

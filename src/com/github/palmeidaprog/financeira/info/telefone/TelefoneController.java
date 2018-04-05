@@ -13,12 +13,19 @@ package com.github.palmeidaprog.financeira.info.telefone;
 import com.github.palmeidaprog.financeira.exception.ImpossivelRemoverException;
 import com.github.palmeidaprog.financeira.exception.ProcuraSemResultadoException;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TelefoneController {
+public class TelefoneController implements Serializable {
     private final List<Telefone> telefones;
     private Telefone principal;
+
+    // deserializacao
+    public TelefoneController(List<Telefone> telefones, Telefone principal) {
+        this.telefones = telefones;
+        this.principal = principal;
+    }
 
     public TelefoneController() {
         telefones = new ArrayList<>();
@@ -138,4 +145,13 @@ public class TelefoneController {
         }
         return true;
     }
+
+    @Override
+    public String toString() {
+        return "TelefoneController{" +
+                "telefones=" + telefones +
+                ", principal=" + principal +
+                '}';
+    }
 }
+

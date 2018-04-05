@@ -10,7 +10,9 @@ package com.github.palmeidaprog.financeira.info.telefone;
  * Professor: Antonio Canvalcanti
  */
 
-public enum TipoTelefone {
+import java.io.Serializable;
+
+public enum TipoTelefone implements Serializable {
     RESIDENCIAL("Residencial"),
     COMERCIAL("Comercial"),
     CELULAR("Celular"),
@@ -22,8 +24,14 @@ public enum TipoTelefone {
         this.tipo = tipo;
     }
 
+    public String formatado() {
+        return tipo;
+    }
+
     @Override
     public String toString() {
-        return tipo;
+        return "TipoTelefone{" +
+                "tipo='" + tipo + '\'' +
+                '}';
     }
 }
