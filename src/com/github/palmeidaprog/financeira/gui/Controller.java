@@ -59,18 +59,11 @@ public class Controller {
     }
 
     public void criaBtnClicked() {
-        VBox root;
+
         resetButtons();
         criaBtn.setDisable(true);
-        FXMLLoader novoClienteLoaader = new FXMLLoader(getClass()
-                .getResource("novo_cliente.fxml"));
-        novoClienteLoaader.setController(ControllerNovoCliente.getInstance());
-        try {
-            root = novoClienteLoaader.load();
-            mainPane.setCenter(root);
-        } catch(IOException e) {
-            e.printStackTrace();
-        }
+
+
     }
 
     //--Eventos---------------------------------------------------------------
