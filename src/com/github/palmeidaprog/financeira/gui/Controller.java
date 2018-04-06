@@ -59,11 +59,9 @@ public class Controller {
     }
 
     public void criaBtnClicked() {
-
         resetButtons();
         criaBtn.setDisable(true);
-
-
+        ViewController.getInstance().showNovoCliente();
     }
 
     //--Eventos---------------------------------------------------------------
@@ -75,7 +73,7 @@ public class Controller {
             try {
                 Cpf cpf = new Cpf(cpfText.getText());
                 cliente = clientes.procurar(cpf);
-                ControllerNovoCliente.getInstance().showViewCliente(cliente);
+                ViewController.getInstance().showViewCliente(cliente);
             } catch(InscricaoInvalidaException e) {
                 dialogoErro("CPF Inválido", e.getMessage());
             } catch(ProcuraSemResultadoException e) {
@@ -85,7 +83,7 @@ public class Controller {
             try {
                 Cnpj cnpj = new Cnpj(cpfText.getText());
                 cliente = clientes.procurar(cnpj);
-                ControllerNovoCliente.getInstance().showViewCliente(cliente);
+                ViewController.getInstance().showViewCliente(cliente);
             } catch(InscricaoInvalidaException e) {
                 dialogoErro("CNPJ Inválido", e.getMessage());
             } catch(ProcuraSemResultadoException e) {

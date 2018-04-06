@@ -4,6 +4,7 @@ import com.github.palmeidaprog.financeira.clientes.Cadastro;
 import com.github.palmeidaprog.financeira.clientes.Cliente;
 import com.github.palmeidaprog.financeira.clientes.PessoaFisica;
 import com.github.palmeidaprog.financeira.clientes.PessoaJuridica;
+import com.github.palmeidaprog.financeira.gui.operacoes_gui.OperacoesViewController;
 import com.github.palmeidaprog.financeira.info.Endereco;
 import com.github.palmeidaprog.financeira.info.telefone.Telefone;
 import javafx.fxml.FXML;
@@ -91,6 +92,10 @@ public class ControllerViewCliente {
 
     private String formataValor(double v) {
         return String.format("%.2f", v);
+    }
+
+    public void novaOperacaoBtnClicked() {
+        OperacoesViewController.getInstance().showNovaOperacao();
     }
 
     private void mostraCadastro(Cadastro c) {

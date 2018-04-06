@@ -39,13 +39,15 @@ public class Cpf extends InscricaoFiscal implements Serializable {
                 "77777777777", "88888888888", "99999999999");
 
         if(CPF.length() != 11) {
-            throw new InscricaoInvalidaException("CPF Invalido: " + this);
+            throw new InscricaoInvalidaException("CPF Invalido: " + this
+                    .formatado());
         }
         // verifica se todos digitos sao iguais
 
         for(String i : cpfInvalidos) {
             if(i.equals(CPF)) {
-                throw new InscricaoInvalidaException("CPF Invalido: " + this);
+                throw new InscricaoInvalidaException("CPF Invalido: " + this
+                    .formatado());
             }
         }
 
@@ -59,7 +61,8 @@ public class Cpf extends InscricaoFiscal implements Serializable {
             }
 
             if(CPF.charAt(i) < 48 || CPF.charAt(i) > 57) { // contem nao numeros
-                throw new InscricaoInvalidaException("CPF Invalido: " + this);
+                throw new InscricaoInvalidaException("CPF Invalido: " + this
+                    .formatado());
             }
             --multiplicador;
         }
@@ -68,7 +71,8 @@ public class Cpf extends InscricaoFiscal implements Serializable {
 
         if(primeiroDigito != (CPF.charAt(9) - '0') || segundoDigito != (CPF
                 .charAt(10) - '0')) {
-            throw new InscricaoInvalidaException("CPF Invalido: " + this);
+            throw new InscricaoInvalidaException("CPF Invalido: " + this
+                    .formatado());
         }
     }
 

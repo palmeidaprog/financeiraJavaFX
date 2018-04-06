@@ -1,17 +1,16 @@
 package com.github.palmeidaprog.financeira.gui.operacoes_gui;
 
-import com.github.palmeidaprog.financeira.gui.Controller;
-import com.github.palmeidaprog.financeira.gui.ControllerNovoCliente;
 import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
-import javafx.scene.layout.VBox;
-
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
 import java.io.IOException;
-import java.net.URL;
-import java.util.ResourceBundle;
 
-public class OperacoesViewController implements Initializable {
-    public static volatile OperacoesViewController instance;
+public class OperacoesViewController {
+    private static volatile OperacoesViewController instance;
+    private Stage stage;
+    private Scene scene;
+    private Parent root;
 
     private OperacoesViewController() { }
 
@@ -22,20 +21,35 @@ public class OperacoesViewController implements Initializable {
         return instance;
     }
 
-    private void initialize(URL u, ResourceBundle rb) {
-
+    public Scene getMainScene() {
+        return scene;
     }
 
-    public void novoClienteLoad() {
-        VBox root;
-        FXMLLoader novoClienteLoaader = new FXMLLoader(getClass()
-                .getResource("novo_cliente.fxml"));
-        novoClienteLoaader.setController(ControllerNovoCliente.getInstance());
-        try {
-            root = novoClienteLoaader.load();
-            Controller.getInstance().getMain().setCenter(root);
-        } catch (IOException e) {
-            e.printStackTrace();
+    public Stage getMainStage() {
+        return stage;
+    }
+
+    public Parent getMainRoot() {
+        return root;
+    }
+
+    public void showNovaOperacao() {
+        if(stage != null && stage.isShowing()) {
+            stage.requestFocus();
+        } else {
+            stage = new Stage();
+            FXMLLoader mainLoader = new FXMLLoader(getClass()
+                    .getResource("view_novo_credito.fxml"));
+            mainLoader.setController(ControllerViewNovoCredito.getInstance());
+            try {
+                root = mainLoader.load();
+                stage.setTitle("Financeira - Operações Financeiras");
+                scene = new Scene(root, 600, 350);
+                stage.setScene(scene);
+                stage.showAndWait();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 }

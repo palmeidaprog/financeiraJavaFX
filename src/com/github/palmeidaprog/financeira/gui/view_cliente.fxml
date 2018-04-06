@@ -209,7 +209,7 @@
       </HBox>
       <HBox alignment="CENTER" prefHeight="18.0" prefWidth="771.0">
          <children>
-            <Button mnemonicParsing="false" text="Nova Operacao de Credito" />
+            <Button mnemonicParsing="false" onAction="#novaOperacaoBtnClicked" text="Nova Operacao de Credito" />
          </children>
       </HBox>
    </children>

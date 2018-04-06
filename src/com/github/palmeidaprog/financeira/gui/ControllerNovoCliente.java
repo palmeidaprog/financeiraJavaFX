@@ -18,9 +18,6 @@ import javafx.scene.layout.VBox;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 import java.util.ResourceBundle;
 
 public class ControllerNovoCliente implements Initializable {
@@ -38,6 +35,7 @@ public class ControllerNovoCliente implements Initializable {
     @FXML private TextField orgaoText, estadoOrgText, outroText, siglaText;
     @FXML private Button criarClienteBtn;
 
+    private ViewController viewController = ViewController.getInstance();
     private ClienteController clientes;
     private VBox viewCliente;
 
@@ -46,7 +44,7 @@ public class ControllerNovoCliente implements Initializable {
         try {
             clientes = ClienteController.getInstance();
         } catch (IOException e) {
-            dialogoErro("Erro", e.getMessage());
+            viewController.dialogoErro("Erro", e.getMessage());
         }
     }
     public synchronized static ControllerNovoCliente getInstance() {
@@ -86,7 +84,7 @@ public class ControllerNovoCliente implements Initializable {
 
     private boolean campoVazio(TextField textField, String nome) {
         if(textField.getText().trim().isEmpty()) {
-            dialogoErro("Campo Vazio ", nome + " deve ser preen"
+            viewController.dialogoErro("Campo Vazio ", nome + " deve ser preen"
                 + "chido.");
             textField.requestFocus();
             return false;
@@ -179,7 +177,7 @@ public class ControllerNovoCliente implements Initializable {
                             new Estado(estadoOrgText.getText()));
                     try {
                         clientes.procurar(cpf);
-                        dialogoErro("Cliente já existe",
+                        viewController.dialogoErro("Cliente já existe",
                                 "Cliente com CPF " + cpf + " já" +
                                         " existe.");
                     } catch (ProcuraSemResultadoException e) {
@@ -187,7 +185,7 @@ public class ControllerNovoCliente implements Initializable {
                         sucesso = true;
                     }
                 } catch (InscricaoInvalidaException e) {
-                   dialogoErro("CPF Inválido", "O CPF " + cpfText
+                    viewController.dialogoErro("CPF Inválido", "O CPF " + cpfText
                            .getText() + "não é válido.");
                 }
             } else {
@@ -196,7 +194,7 @@ public class ControllerNovoCliente implements Initializable {
                             new Estado(estadoOrgText.getText()));
                     try {
                         clientes.procurar(cnpj);
-                        dialogoErro("Cliente já existe",
+                        viewController.dialogoErro("Cliente já existe",
                                 "Cliente com CNPJ " + cnpj + " já" +
                                         " existe.");
                     } catch (ProcuraSemResultadoException e) {
@@ -204,14 +202,15 @@ public class ControllerNovoCliente implements Initializable {
                         sucesso = true;
                     }
                 } catch (InscricaoInvalidaException e) {
-                    dialogoErro("CNPJ Inválido", "O CNPJ " + cpfText
-                            .getText() + "não é válido.");
+                    viewController.dialogoErro("CNPJ Inválido",
+                            "O CNPJ " + cpfText.getText() +
+                                    "não é válido.");
                 }
             }
         }
         if(sucesso) {
             Controller.getInstance().resetButtons();
-            showViewCliente(cliente);
+            ViewController.getInstance().showViewCliente(cliente);
         }
     }
 
@@ -225,7 +224,7 @@ public class ControllerNovoCliente implements Initializable {
         try {
             clientes.inserir(pf);
         } catch(IOException e) {
-            dialogoErro("Erro", e.getMessage());
+            viewController.dialogoErro("Erro", e.getMessage());
         }
         return pf;
     }
@@ -240,7 +239,8 @@ public class ControllerNovoCliente implements Initializable {
         try {
             clientes.inserir(pj);
         } catch(IOException e) {
-            dialogoErro("Erro", e.getMessage());
+            ViewController.getInstance().dialogoErro("Erro",
+                    e.getMessage());
         }
         return pj;
     }
@@ -283,29 +283,4 @@ public class ControllerNovoCliente implements Initializable {
         sobrenomeLabel.setVisible(false);
         sobrenomeText.setVisible(false);
     }
-
-    private void dialogoErro(String titulo, String texto) {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle(titulo);
-        alert.setHeaderText(null);
-        alert.setContentText(texto);
-        alert.showAndWait();
-    }
-
-    public void showViewCliente(Cliente cliente) {
-        if(viewCliente == null) {
-            FXMLLoader vClienteLoad = new FXMLLoader(getClass()
-                    .getResource("view_cliente.fxml"));
-            vClienteLoad.setController(ControllerViewCliente.getInstance());
-            try {
-                viewCliente = vClienteLoad.load();
-                Controller.getInstance().getMain().setCenter(viewCliente);
-                ControllerViewCliente.getInstance().mostraCliente(cliente);
-            } catch(IOException e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
-
 }

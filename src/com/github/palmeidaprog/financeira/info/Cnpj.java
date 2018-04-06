@@ -34,7 +34,7 @@ public class Cnpj extends InscricaoFiscal implements Serializable {
     // TODO: validacao de CNPJ
     private void valida() throws InscricaoInvalidaException {
         if(CNPJ.equals("")) {
-            throw new InscricaoInvalidaException("CNPJ: " + this);
+            throw new InscricaoInvalidaException("CNPJ: " + this.formatado());
         }
     }
 
