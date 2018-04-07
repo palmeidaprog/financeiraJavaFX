@@ -50,7 +50,7 @@
             </HBox>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <Button defaultButton="true" mnemonicParsing="false" text="Continuar &gt;" />
+                  <Button fx:id="continuarBtn" defaultButton="true" mnemonicParsing="false" onAction="#continuarBtnClicked" text="Continuar &gt;" />
                </children>
             </HBox>
          </children>

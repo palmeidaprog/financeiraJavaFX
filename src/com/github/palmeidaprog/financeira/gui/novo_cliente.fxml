@@ -160,7 +160,7 @@
       </HBox>
       <HBox alignment="CENTER" prefHeight="43.0" prefWidth="771.0">
          <children>
-            <Button fx:id="criarClienteBtn" mnemonicParsing="false" onAction="#criarClienteBtnClicked" prefHeight="26.0" prefWidth="273.0" text="Criar Cliente" />
+            <Button fx:id="criarClienteBtn" mnemonicParsing="false" onAction="#criarClienteBtnClicked" prefHeight="32.0" prefWidth="273.0" text="Criar Cliente" />
          </children>
       </HBox>
    </children>

@@ -3,10 +3,13 @@ package com.github.palmeidaprog.financeira.gui.operacoes_gui;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import java.io.IOException;
 
 public class OperacoesViewController {
+    private ControllerViewCalculaCredito controllerViewCalculaCredito =
+            ControllerViewCalculaCredito.getInstance();
     private static volatile OperacoesViewController instance;
     private Stage stage;
     private Scene scene;
@@ -51,5 +54,46 @@ public class OperacoesViewController {
                 e.printStackTrace();
             }
         }
+    }
+
+    public void showFinanciamento() {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource
+                ("view_calcula_credito.fxml"));
+        loader.setController(ControllerViewCalculaCredito.getInstance());
+        ControllerViewCalculaCredito.getInstance().setTipo("Financiamento");
+        try {
+            root = loader.load();
+            scene.setRoot(root);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void showEmprestimo() {
+        loadVBox("view_novo_credito_emprestimo.fxml",
+                "Empréstimo")
+                .setController(ControllerViewNovoCreditoEmprestimo
+                        .getInstance());
+    }
+
+    public void showOutraOperacao() {
+        loadVBox("view_novo_credito_outra_operacao.fxml",
+                "Outra Operação Financeira")
+                .setController(ControllerViewNovoCreditoOutraOperacao
+                        .getInstance());
+    }
+
+    public FXMLLoader loadVBox(String fxml, String tipo) {
+        VBox root;
+        FXMLLoader loader = new FXMLLoader(getClass().getResource
+                (fxml));
+        controllerViewCalculaCredito.setTipo(tipo);
+        try {
+            root = loader.load();
+            controllerViewCalculaCredito.setTipoVBox(root);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return loader;
     }
 }

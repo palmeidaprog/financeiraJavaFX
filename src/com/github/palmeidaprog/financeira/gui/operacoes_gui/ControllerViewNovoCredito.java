@@ -1,12 +1,15 @@
 package com.github.palmeidaprog.financeira.gui.operacoes_gui;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.RadioButton;
 
 public class ControllerViewNovoCredito {
     private static volatile ControllerViewNovoCredito instance;
     @FXML private RadioButton outraOperacaoRadio, financiamentoRadio,
         emprestimoPessoalRadio;
+    @FXML private Button continuarBtn;
+
 
     private ControllerViewNovoCredito() { }
 
@@ -39,6 +42,20 @@ public class ControllerViewNovoCredito {
     public void outraOperacaoRadioSelected() {
         selectRadio(outraOperacaoRadio);
     }
+
+    public void  continuarBtnClicked() {
+        OperacoesViewController operacoesViewController =
+                OperacoesViewController.getInstance();
+
+        operacoesViewController.showFinanciamento();
+        if(outraOperacaoRadio.isSelected()) {
+            operacoesViewController.showOutraOperacao();
+        } else if (emprestimoPessoalRadio.isSelected()){
+            operacoesViewController.showEmprestimo();
+        }
+    }
+
+
 
 
 }

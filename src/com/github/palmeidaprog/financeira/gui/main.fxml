@@ -19,7 +19,7 @@
                   <Label text="Clientes" textFill="WHITE" />
                </children>
             </HBox>
-            <HBox alignment="CENTER" prefHeight="52.0" prefWidth="129.0">
+            <HBox alignment="CENTER" prefHeight="61.0" prefWidth="129.0">
                <children>
                   <Button fx:id="escolherBtn" disable="true" mnemonicParsing="false" onAction="#escolherBtnClicked" prefHeight="26.0" prefWidth="90.0" text="Escolher" />
                </children>
@@ -47,7 +47,7 @@
                   </Label>
                </children>
             </HBox>
-            <VBox alignment="CENTER_LEFT" prefHeight="61.0" prefWidth="771.0" spacing="15.0">
+            <VBox alignment="CENTER_LEFT" prefHeight="54.0" prefWidth="731.0" spacing="15.0">
                <children>
                   <RadioButton fx:id="cpfRadio" mnemonicParsing="false" onAction="#cpfRadioSelected" selected="true" text="CPF" />
                   <RadioButton fx:id="cnpjRadio" mnemonicParsing="false" onAction="#cnpjRadioSelected" text="CNPJ" />
@@ -56,11 +56,11 @@
                   <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
                </VBox.margin>
             </VBox>
-            <HBox alignment="CENTER_LEFT" prefHeight="67.0" prefWidth="456.0" spacing="10.0">
+            <HBox alignment="CENTER_LEFT" prefHeight="33.0" prefWidth="751.0" spacing="10.0">
                <children>
                   <Label fx:id="cpfLabel" prefHeight="16.0" prefWidth="138.0" text="CPF (Sem Pontos):" />
                   <TextField fx:id="cpfText" prefHeight="26.0" prefWidth="163.0" promptText="Digite o CPF do cliente" />
-                  <Button fx:id="okCpfBtn" defaultButton="true" mnemonicParsing="false" onAction="#okCpfBtnClicked" prefHeight="26.0" prefWidth="76.0" text="OK" />
+                  <Button fx:id="okCpfBtn" defaultButton="true" mnemonicParsing="false" onAction="#okCpfBtnClicked" prefHeight="27.0" prefWidth="76.0" text="OK" />
                </children>
                <VBox.margin>
                   <Insets left="20.0" />
