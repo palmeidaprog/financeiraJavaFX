@@ -3,8 +3,8 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TreeTableColumn?>
-<?import javafx.scene.control.TreeTableView?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
@@ -92,16 +92,16 @@
                      <children>
                         <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="20.0">
                            <children>
-                              <Button fx:id="adicRendaBtn" mnemonicParsing="false" prefHeight="26.0" prefWidth="145.0" text="Adicionar Renda" />
-                              <Button fx:id="delRendaBtn" mnemonicParsing="false" text="Deletar Selecionada" />
+                              <Button fx:id="adicRendaBtn" mnemonicParsing="false" onAction="#adicRendaBtnClicked" prefHeight="26.0" prefWidth="145.0" text="Adicionar Renda" />
+                              <Button fx:id="delRendaBtn" mnemonicParsing="false" onAction="#delRendaBtnClicked" text="Deletar Selecionada" />
                            </children>
                         </HBox>
-                        <TreeTableView fx:id="rendaTable" prefHeight="234.0" prefWidth="371.0">
+                        <TableView fx:id="rendaTable" prefHeight="248.0" prefWidth="377.0">
                           <columns>
-                            <TreeTableColumn fx:id="descrRendaCol" prefWidth="277.0" text="Descricao (Renda)" />
-                              <TreeTableColumn fx:id="valorRendaCol" editable="false" minWidth="0.0" prefWidth="92.0" resizable="false" text="Valor" />
+                            <TableColumn fx:id="descrRendaCol" editable="false" prefWidth="256.0" text="Descricao (Renda)" />
+                            <TableColumn fx:id="valorRendaCol" editable="false" prefWidth="120.0" text="Valor" />
                           </columns>
-                        </TreeTableView>
+                        </TableView>
                      </children>
                   </VBox>
                   <VBox>
@@ -112,12 +112,12 @@
                               <Button fx:id="delBemBtn" mnemonicParsing="false" text="Deletar Selecionado" />
                            </children>
                         </HBox>
-                        <TreeTableView fx:id="bemTable" prefHeight="234.0" prefWidth="354.0">
-                           <columns>
-                              <TreeTableColumn fx:id="descrBemCol" editable="false" prefWidth="266.0" resizable="false" text="Descricao (Bem)" />
-                              <TreeTableColumn fx:id="valorBemCol" prefWidth="87.0" text="Valor" />
-                           </columns>
-                        </TreeTableView>
+                        <TableView fx:id="bemTable" prefHeight="248.0" prefWidth="374.0">
+                          <columns>
+                            <TableColumn fx:id="descrBemCol" editable="false" prefWidth="250.0" text="Descricao (Bem)" />
+                            <TableColumn fx:id="valorBemCol" editable="false" prefWidth="113.0" text="Valor Liq" />
+                          </columns>
+                        </TableView>
                      </children>
                   </VBox>
                </children>

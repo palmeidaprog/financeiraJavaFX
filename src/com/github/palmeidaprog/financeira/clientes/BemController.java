@@ -11,6 +11,8 @@ package com.github.palmeidaprog.financeira.clientes;
  */
 
 import com.github.palmeidaprog.financeira.exception.ProcuraSemResultadoException;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -55,6 +57,10 @@ public class BemController implements Serializable {
 
     public Bem get(int index) {
         return bens.get(index);
+    }
+
+    public List<Bem> getAll() {
+        return bens;
     }
 
     public double total() {

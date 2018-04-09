@@ -13,6 +13,7 @@ import com.github.palmeidaprog.financeira.exception.ProcuraSemResultadoException
 import com.github.palmeidaprog.financeira.info.Cnpj;
 import com.github.palmeidaprog.financeira.info.Cpf;
 import javafx.application.Platform;
+import javafx.collections.ObservableList;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -55,6 +56,10 @@ public class ClienteController {
 
     public void remover(int index) throws IOException {
         remover(get(index));
+    }
+
+    public void atualiza() throws IOException {
+        dao.atualiza();
     }
 
     public Cliente get(int index) {

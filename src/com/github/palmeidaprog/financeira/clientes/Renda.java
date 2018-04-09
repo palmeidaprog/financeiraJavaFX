@@ -15,10 +15,12 @@ import java.util.Locale;
 public class Renda implements Serializable {
     private double valor;
     private String descricao;
+    transient private String valFormatado;
 
     public Renda(double valor, String descricao) {
         this.valor = valor;
         this.descricao = descricao;
+        valFormatado = valorFormatado();
     }
 
     public double getValor() {
@@ -27,6 +29,11 @@ public class Renda implements Serializable {
 
     public void setValor(double valor) {
         this.valor = valor;
+        valFormatado = valorFormatado();
+    }
+
+    private String valorFormatado() {
+        return String.format(Locale.getDefault(), "%.2f", valor);
     }
 
     public String getDescricao() {
@@ -38,8 +45,7 @@ public class Renda implements Serializable {
     }
 
     public String formatado() {
-        return String.format(Locale.getDefault(), "%.2f", valor) + " - " +
-                descricao + ".";
+        return valorFormatado() + " - " + descricao + ".";
     }
 
     @Override
@@ -47,6 +53,7 @@ public class Renda implements Serializable {
         return "Renda{" +
                 "valor=" + valor +
                 ", descricao='" + descricao + '\'' +
+                ", valFormatado='" + valFormatado + '\'' +
                 '}';
     }
 }

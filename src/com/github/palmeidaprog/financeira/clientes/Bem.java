@@ -11,10 +11,12 @@ package com.github.palmeidaprog.financeira.clientes;
  */
 
 import java.io.Serializable;
+import java.util.Locale;
 
 public class Bem implements Serializable {
     private double valor;
     private String descricao;
+    transient private String valLiqFormatado;
     private final PendenciaController pendencias;
 
     // construtor de deserializacao
@@ -22,6 +24,7 @@ public class Bem implements Serializable {
         this.valor = valor;
         this.descricao = descricao;
         this.pendencias = pendencias;
+        this.valLiqFormatado = formataValor(valorLiquido());
     }
 
     public Bem(double valor) {
@@ -39,6 +42,11 @@ public class Bem implements Serializable {
 
     public void setValor(double valor) {
         this.valor = valor;
+        this.valLiqFormatado = formataValor(valorLiquido());
+    }
+
+    private String formataValor(double valor) {
+        return String.format(Locale.getDefault(), "%.2f", valor);
     }
 
     public double valorLiquido() {
@@ -58,6 +66,7 @@ public class Bem implements Serializable {
         return "Bem{" +
                 "valor=" + valor +
                 ", descricao='" + descricao + '\'' +
+                ", valLiqFormatado='" + valLiqFormatado + '\'' +
                 ", pendencias=" + pendencias +
                 '}';
     }

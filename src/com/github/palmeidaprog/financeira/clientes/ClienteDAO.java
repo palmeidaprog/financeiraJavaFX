@@ -1,14 +1,17 @@
 package com.github.palmeidaprog.financeira.clientes;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
+import javafx.collections.ObservableList;
+
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
-
-
 public class ClienteDAO {
     private final String ARQUIVO = "clientes.ser";
-    private List<Cliente> clientes = new ArrayList<>(); // persistenciaa
+    private ObservableList<Cliente> clientes = FXCollections
+            .observableArrayList(); // persistenciaa
 
     // Singleton
     private static volatile ClienteDAO instance;
@@ -21,6 +24,16 @@ public class ClienteDAO {
         } else if(file.length() > 0) {
             le();
         }
+        clientes.addListener(new ListChangeListener<Cliente>() {
+            @Override
+            public void onChanged(Change<? extends Cliente> c) {
+                try {
+                    atualiza();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
     }
 
     public synchronized static ClienteDAO getInstance() throws
@@ -68,22 +81,24 @@ public class ClienteDAO {
         }
     }
 
-    public List<Cliente> getClientes() {
+    public ObservableList<Cliente> getClientes() {
         return clientes;
     }
 
-
-    public void salva() throws IOException {
+    private void salva() throws IOException {
         try(ObjectOutputStream objOut  = new ObjectOutputStream(new
                 FileOutputStream(ARQUIVO))) {
-            objOut.writeObject(clientes);
+            List<Cliente> cl = new ArrayList<>();
+            cl.addAll(clientes);
+            objOut.writeObject(cl);
         }
     }
 
-    public void le() throws IOException {
+    private void le() throws IOException {
         try(ObjectInputStream objIn  = new ObjectInputStream(new
                 FileInputStream(ARQUIVO))) {
-            clientes = (List<Cliente>) objIn.readObject();
+            clientes = FXCollections.observableArrayList
+                    ((List<Cliente>) objIn.readObject());
         } catch(ClassNotFoundException e) {
             e.printStackTrace();
         }

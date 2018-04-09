@@ -10,6 +10,8 @@ package com.github.palmeidaprog.financeira.clientes;
  */
 
 import com.github.palmeidaprog.financeira.exception.ProcuraSemResultadoException;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -19,11 +21,13 @@ import java.util.List;
 import java.util.Locale;
 
 public class RendaController implements Serializable {
-    private List<Renda> rendas;
+    private List<Renda> rendas = new ArrayList<>();
 
     //deserializacao
     public RendaController(List<Renda> rendas) {
-        this.rendas = rendas;
+        if(rendas != null) {
+            this.rendas = rendas;
+        }
     }
 
     public RendaController(Renda renda) {
@@ -31,9 +35,7 @@ public class RendaController implements Serializable {
         rendas.add(renda);
     }
 
-    public RendaController() {
-        rendas = new ArrayList<>();
-    }
+    public RendaController() { }
 
     public void inserir(Renda renda) {
         rendas.add(renda);
@@ -52,8 +54,12 @@ public class RendaController implements Serializable {
         return rendas.get(index);
     }
 
+    public List<Renda> getAll() {
+        return rendas;
+    }
+
     /* @return  List<Renda> contendo as rendas cuja descrição contem o
-     *          parametro descrição     */
+         *          parametro descrição     */
     public List<Renda> procurar(String descricao) throws
             ProcuraSemResultadoException {
         List<Renda> resultado = new ArrayList<>();

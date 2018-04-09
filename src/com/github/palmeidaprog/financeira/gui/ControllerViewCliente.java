@@ -104,7 +104,7 @@ public class ControllerViewCliente {
         OperacoesViewController.getInstance().showNovaOperacao();
     }
 
-    private void mostraCadastro(Cadastro c) {
+    public void mostraCadastro(Cadastro c) {
         bensLabel.setText(formataValor(c.getBens().totalLiquido()));
         rendasLabel.setText(formataValor(c.getRendas().total()));
         credTotalLabel.setText(formataValor(c.getCredito()
