@@ -9,6 +9,9 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TreeTableColumn;
 import javafx.scene.control.TreeTableView;
 
+import java.net.URL;
+import java.util.ResourceBundle;
+
 public class ControllerViewCadastro {
     private static volatile ControllerViewCadastro instance;
 
@@ -24,6 +27,7 @@ public class ControllerViewCadastro {
     @FXML private TreeTableView<Bem> bemTable;
     @FXML private TreeTableColumn<Bem, String> descrBemCol;
     @FXML private TreeTableColumn<Bem, String> valorBemCol;
+    private Cadastro cadastro;
 
     // Singleton
     private ControllerViewCadastro() { }
@@ -34,4 +38,28 @@ public class ControllerViewCadastro {
         }
         return instance;
     }
+
+    public void setCadastro(Cadastro cadastro) {
+        this.cadastro = cadastro;
+        updateCadastro();
+    }
+
+    private void updateCadastro() {
+        mostraCadastro();
+    }
+
+    private String formataValor(double v) {
+        return String.format("%.2f", v);
+    }
+
+
+    private void mostraCadastro() {
+        bensLabel.setText(formataValor(cadastro.getBens().totalLiquido()));
+        rendasLabel.setText(formataValor(cadastro.getRendas().total()));
+        credTotalLabel.setText(formataValor(cadastro.getCredito()
+                .getFinanciamento()));
+        credDispLabel.setText(formataValor(cadastro.getCredito()
+                .getPessoal()));
+    }
+
 }

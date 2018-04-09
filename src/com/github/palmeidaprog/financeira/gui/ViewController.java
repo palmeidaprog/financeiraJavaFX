@@ -1,6 +1,7 @@
 package com.github.palmeidaprog.financeira.gui;
 
 import com.github.palmeidaprog.financeira.clientes.Cliente;
+import com.github.palmeidaprog.financeira.gui.cadastro.CadastrosViewController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Alert;
 import javafx.scene.layout.VBox;
@@ -53,4 +54,5 @@ public class ViewController {
         alert.setContentText(texto);
         alert.showAndWait();
     }
+
 }

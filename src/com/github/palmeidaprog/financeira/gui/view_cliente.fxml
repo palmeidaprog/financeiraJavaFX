@@ -149,7 +149,7 @@
                <children>
                   <HBox>
                      <children>
-                        <Label text="Credito Financiamento:" />
+                        <Label prefHeight="16.0" prefWidth="168.0" text="Credito Financiamento:" />
                         <Label fx:id="credTotalLabel" prefHeight="17.0" prefWidth="175.0" />
                      </children>
                   </HBox>
@@ -191,7 +191,7 @@
             </VBox>
             <VBox alignment="TOP_CENTER">
                <children>
-                  <Button mnemonicParsing="false" prefHeight="42.0" prefWidth="82.0" text="Editar&#10;Cadastro&#10;" textAlignment="CENTER" />
+                  <Button fx:id="editaCadastroBtn" mnemonicParsing="false" onAction="#editaCadastroBtnClicked" prefHeight="42.0" prefWidth="82.0" text="Editar&#10;Cadastro&#10;" textAlignment="CENTER" />
                </children>
             </VBox>
          </children>

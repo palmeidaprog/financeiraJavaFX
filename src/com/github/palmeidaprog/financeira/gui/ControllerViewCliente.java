@@ -4,10 +4,12 @@ import com.github.palmeidaprog.financeira.clientes.Cadastro;
 import com.github.palmeidaprog.financeira.clientes.Cliente;
 import com.github.palmeidaprog.financeira.clientes.PessoaFisica;
 import com.github.palmeidaprog.financeira.clientes.PessoaJuridica;
+import com.github.palmeidaprog.financeira.gui.cadastro.CadastrosViewController;
 import com.github.palmeidaprog.financeira.gui.operacoes_gui.OperacoesViewController;
 import com.github.palmeidaprog.financeira.info.Endereco;
 import com.github.palmeidaprog.financeira.info.telefone.Telefone;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 
 public class ControllerViewCliente {
@@ -19,6 +21,7 @@ public class ControllerViewCliente {
     @FXML private Label comentLabel2, tipoTelLabel2, credTotalLabel;
     @FXML private Label credDispLabel, debTotLabel, debNomLabel, rendasLabel;
     @FXML private Label bensLabel;
+    @FXML private Button editaCadastroBtn;
     private Cliente c;
 
     private static volatile ControllerViewCliente instance;
@@ -30,7 +33,10 @@ public class ControllerViewCliente {
         return instance;
     }
 
+
+
     public void mostraCliente(Cliente cliente) {
+        this.c = cliente;
         if(cliente instanceof PessoaFisica) {
             PessoaFisica pf = (PessoaFisica) cliente;
             mostraCliente(pf);
@@ -109,4 +115,9 @@ public class ControllerViewCliente {
     redDispLabel, debTotLabel, debNomLabel, rendasLabel;
     @FXML private Label bensLabel;
      */
+
+    public void editaCadastroBtnClicked() {
+        CadastrosViewController.getInstance().showEditaCadastro(
+                c.getCadastro());
+    }
 }
