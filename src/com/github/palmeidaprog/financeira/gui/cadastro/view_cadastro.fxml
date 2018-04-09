@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TreeTableColumn?>
+<?import javafx.scene.control.TreeTableView?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="443.0" prefWidth="770.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
+   <top>
+      <HBox prefHeight="53.0" prefWidth="600.0" style="-fx-background-color: #2f2f2f;" BorderPane.alignment="CENTER">
+         <effect>
+            <DropShadow />
+         </effect>
+         <children>
+            <Label text="Cadastro:" textFill="#f1b86c">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+         </children>
+         <padding>
+            <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+         </padding>
+      </HBox>
+   </top>
+   <center>
+      <VBox prefHeight="250.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+         <children>
+            <HBox prefHeight="50.0" prefWidth="731.0">
+               <children>
+                  <VBox prefHeight="200.0" prefWidth="325.0">
+                     <children>
+                        <HBox>
+                           <children>
+                              <Label prefHeight="16.0" prefWidth="165.0" text="Credito Financiamento:" />
+                              <Label fx:id="credTotalLabel" prefHeight="17.0" prefWidth="175.0" />
+                           </children>
+                        </HBox>
+                        <HBox>
+                           <children>
+                              <Label prefHeight="16.0" prefWidth="109.0" text="Debito Nominal:" />
+                              <Label fx:id="debNomLabel" prefHeight="16.0" prefWidth="188.0" />
+                           </children>
+                        </HBox>
+                        <HBox>
+                           <children>
+                              <Label prefHeight="16.0" prefWidth="199.0" text="Bens Liquido:" />
+                              <Label fx:id="bensLabel" prefHeight="16.0" prefWidth="341.0" />
+                           </children>
+                        </HBox>
+                     </children>
+                  </VBox>
+                  <VBox>
+                     <children>
+                        <HBox>
+                           <children>
+                              <Label text="Credito Pessoal:" />
+                              <Label fx:id="credDispLabel" prefHeight="16.0" prefWidth="188.0" />
+                           </children>
+                        </HBox>
+                        <HBox>
+                           <children>
+                              <Label text="Debito Total:" />
+                              <Label fx:id="debTotLabel" prefHeight="16.0" prefWidth="226.0" />
+                           </children>
+                        </HBox>
+                        <HBox>
+                           <children>
+                              <Label prefHeight="16.0" prefWidth="62.0" text="Rendas:" />
+                              <Label fx:id="rendasLabel" prefHeight="16.0" prefWidth="251.0" />
+                           </children>
+                        </HBox>
+                     </children>
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                  </VBox>
+               </children>
+               <VBox.margin>
+                  <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+               </VBox.margin>
+            </HBox>
+            <HBox alignment="CENTER" prefHeight="234.0" prefWidth="884.0">
+               <children>
+                  <VBox>
+                     <children>
+                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="20.0">
+                           <children>
+                              <Button fx:id="adicRendaBtn" mnemonicParsing="false" prefHeight="26.0" prefWidth="145.0" text="Adicionar Renda" />
+                              <Button fx:id="delRendaBtn" mnemonicParsing="false" text="Deletar Selecionada" />
+                           </children>
+                        </HBox>
+                        <TreeTableView fx:id="rendaTable" prefHeight="234.0" prefWidth="371.0">
+                          <columns>
+                            <TreeTableColumn fx:id="descrRendaCol" prefWidth="277.0" text="Descricao (Renda)" />
+                              <TreeTableColumn fx:id="valorRendaCol" editable="false" minWidth="0.0" prefWidth="92.0" resizable="false" text="Valor" />
+                          </columns>
+                        </TreeTableView>
+                     </children>
+                  </VBox>
+                  <VBox>
+                     <children>
+                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="20.0">
+                           <children>
+                              <Button fx:id="adicBemBtn" mnemonicParsing="false" prefHeight="26.0" prefWidth="145.0" text="Adicionar Bem" />
+                              <Button fx:id="delBemBtn" mnemonicParsing="false" text="Deletar Selecionado" />
+                           </children>
+                        </HBox>
+                        <TreeTableView fx:id="bemTable" prefHeight="234.0" prefWidth="354.0">
+                           <columns>
+                              <TreeTableColumn fx:id="descrBemCol" editable="false" prefWidth="266.0" resizable="false" text="Descricao (Bem)" />
+                              <TreeTableColumn fx:id="valorBemCol" prefWidth="87.0" text="Valor" />
+                           </columns>
+                        </TreeTableView>
+                     </children>
+                  </VBox>
+               </children>
+               <VBox.margin>
+                  <Insets bottom="20.0" left="20.0" right="20.0" />
+               </VBox.margin>
+            </HBox>
+            <HBox alignment="CENTER" prefHeight="66.0" prefWidth="770.0">
+               <children>
+                  <Button fx:id="OkBtn" defaultButton="true" mnemonicParsing="false" prefHeight="26.0" prefWidth="117.0" text="Ok" />
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+   </center>
+</BorderPane>
