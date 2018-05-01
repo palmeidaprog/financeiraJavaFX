@@ -4,14 +4,12 @@ import com.github.palmeidaprog.financeira.clientes.Bem;
 import com.github.palmeidaprog.financeira.clientes.Cadastro;
 import com.github.palmeidaprog.financeira.clientes.Renda;
 import com.github.palmeidaprog.financeira.gui.ControllerViewCliente;
-import com.github.palmeidaprog.financeira.gui.operacoes_gui.OperacoesViewController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
