@@ -9,6 +9,7 @@ import javafx.collections.ObservableList;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.EventListener;
 import java.util.List;
 
 public class ClienteDAO {
@@ -19,6 +20,17 @@ public class ClienteDAO {
     // Singleton
     private static volatile ClienteDAO instance;
     private ClienteDAO() throws IOException {
+        clientes.addListener(new ListChangeListener<Cliente>() {
+            @Override
+            public void onChanged(Change<? extends Cliente> c) {
+                try {
+                    salva();
+                } catch(IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
         File file = new File(ARQUIVO);
         if(!file.exists()) {
             if(!file.createNewFile()) {

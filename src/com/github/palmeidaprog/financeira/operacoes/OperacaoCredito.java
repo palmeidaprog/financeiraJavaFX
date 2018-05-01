@@ -12,6 +12,7 @@ package com.github.palmeidaprog.financeira.operacoes;
 import com.github.palmeidaprog.financeira.clientes.Cliente;
 
 import java.io.Serializable;
+import java.util.Date;
 
 public class OperacaoCredito implements Serializable {
     private double valorNominal;
@@ -42,6 +43,12 @@ public class OperacaoCredito implements Serializable {
             jurosAoMes, Parcela primeiraParcela, String descricao) {
         this(valorNominal, numeroDeParcelas, jurosAoMes, primeiraParcela);
         this.descricao = descricao;
+    }
+
+    public static double calculaParcela(double valorNominal, int
+            numeroDeParcelas, double jurosAoMes, Date vencimento) {
+        return (valorNominal * jurosAoMes) / (1 + Math.pow(1 + jurosAoMes,
+                numeroDeParcelas));
     }
 
     public PagamentoController getPagamentos() {

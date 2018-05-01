@@ -23,7 +23,7 @@ public class ClienteController {
     ClienteDAO dao = ClienteDAO.getInstance();
 
     // Singleton
-    /*private static volatile ClienteController instance;
+    private static volatile ClienteController instance;
     private ClienteController() throws IOException { }
 
     public synchronized static ClienteController getInstance() throws
@@ -38,9 +38,7 @@ public class ClienteController {
             }
         }
         return instance;
-    }*/
-
-    public
+    }
 
     public void inserir(Cliente cliente) throws IOException {
         dao.inserir(cliente);
