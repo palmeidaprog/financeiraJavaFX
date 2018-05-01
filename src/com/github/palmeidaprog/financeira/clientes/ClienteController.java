@@ -20,15 +20,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ClienteController {
-    ClienteDAO dao;
-    private List<Cliente> clientes;
+    ClienteDAO dao = ClienteDAO.getInstance();
+    //private List<Cliente> clientes;
 
     // Singleton
     private static volatile ClienteController instance;
-    private ClienteController() throws IOException {
-        dao = ClienteDAO.getInstance();
-        clientes = dao.getClientes();
-    }
+    private ClienteController() throws IOException { }
 
     public synchronized static ClienteController getInstance() throws
             IOException {
@@ -48,8 +45,6 @@ public class ClienteController {
         dao.inserir(cliente);
     }
 
-
-
     public void remover(Cliente cliente) throws IOException {
         dao.remover(cliente);
     }
@@ -63,78 +58,25 @@ public class ClienteController {
     }
 
     public Cliente get(int index) {
-        return clientes.get(index);
+        return dao.get(index);
     }
 
     public int indexOf(Cliente cliente) throws ProcuraSemResultadoException {
-        for(int i = 0; i < clientes.size(); i++) {
-            if(clientes.get(i).equals(cliente)) {
-                return i;
-            }
-        }
-        throw new ProcuraSemResultadoException("Cliente " + cliente + "nãao "
-                + "existe.");
+        return dao.indexOf(cliente);
     }
 
     public PessoaFisica procurar(Cpf cpf) throws
             ProcuraSemResultadoException {
-        for(Cliente c : clientes) {
-            if(c instanceof PessoaFisica) {
-                PessoaFisica pf = (PessoaFisica) c;
-                if(pf.getCpf().equals(cpf)) {
-                    return pf;
-                }
-            }
-        }
-        throw new ProcuraSemResultadoException("Cliente com CPF " + cpf +
-                " não existe.");
+        return dao.procurar(cpf);
     }
 
     public PessoaJuridica procurar(Cnpj cnpj) throws
             ProcuraSemResultadoException {
-        for(Cliente c : clientes) {
-            if(c instanceof PessoaJuridica) {
-                PessoaJuridica pj = (PessoaJuridica) c;
-                if(pj.getCnpj().equals(cnpj)) {
-                    return pj;
-                }
-            }
-        }
-        throw new ProcuraSemResultadoException("Cliente com CNPJ " + cnpj +
-                " não existe.");
+        return dao.procurar(cnpj);
     }
 
     public List<Cliente> procurar(String nomeOuCometario) throws
             ProcuraSemResultadoException {
-        nomeOuCometario = nomeOuCometario.toLowerCase();
-        List<Cliente> resposta = new ArrayList<>();
-        for(Cliente c : clientes) {
-            if(c.getComentario().toLowerCase().contains(nomeOuCometario
-                    .toLowerCase())) {
-                resposta.add(c);
-            }
-
-            if(c instanceof PessoaFisica) {
-                PessoaFisica pf = (PessoaFisica) c;
-                if(pf.getPrimeiroNome().toLowerCase().contains(
-                        nomeOuCometario) || pf.getNomeDoMeio().toLowerCase()
-                        .contains(nomeOuCometario) || pf.getSobrenome()
-                        .toLowerCase().contains(nomeOuCometario)) {
-                    resposta.add(pf);
-                }
-            } else if(c instanceof PessoaJuridica) {
-                PessoaJuridica pj = (PessoaJuridica) c;
-                if(pj.getRazaoSocial().toLowerCase().contains(nomeOuCometario)
-                        || pj.getNomeFantasia().toLowerCase().contains
-                        (nomeOuCometario)) {
-                    resposta.add(pj);
-                }
-            }
-        }
-        if(resposta.isEmpty()) {
-            throw new ProcuraSemResultadoException("Não existe " +
-                    "clientes com os dados \"" + nomeOuCometario + "\"");
-        }
-        return resposta;
+        return dao.procurar(nomeOuCometario);
     }
 }

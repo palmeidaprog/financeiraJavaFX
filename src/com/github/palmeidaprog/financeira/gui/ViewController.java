@@ -8,7 +8,7 @@ import javafx.scene.layout.VBox;
 
 import java.io.IOException;
 
-public class ViewController {
+public class ViewController { // factory (frankenstein) // viewFactory
     private static volatile ViewController instance;
 
     private ViewController() { }
