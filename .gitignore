@@ -1,6 +1,9 @@
+#intellij folders
 .idea/
 out/
-scrum/.~lock.* # temporary file for libreoffice
+
+# temporary file for libreoffice
+scrum/.~lock* 
 
 # Compiled class file
 *.class
