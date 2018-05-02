@@ -48,11 +48,11 @@
             <HBox alignment="CENTER_LEFT" prefHeight="13.0" prefWidth="600.0" spacing="15.0">
                <children>
                   <Label text="Parcelas:" />
-                  <ComboBox fx:id="numParcelasCombo" prefHeight="26.0" prefWidth="90.0" promptText="12x " />
+                  <ComboBox fx:id="numParcelasCombo" onAction="#numParcelasComboAction" prefHeight="26.0" prefWidth="90.0" promptText="12x " />
                   <Label text="Parcela:" />
                   <Label fx:id="parcelaValorLabel" prefHeight="16.0" prefWidth="94.0" text="0.00" textAlignment="RIGHT" wrapText="true" />
                   <Label text="Juros a.m." />
-                  <TextField fx:id="jurosText" prefHeight="26.0" prefWidth="71.0" promptText="0.00%" />
+                  <TextField fx:id="jurosText" onAction="#jurosTextAction" prefHeight="26.0" prefWidth="71.0" promptText="0.00%" />
                </children>
                <VBox.margin>
                   <Insets />

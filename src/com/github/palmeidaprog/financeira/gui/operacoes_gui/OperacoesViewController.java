@@ -1,10 +1,13 @@
 package com.github.palmeidaprog.financeira.gui.operacoes_gui;
 
+import com.github.palmeidaprog.financeira.gui.ViewController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+
+import java.awt.*;
 import java.io.IOException;
 
 public class OperacoesViewController {
@@ -96,4 +99,15 @@ public class OperacoesViewController {
         }
         return loader;
     }
+
+    public void dialogoErro(String titulo, String msg) {
+        ViewController.getInstance().dialogoErro(titulo, msg);
+    }
+
+    //--Suporte---------------------------------------------------------------
+
+
+
+
+    //TODO: keypressed getKeyChar() == 8
 }

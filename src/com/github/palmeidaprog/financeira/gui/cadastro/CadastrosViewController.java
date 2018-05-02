@@ -48,6 +48,7 @@ public class CadastrosViewController {
         }
     }
 
+
     public void showNovaRenda(Cadastro cadastro) {
         VBox root = null;
 

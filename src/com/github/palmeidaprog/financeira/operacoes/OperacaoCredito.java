@@ -47,8 +47,11 @@ public class OperacaoCredito implements Serializable {
 
     public static double calculaParcela(double valorNominal, int
             numeroDeParcelas, double jurosAoMes, Date vencimento) {
-        return (valorNominal * jurosAoMes) / (1 + Math.pow(1 + jurosAoMes,
-                numeroDeParcelas));
+        double i = jurosAoMes / 100.0;
+//        return (valorNominal * jurosAoMes / 100) / (1 + Math.pow(1 +
+//                jurosAoMes / 100, numeroDeParcelas));
+        return valorNominal * (i / (1.0 - (1.0 / Math.pow(1.0 + i,
+                numeroDeParcelas))));
     }
 
     public PagamentoController getPagamentos() {
