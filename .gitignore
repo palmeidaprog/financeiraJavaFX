@@ -1,5 +1,6 @@
 .idea/
 out/
+scrum/.~lock. # temporary file for libreoffice
 
 # Compiled class file
 *.class

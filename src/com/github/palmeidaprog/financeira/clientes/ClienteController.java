@@ -12,11 +12,7 @@ package com.github.palmeidaprog.financeira.clientes;
 import com.github.palmeidaprog.financeira.exception.ProcuraSemResultadoException;
 import com.github.palmeidaprog.financeira.info.Cnpj;
 import com.github.palmeidaprog.financeira.info.Cpf;
-import javafx.application.Platform;
-import javafx.collections.ObservableList;
-
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 public class ClienteController {
