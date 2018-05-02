@@ -32,7 +32,7 @@ public class Parcela extends Debito implements Serializable {
         return numeroDaParcela;
     }
 
-    public Parcela proximaParcela() {
+    public Parcela proximaParcela() { // TODO: perguntar TJ se é @code smell
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(this.getVencimento());
         calendar.add(Calendar.MONTH, 1);
