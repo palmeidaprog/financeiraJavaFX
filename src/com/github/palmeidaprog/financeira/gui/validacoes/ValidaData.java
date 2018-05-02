@@ -16,7 +16,6 @@ public class ValidaData {
 
     // formata data como deve ser mostrada nos textField que contem datas
     private String dataEntrada(String data) {
-        // TODO: implementar validacao
         int length = data.length();
 
         if(length == 2 || length == 5) {
@@ -69,6 +68,4 @@ public class ValidaData {
         textField.setText(text);
         textField.positionCaret(textField.getLength());
     }
-
-
 }
