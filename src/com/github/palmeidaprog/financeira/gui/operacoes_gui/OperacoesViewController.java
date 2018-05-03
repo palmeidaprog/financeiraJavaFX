@@ -1,16 +1,16 @@
 package com.github.palmeidaprog.financeira.gui.operacoes_gui;
 
 import com.github.palmeidaprog.financeira.gui.ViewController;
+import com.github.palmeidaprog.financeira.gui.validacoes.ErroDialogable;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-import java.awt.*;
 import java.io.IOException;
 
-public class OperacoesViewController {
+public class OperacoesViewController implements ErroDialogable {
     private ControllerViewCalculaCredito controllerViewCalculaCredito =
             ControllerViewCalculaCredito.getInstance();
     private static volatile OperacoesViewController instance;

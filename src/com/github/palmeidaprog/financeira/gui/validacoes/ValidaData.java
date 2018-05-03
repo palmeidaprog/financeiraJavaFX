@@ -43,7 +43,8 @@ public class ValidaData {
 
                 if(!string.isEmpty() && string.charAt(string.length() - 1)
                         == '/' && ke.getCode() == KeyCode.BACK_SPACE) {
-                    updateField(string.substring(0, string.length() - 1));
+                    updateField(string.substring(0, string.length() - 1),
+                            false);
                 }
             }
         });
@@ -58,14 +59,19 @@ public class ValidaData {
                 if(string.length() >= 10) {
                     string = string.substring(0, string.length() - 1);
                 }
-                updateField(string);
-                updateField(dataEntrada(string));
+                updateField(string, false);
+                updateField(dataEntrada(string), true);
             }
         });
     }
 
-    private void updateField(String text) {
+    private void updateField(String text, boolean temBarra) {
+        int pos = textField.getCaretPosition();
+
+        if(temBarra) {
+            ++pos;
+        }
         textField.setText(text);
-        textField.positionCaret(textField.getLength());
+        textField.positionCaret(pos);
     }
 }
