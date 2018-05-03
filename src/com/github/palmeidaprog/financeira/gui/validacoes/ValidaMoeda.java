@@ -1,42 +1,75 @@
 package com.github.palmeidaprog.financeira.gui.validacoes;
 
-import javafx.scene.control.Control;
-import javafx.scene.control.Label;
+import javafx.event.EventHandler;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyEvent;
 
 import java.util.Locale;
 
-public class ValidaMoeda<T extends Control & ControlValidationable> {
-    private final T tipo;
+public class ValidaMoeda {
+    private final TextField textField;
+    private final ErroDialogable controller;
 
     // TODO: (TJ) View ou outra coisa / Code Smell?
-    public ValidaMoeda(T tipo) {
-        this.tipo = tipo;
+    public ValidaMoeda(TextField textField, ErroDialogable controller) {
+        this.textField = textField;
+        this.controller = controller;
         eventos();
     }
 
     private void eventos() {
 
+
+        textField.setOnKeyTyped(new EventHandler<KeyEvent>() {
+
+            @Override
+            public void handle(KeyEvent event) {
+                String str = textField.getText();
+
+                try {
+                    str = formataValor(str);
+                    updateField(str);
+                } catch(NumberFormatException e) {
+                    controller.dialogoErro("Formato Inválido", str
+                            + " não é um formato válido.");
+                }
+
+                if(muitosPontos() == 2) {
+
+                    str.replaceFirst(".",  "");
+                }
+
+
+            }
+        });
     }
 
-    private boolean muitosPontos() {
-        String valor = tipo.getText();
+    private int muitosPontos() {
+        String valor = textField.getText();
         int count = 0;
 
         for(int i = valor.length(); i >= 0; i--) {
             if(valor.charAt(i) == '.') {
                 if(++count >= 2) {
-                    return true;
+                    return count;
                 }
             }
         }
-        return true;
+        return count;
+    }
+
+    //
+    private void updateField(String text) {
+        textField.setText(text);
+        textField.positionCaret(textField.getLength());
     }
 
     private String formataValor(String valor) throws NumberFormatException {
         double value = Double.parseDouble(valor);
         return String.format(Locale.getDefault(), "%.2f", value);
     }
+
+
 
 
 }
