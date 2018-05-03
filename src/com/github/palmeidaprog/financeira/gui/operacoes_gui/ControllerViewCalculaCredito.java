@@ -1,6 +1,5 @@
 package com.github.palmeidaprog.financeira.gui.operacoes_gui;
 
-import com.github.palmeidaprog.financeira.gui.validacoes.ValidaData;
 import com.github.palmeidaprog.financeira.gui.ViewController;
 import com.github.palmeidaprog.financeira.operacoes.OperacaoCredito;
 import javafx.collections.FXCollections;
@@ -9,9 +8,13 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
+import javafx.util.StringConverter;
+
 import java.net.URL;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 public class ControllerViewCalculaCredito implements Initializable {
@@ -20,7 +23,9 @@ public class ControllerViewCalculaCredito implements Initializable {
     private SimpleDateFormat formato;
 
     @FXML private Label descrLabel, parcelaValorLabel, bemLabel;
-    @FXML private TextField valorOpText, dataTexto, jurosText;
+    @FXML private TextField valorOpText, jurosText;
+    //@FXML private TextField dataTexto;
+    @FXML private DatePicker dataPicker;
     @FXML private ComboBox<String> numParcelasCombo, bemCombo;
     @FXML private VBox tipoVBox;
     @FXML private Button novoBemBtn, aceitarBtn;
@@ -36,7 +41,7 @@ public class ControllerViewCalculaCredito implements Initializable {
     }
 
     public void initialize(URL u, ResourceBundle rb) {
-         formato = new SimpleDateFormat("dd/MM/yyyy");
+        formato = new SimpleDateFormat("dd/MM/yyyy");
         descrLabel.setText(tipo);
         ObservableList<String> parc = FXCollections.observableArrayList(
                 "1x", "2x", "3x", "4x", "5x", "6x", "8x", "10x", "12x"
@@ -49,14 +54,41 @@ public class ControllerViewCalculaCredito implements Initializable {
         Date date = new Date(System.currentTimeMillis());
         calendar.setTime(date);
         calendar.add(Calendar.MONTH, 1);
-        dataTexto.setText(formato.format(calendar.getTime()));
+        dataPicker.getEditor().setText(formato.format(calendar.getTime()));
 
         // juros inicial
         jurosText.setText("1.00");
+        eventoDatePicker();
+    }
 
-        // Eventos
-        ValidaData valida = new ValidaData(dataTexto);
+    private void eventoDatePicker() {
+        dataPicker.setConverter(new StringConverter<LocalDate>() {
+            String pattern = "dd/MM/yyyy";
+            DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern
+                    (pattern);
 
+            {
+                dataPicker.setPromptText(pattern.toLowerCase());
+            }
+
+            @Override
+            public String toString(LocalDate date) {
+                if (date != null) {
+                    return dateFormatter.format(date);
+                } else {
+                    return "";
+                }
+            }
+
+            @Override
+            public LocalDate fromString(String string) {
+                if (string != null && !string.isEmpty()) {
+                    return LocalDate.parse(string, dateFormatter);
+                } else {
+                    return null;
+                }
+            }
+        });
     }
 
     public void setTipo(String tipo) {
@@ -82,7 +114,7 @@ public class ControllerViewCalculaCredito implements Initializable {
 
     private void atualizaParcela() {
         try {
-            Date venc = formato.parse(dataTexto.getText());
+            Date venc = formato.parse(dataPicker.getEditor().getText());
             parcelaValorLabel.setText(String.format("%.2f", OperacaoCredito
                     .calculaParcela(Double.parseDouble(valorOpText.getText()),
                             Integer.parseInt(numParcelasCombo.getValue().
@@ -90,8 +122,8 @@ public class ControllerViewCalculaCredito implements Initializable {
                             Double.parseDouble(jurosText.getText()), venc)));
         } catch(ParseException e) {
             OperacoesViewController.getInstance().dialogoErro(
-                    "Data Inválida", "A data " + dataTexto
-                            .getText() + " não é valida");
+                    "Data Inválida", "A data " + dataPicker
+                            .getEditor().getText() + " não é valida");
         }
     }
 
@@ -107,8 +139,6 @@ public class ControllerViewCalculaCredito implements Initializable {
     public void numParcelasComboAction() {
         atualizaParcela();
     }
-
-
 
     private void resetaRadio() {
         imovelRadio.setSelected(false);
@@ -128,7 +158,6 @@ public class ControllerViewCalculaCredito implements Initializable {
     public void valorOpTextKeyTyped() {
 
     }
-
 
     private String formataValor(String valor) throws NumberFormatException {
         double value = Double.parseDouble(valor);

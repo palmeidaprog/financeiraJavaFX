@@ -8,12 +8,10 @@ import java.util.Locale;
 
 public class ValidaMoeda {
     private final TextField textField;
-    private final ErroDialogable controller;
 
     // TODO: (TJ) View ou outra coisa / Code Smell?
-    public ValidaMoeda(TextField textField, ErroDialogable controller) {
+    public ValidaMoeda(TextField textField) {
         this.textField = textField;
-        this.controller = controller;
         eventos();
     }
 
@@ -30,8 +28,7 @@ public class ValidaMoeda {
                     str = formataValor(str);
                     updateField(str);
                 } catch(NumberFormatException e) {
-                    controller.dialogoErro("Formato Inválido", str
-                            + " não é um formato válido.");
+                    e.printStackTrace();
                 }
 
                 if(muitosPontos() == 2) {
