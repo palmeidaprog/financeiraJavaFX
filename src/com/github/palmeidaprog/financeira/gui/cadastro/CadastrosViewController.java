@@ -49,6 +49,7 @@ public class CadastrosViewController {
     }
 
     public void showAutomovel(Cadastro cadastro, String title) {
+        // todo: resolver o nao aparencendo
         if(automovel != null && automovel.isShowing()) {
             automovel.requestFocus();
             return;
