@@ -40,7 +40,7 @@
                   <Label text="Valor da Operacao:" />
                   <TextField fx:id="valorOpText" onAction="#valorOpLabelAction" onInputMethodTextChanged="#valorOpLabelAction" prefHeight="26.0" prefWidth="141.0" promptText="0.00" />
                   <Label text="Venc.1a Parcela:" />
-                  <DatePicker fx:id="dataPicker" editable="false" onKeyTyped="#dataPickerAction" prefHeight="26.0" prefWidth="139.0" />
+                  <DatePicker fx:id="dataPicker" editable="false" prefHeight="26.0" prefWidth="139.0" />
                </children>
                <padding>
                   <Insets bottom="10.0" left="20.0" right="20.0" top="15.0" />

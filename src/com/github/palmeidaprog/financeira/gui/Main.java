@@ -9,9 +9,11 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class Main extends Application {
+    private static Stage primaryStage;
 
     @Override
     public void start(Stage primaryStage) throws Exception{
+        this.primaryStage = primaryStage;
         Parent root;
         FXMLLoader mainLoader = new FXMLLoader(getClass().getResource("main.fxml"));
         mainLoader.setController(Controller.getInstance());
@@ -25,9 +27,11 @@ public class Main extends Application {
             e.printStackTrace();
         }
         //Parent root = FXMLLoader.load(getClass().getResource("main.fxml"));
-
     }
 
+    public static Stage getPrimaryStage() {
+        return primaryStage;
+    }
 
     public static void main(String[] args) {
         launch(args);

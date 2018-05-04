@@ -7,15 +7,20 @@ import com.github.palmeidaprog.financeira.exception.ProcuraSemResultadoException
 import com.github.palmeidaprog.financeira.info.Cnpj;
 import com.github.palmeidaprog.financeira.info.Cpf;
 import javafx.application.Platform;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
+import javafx.stage.WindowEvent;
 
 import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 
-public class Controller {
+public class Controller implements Initializable {
     private ClienteController clientes;
 
     private volatile static Controller instance;
@@ -33,6 +38,17 @@ public class Controller {
             dialogoErro("Erro", e.getMessage());
             Platform.exit();
         }
+    }
+
+    public void initialize(URL u, ResourceBundle rb) {
+        Main.getPrimaryStage().setOnCloseRequest(new
+             EventHandler<WindowEvent>() {
+
+            @Override
+            public void handle(WindowEvent event) {
+                Platform.exit();
+            }
+        });
     }
 
     public synchronized static Controller getInstance() {

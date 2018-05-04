@@ -1,6 +1,7 @@
 package com.github.palmeidaprog.financeira.gui.operacoes_gui;
 
 import com.github.palmeidaprog.financeira.gui.ViewController;
+import com.github.palmeidaprog.financeira.gui.validacoes.ValidaMoeda;
 import com.github.palmeidaprog.financeira.operacoes.OperacaoCredito;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -58,6 +59,8 @@ public class ControllerViewCalculaCredito implements Initializable {
 
         // juros inicial
         jurosText.setText("1.00");
+        ValidaMoeda valida = new ValidaMoeda(valorOpText);
+        ValidaMoeda validaJuros = new ValidaMoeda(jurosText);
         eventoDatePicker();
     }
 
@@ -95,6 +98,10 @@ public class ControllerViewCalculaCredito implements Initializable {
         this.tipo = tipo;
     }
 
+    public void setTitle(String title) {
+        descrLabel.setText(title);
+    }
+
     public void setTipoVBox(VBox tipoVBox) {
         this.tipoVBox.getChildren().clear();
         this.tipoVBox.getChildren().add(tipoVBox);
@@ -130,6 +137,7 @@ public class ControllerViewCalculaCredito implements Initializable {
     public void jurosTextAction() {
         try {
             jurosText.setText(formataValor(jurosText.getText()));
+            atualizaParcela();
         } catch(NumberFormatException e) {
             OperacoesViewController.getInstance().dialogoErro("Juros " +
                     "Inválidos", "Taxa de juros ao mês é inválida.");

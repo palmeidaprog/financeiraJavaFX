@@ -1,7 +1,6 @@
 package com.github.palmeidaprog.financeira.gui.operacoes_gui;
 
 import com.github.palmeidaprog.financeira.gui.ViewController;
-import com.github.palmeidaprog.financeira.gui.validacoes.ErroDialogable;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -10,7 +9,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-public class OperacoesViewController implements ErroDialogable {
+public class OperacoesViewController {
     private ControllerViewCalculaCredito controllerViewCalculaCredito =
             ControllerViewCalculaCredito.getInstance();
     private static volatile OperacoesViewController instance;
@@ -73,6 +72,8 @@ public class OperacoesViewController implements ErroDialogable {
     }
 
     public void showEmprestimo() {
+        ControllerViewCalculaCredito.getInstance().setTitle("Empréstimo " +
+                "Pessoal");
         loadVBox("view_novo_credito_emprestimo.fxml",
                 "Empréstimo")
                 .setController(ControllerViewNovoCreditoEmprestimo
@@ -80,6 +81,8 @@ public class OperacoesViewController implements ErroDialogable {
     }
 
     public void showOutraOperacao() {
+        ControllerViewCalculaCredito.getInstance().setTitle("Outra Operação "
+                + "Financeira");
         loadVBox("view_novo_credito_outra_operacao.fxml",
                 "Outra Operação Financeira")
                 .setController(ControllerViewNovoCreditoOutraOperacao

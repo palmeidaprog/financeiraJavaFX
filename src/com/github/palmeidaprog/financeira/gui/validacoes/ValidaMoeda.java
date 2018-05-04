@@ -2,6 +2,7 @@ package com.github.palmeidaprog.financeira.gui.validacoes;
 
 import javafx.event.EventHandler;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 
 import java.util.Locale;
@@ -16,43 +17,23 @@ public class ValidaMoeda {
     }
 
     private void eventos() {
-
-
-        textField.setOnKeyTyped(new EventHandler<KeyEvent>() {
+        textField.setOnKeyReleased(new EventHandler<KeyEvent>() {
 
             @Override
             public void handle(KeyEvent event) {
-                String str = textField.getText();
-
-                try {
-                    str = formataValor(str);
-                    updateField(str);
-                } catch(NumberFormatException e) {
-                    e.printStackTrace();
+                if(!event.getCode().isDigitKey() && event.getCode()
+                        != KeyCode.DEAD_ABOVEDOT) {
+                    int pos = textField.getCaretPosition();
+                    textField.setText(textField.getText().replace(event
+                            .getCode().getName()
+                            ,  ""));
+                    textField.setText(textField.getText().replace(event
+                                    .getCode().getName().toLowerCase()
+                            ,  ""));
+                    textField.positionCaret(pos);
                 }
-
-                if(muitosPontos() == 2) {
-
-                    str.replaceFirst(".",  "");
-                }
-
-
             }
         });
-    }
-
-    private int muitosPontos() {
-        String valor = textField.getText();
-        int count = 0;
-
-        for(int i = valor.length(); i >= 0; i--) {
-            if(valor.charAt(i) == '.') {
-                if(++count >= 2) {
-                    return count;
-                }
-            }
-        }
-        return count;
     }
 
     //
