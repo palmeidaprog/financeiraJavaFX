@@ -47,6 +47,10 @@ public class ViewController { // factory (frankenstein) // viewFactory
         }
     }
 
+    public Cliente getCliente() {
+        return ControllerViewCliente.getInstance().getCliente();
+    }
+
     public void dialogoErro(String titulo, String texto) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle(titulo);

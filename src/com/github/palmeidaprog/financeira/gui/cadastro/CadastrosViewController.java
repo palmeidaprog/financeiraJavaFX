@@ -11,7 +11,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class CadastrosViewController {
-    private Stage stage, adiciona;
+    private Stage stage, adiciona, automovel;
     private Scene scene;
     private Parent root;
 
@@ -48,6 +48,30 @@ public class CadastrosViewController {
         }
     }
 
+    public void showAutomovel(Cadastro cadastro, String title) {
+        if(automovel != null && automovel.isShowing()) {
+            automovel.requestFocus();
+            return;
+        }
+
+        automovel = new Stage();
+        FXMLLoader autoLoader = new FXMLLoader(getClass().getResource(
+                "view_adiciona_automovel.fxml"));
+
+        autoLoader.setController(ControllerViewAdicionaAutomovel
+                .getInstance());
+        try {
+            Parent root = autoLoader.load();
+            automovel.setScene(new Scene(root, 585, 544));
+            automovel.setTitle(title);
+            ControllerViewAdicionaAutomovel.getInstance().setCadastro(
+                    cadastro);
+            stage.show();
+        } catch(IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 
     public void showNovaRenda(Cadastro cadastro) {
         VBox root = null;
@@ -71,6 +95,8 @@ public class CadastrosViewController {
             }
         }
     }
+
+
 
     public void fechaAdiciona() {
         adiciona.close();

@@ -1,10 +1,12 @@
 package com.github.palmeidaprog.financeira.gui.operacoes_gui;
 
+import com.github.palmeidaprog.financeira.clientes.Cliente;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.RadioButton;
 
 public class ControllerViewNovoCredito {
+    private Cliente cliente;
     private static volatile ControllerViewNovoCredito instance;
     @FXML private RadioButton outraOperacaoRadio, financiamentoRadio,
         emprestimoPessoalRadio;
@@ -18,6 +20,14 @@ public class ControllerViewNovoCredito {
             instance = new ControllerViewNovoCredito();
         }
         return instance;
+    }
+
+    public Cliente getCliente() {
+        return cliente;
+    }
+
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
     }
 
     private void resetRadioButtons() {

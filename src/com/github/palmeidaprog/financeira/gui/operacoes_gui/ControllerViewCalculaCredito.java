@@ -1,14 +1,18 @@
 package com.github.palmeidaprog.financeira.gui.operacoes_gui;
 
+import com.github.palmeidaprog.financeira.gui.Controller;
 import com.github.palmeidaprog.financeira.gui.ViewController;
+import com.github.palmeidaprog.financeira.gui.cadastro.CadastrosViewController;
 import com.github.palmeidaprog.financeira.gui.validacoes.ValidaMoeda;
 import com.github.palmeidaprog.financeira.operacoes.OperacaoCredito;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
+import javafx.stage.WindowEvent;
 import javafx.util.StringConverter;
 
 import java.net.URL;
@@ -42,6 +46,8 @@ public class ControllerViewCalculaCredito implements Initializable {
     }
 
     public void initialize(URL u, ResourceBundle rb) {
+
+
         formato = new SimpleDateFormat("dd/MM/yyyy");
         descrLabel.setText(tipo);
         ObservableList<String> parc = FXCollections.observableArrayList(
@@ -108,6 +114,12 @@ public class ControllerViewCalculaCredito implements Initializable {
     }
 
     //--Events----------------------------------------------------------------
+
+    public void novoBemBtnClick() {
+        CadastrosViewController.getInstance().showAutomovel(
+                ControllerViewNovoCredito.getInstance().getCliente()
+                        .getCadastro(),"Novo Automóvel");
+    }
 
     public void valorOpLabelAction() {
         try {

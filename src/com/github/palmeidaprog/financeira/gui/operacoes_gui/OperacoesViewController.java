@@ -1,11 +1,14 @@
 package com.github.palmeidaprog.financeira.gui.operacoes_gui;
 
+import com.github.palmeidaprog.financeira.clientes.Cliente;
 import com.github.palmeidaprog.financeira.gui.ViewController;
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
 import java.io.IOException;
 
@@ -26,6 +29,10 @@ public class OperacoesViewController {
         return instance;
     }
 
+    public Cliente getCliente() {
+        return ViewController.getInstance().getCliente();
+    }
+
     public Scene getMainScene() {
         return scene;
     }
@@ -38,7 +45,7 @@ public class OperacoesViewController {
         return root;
     }
 
-    public void showNovaOperacao() {
+    public void showNovaOperacao(Cliente cliente) {
         if(stage != null && stage.isShowing()) {
             stage.requestFocus();
         } else {
@@ -51,6 +58,7 @@ public class OperacoesViewController {
                 stage.setTitle("Financeira - Operações Financeiras");
                 scene = new Scene(root, 600, 350);
                 stage.setScene(scene);
+                ControllerViewNovoCredito.getInstance().setCliente(cliente);
                 stage.showAndWait();
             } catch (IOException e) {
                 e.printStackTrace();

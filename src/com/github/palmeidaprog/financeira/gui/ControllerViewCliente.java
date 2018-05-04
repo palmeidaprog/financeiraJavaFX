@@ -12,6 +12,8 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 
+import java.text.ParseException;
+
 public class ControllerViewCliente {
     @FXML private Label primeiroNomeLabel, meioNomeLabel, sobrenomeLabel;
     @FXML private Label primeiroNomeLabel2, meioNomeLabel2, sobrenomeLabel2;
@@ -101,7 +103,7 @@ public class ControllerViewCliente {
     }
 
     public void novaOperacaoBtnClicked() {
-        OperacoesViewController.getInstance().showNovaOperacao();
+        OperacoesViewController.getInstance().showNovaOperacao(c);
     }
 
     public void mostraCadastro(Cadastro c) {
@@ -119,5 +121,9 @@ public class ControllerViewCliente {
     public void editaCadastroBtnClicked() {
         CadastrosViewController.getInstance().showEditaCadastro(
                 c.getCadastro());
+    }
+
+    public Cliente getCliente() {
+        return c;
     }
 }
