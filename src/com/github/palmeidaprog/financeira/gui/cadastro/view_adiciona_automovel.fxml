@@ -98,10 +98,10 @@
                         </HBox>
                         <HBox>
                            <children>
-                              <TableView fx:id="rendaTable" prefHeight="220.0" prefWidth="560.0">
+                              <TableView fx:id="pendTable" prefHeight="220.0" prefWidth="560.0">
                                  <columns>
-                                    <TableColumn fx:id="descrRendaCol" editable="false" prefWidth="405.0" text="Pendencia" />
-                                    <TableColumn fx:id="valorRendaCol" editable="false" minWidth="0.0" prefWidth="154.0" text="Valor" />
+                                    <TableColumn fx:id="descrPendCol" editable="false" prefWidth="405.0" text="Pendencia" />
+                                    <TableColumn fx:id="valorPendCol" editable="false" minWidth="0.0" prefWidth="154.0" text="Valor" />
                                  </columns>
                               </TableView>
                            </children>
