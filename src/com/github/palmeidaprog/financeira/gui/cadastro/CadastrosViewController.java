@@ -67,7 +67,7 @@ public class CadastrosViewController {
             automovel.setTitle(title);
             ControllerViewAdicionaAutomovel.getInstance().setCadastro(
                     cadastro);
-            stage.show();
+            automovel.show();
         } catch(IOException e) {
             e.printStackTrace();
         }

@@ -64,8 +64,4 @@ public class ControllerViewNovoCredito {
             operacoesViewController.showEmprestimo();
         }
     }
-
-
-
-
 }
