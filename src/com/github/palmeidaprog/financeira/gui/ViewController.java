@@ -1,7 +1,6 @@
 package com.github.palmeidaprog.financeira.gui;
 
 import com.github.palmeidaprog.financeira.clientes.Cliente;
-import com.github.palmeidaprog.financeira.gui.cadastro.CadastrosViewController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Alert;
 import javafx.scene.layout.VBox;
@@ -23,8 +22,8 @@ public class ViewController { // factory (frankenstein) // viewFactory
     public void showNovoCliente() {
         VBox root;
         FXMLLoader novoClienteLoaader = new FXMLLoader(getClass()
-                .getResource("novo_cliente.fxml"));
-        novoClienteLoaader.setController(ControllerNovoCliente.getInstance());
+                .getResource("NovoClienteView.fxml"));
+        novoClienteLoaader.setController(NovoClienteController.getInstance());
         try {
             root = novoClienteLoaader.load();
             Controller.getInstance().getMain().setCenter(root);
@@ -36,19 +35,19 @@ public class ViewController { // factory (frankenstein) // viewFactory
     public void showViewCliente(Cliente cliente) {
         VBox viewCliente;
         FXMLLoader vClienteLoad = new FXMLLoader(getClass()
-                .getResource("view_cliente.fxml"));
-        vClienteLoad.setController(ControllerViewCliente.getInstance());
+                .getResource("MostraClienteView.fxml"));
+        vClienteLoad.setController(MostraClienteController.getInstance());
         try {
             viewCliente = vClienteLoad.load();
             Controller.getInstance().getMain().setCenter(viewCliente);
-            ControllerViewCliente.getInstance().mostraCliente(cliente);
+            MostraClienteController.getInstance().mostraCliente(cliente);
         } catch(IOException e) {
             e.printStackTrace();
         }
     }
 
     public Cliente getCliente() {
-        return ControllerViewCliente.getInstance().getCliente();
+        return MostraClienteController.getInstance().getCliente();
     }
 
     public void dialogoErro(String titulo, String texto) {

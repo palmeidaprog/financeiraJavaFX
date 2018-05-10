@@ -10,18 +10,18 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-public class CadastrosViewController {
+public class EditaCadastroController {
     private Stage stage, adiciona, automovel;
     private Scene scene;
     private Parent root;
 
     // Singleton
-    private CadastrosViewController() { }
-    private static volatile CadastrosViewController instance;
+    private EditaCadastroController() { }
+    private static volatile EditaCadastroController instance;
 
-    public synchronized static CadastrosViewController getInstance() {
+    public synchronized static EditaCadastroController getInstance() {
         if(instance == null) {
-            instance = new CadastrosViewController();
+            instance = new EditaCadastroController();
         }
         return instance;
     }
@@ -32,7 +32,7 @@ public class CadastrosViewController {
         } else {
             stage = new Stage();
             FXMLLoader mainLoader = new FXMLLoader(getClass()
-                    .getResource("view_cadastro.fxml"));
+                    .getResource("EditaCadastroView.fxml"));
 
             mainLoader.setController(ControllerViewCadastro.getInstance());
             try {
@@ -57,15 +57,15 @@ public class CadastrosViewController {
 
         automovel = new Stage();
         FXMLLoader autoLoader = new FXMLLoader(getClass().getResource(
-                "view_adiciona_automovel.fxml"));
+                "AdicionaAutomovelView.fxml"));
 
-        autoLoader.setController(ControllerViewAdicionaAutomovel
+        autoLoader.setController(AdicionaAutomovelController
                 .getInstance());
         try {
             Parent root = autoLoader.load();
             automovel.setScene(new Scene(root, 585, 544));
             automovel.setTitle(title);
-            ControllerViewAdicionaAutomovel.getInstance().setCadastro(
+            AdicionaAutomovelController.getInstance().setCadastro(
                     cadastro);
             automovel.show();
         } catch(IOException e) {
@@ -82,9 +82,9 @@ public class CadastrosViewController {
         } else {
             adiciona = new Stage();
             FXMLLoader loader = new FXMLLoader(getClass().getResource
-                    ("view_adiciona_Renda.fxml"));
-            loader.setController(ControllerViewAdicionaRenda.getInstance());
-            ControllerViewAdicionaRenda.getInstance().setCadastro(cadastro);
+                    ("AdicionaRendaView.fxml"));
+            loader.setController(AdicionaRendaController.getInstance());
+            AdicionaRendaController.getInstance().setCadastro(cadastro);
             adiciona.setTitle("Financeira - Adicionando Nova Renda");
             try {
                 root = loader.load();

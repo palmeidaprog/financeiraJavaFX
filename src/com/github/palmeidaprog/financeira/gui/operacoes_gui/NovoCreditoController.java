@@ -5,19 +5,19 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.RadioButton;
 
-public class ControllerViewNovoCredito {
+public class NovoCreditoController {
     private Cliente cliente;
-    private static volatile ControllerViewNovoCredito instance;
+    private static volatile NovoCreditoController instance;
     @FXML private RadioButton outraOperacaoRadio, financiamentoRadio,
         emprestimoPessoalRadio;
     @FXML private Button continuarBtn;
 
 
-    private ControllerViewNovoCredito() { }
+    private NovoCreditoController() { }
 
-    public synchronized static ControllerViewNovoCredito getInstance() {
+    public synchronized static NovoCreditoController getInstance() {
         if(instance == null) {
-            instance = new ControllerViewNovoCredito();
+            instance = new NovoCreditoController();
         }
         return instance;
     }

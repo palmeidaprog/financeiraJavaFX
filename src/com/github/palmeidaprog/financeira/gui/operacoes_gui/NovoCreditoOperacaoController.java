@@ -2,15 +2,15 @@ package com.github.palmeidaprog.financeira.gui.operacoes_gui;
 
 import com.github.palmeidaprog.financeira.gui.cadastro.EditaCadastroController;
 
-public class ControllerViewNovoCreditoEmprestimo {
-    private static volatile ControllerViewNovoCreditoEmprestimo instance;
-   
-    private ControllerViewNovoCreditoEmprestimo() { }
+public class NovoCreditoOperacaoController {
+    private static volatile NovoCreditoOperacaoController instance;
 
-    public synchronized static ControllerViewNovoCreditoEmprestimo
-            getInstance() {
+    private NovoCreditoOperacaoController() { }
+
+    public synchronized static NovoCreditoOperacaoController
+    getInstance() {
         if(instance == null) {
-            instance = new ControllerViewNovoCreditoEmprestimo();
+            instance = new NovoCreditoOperacaoController();
         }
         return instance;
     }
