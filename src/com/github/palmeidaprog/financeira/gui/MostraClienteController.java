@@ -4,7 +4,7 @@ import com.github.palmeidaprog.financeira.clientes.Cadastro;
 import com.github.palmeidaprog.financeira.clientes.Cliente;
 import com.github.palmeidaprog.financeira.clientes.PessoaFisica;
 import com.github.palmeidaprog.financeira.clientes.PessoaJuridica;
-import com.github.palmeidaprog.financeira.gui.cadastro.CadastrosViewController;
+import com.github.palmeidaprog.financeira.gui.cadastro.EditaCadastroController;
 import com.github.palmeidaprog.financeira.gui.operacoes_gui.OperacoesViewController;
 import com.github.palmeidaprog.financeira.info.Endereco;
 import com.github.palmeidaprog.financeira.info.telefone.Telefone;
@@ -12,9 +12,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 
-import java.text.ParseException;
-
-public class ControllerViewCliente {
+public class MostraClienteController {
     @FXML private Label primeiroNomeLabel, meioNomeLabel, sobrenomeLabel;
     @FXML private Label primeiroNomeLabel2, meioNomeLabel2, sobrenomeLabel2;
     @FXML private Label cpfLabel2, outroLabel2, CpfLabel1, orgaoLabel2;
@@ -26,11 +24,11 @@ public class ControllerViewCliente {
     @FXML private Button editaCadastroBtn;
     private Cliente c;
 
-    private static volatile ControllerViewCliente instance;
-    private ControllerViewCliente() { }
-    public synchronized static ControllerViewCliente getInstance() {
+    private static volatile MostraClienteController instance;
+    private MostraClienteController() { }
+    public synchronized static MostraClienteController getInstance() {
         if(instance == null) {
-            instance = new ControllerViewCliente();
+            instance = new MostraClienteController();
         }
         return instance;
     }
@@ -119,7 +117,7 @@ public class ControllerViewCliente {
      */
 
     public void editaCadastroBtnClicked() {
-        CadastrosViewController.getInstance().showEditaCadastro(
+        EditaCadastroController.getInstance().showEditaCadastro(
                 c.getCadastro());
     }
 

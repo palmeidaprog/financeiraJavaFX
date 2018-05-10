@@ -3,7 +3,7 @@ package com.github.palmeidaprog.financeira.gui.cadastro;
 import com.github.palmeidaprog.financeira.clientes.Bem;
 import com.github.palmeidaprog.financeira.clientes.Cadastro;
 import com.github.palmeidaprog.financeira.clientes.Renda;
-import com.github.palmeidaprog.financeira.gui.ControllerViewCliente;
+import com.github.palmeidaprog.financeira.gui.MostraClienteController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -21,8 +21,8 @@ public class ControllerViewCadastro implements Initializable {
     @FXML private Label debTotLabel, rendasLabel;
     @FXML private Button adicRendaBtn, delRendaBtn, adicBemBtn, delBemBtn;
     @FXML private Button OkBtn;
-    private CadastrosViewController cadastrosViewController =
-            CadastrosViewController.getInstance();
+    private EditaCadastroController cadastrosViewController =
+            EditaCadastroController.getInstance();
 
     // tables
     @FXML private TableView<Renda> rendaTable;
@@ -90,7 +90,7 @@ public class ControllerViewCadastro implements Initializable {
 
     private void updateCadastro() {
         mostraCadastro();
-        ControllerViewCliente.getInstance().mostraCadastro(cadastro);
+        MostraClienteController.getInstance().mostraCadastro(cadastro);
     }
 
     private String formataValor(double v) {

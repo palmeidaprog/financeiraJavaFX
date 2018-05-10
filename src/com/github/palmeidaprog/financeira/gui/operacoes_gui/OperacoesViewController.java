@@ -2,19 +2,17 @@ package com.github.palmeidaprog.financeira.gui.operacoes_gui;
 
 import com.github.palmeidaprog.financeira.clientes.Cliente;
 import com.github.palmeidaprog.financeira.gui.ViewController;
-import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import javafx.stage.WindowEvent;
 
 import java.io.IOException;
 
 public class OperacoesViewController {
-    private ControllerViewCalculaCredito controllerViewCalculaCredito =
-            ControllerViewCalculaCredito.getInstance();
+    private CalculaCreditoController calculaCreditoController =
+            CalculaCreditoController.getInstance();
     private static volatile OperacoesViewController instance;
     private Stage stage;
     private Scene scene;
@@ -51,14 +49,14 @@ public class OperacoesViewController {
         } else {
             stage = new Stage();
             FXMLLoader mainLoader = new FXMLLoader(getClass()
-                    .getResource("view_novo_credito.fxml"));
-            mainLoader.setController(ControllerViewNovoCredito.getInstance());
+                    .getResource("NovoCreditoView.fxml"));
+            mainLoader.setController(NovoCreditoController.getInstance());
             try {
                 root = mainLoader.load();
                 stage.setTitle("Financeira - Operações Financeiras");
                 scene = new Scene(root, 600, 350);
                 stage.setScene(scene);
-                ControllerViewNovoCredito.getInstance().setCliente(cliente);
+                NovoCreditoController.getInstance().setCliente(cliente);
                 stage.showAndWait();
             } catch (IOException e) {
                 e.printStackTrace();
@@ -68,9 +66,9 @@ public class OperacoesViewController {
 
     public void showFinanciamento() {
         FXMLLoader loader = new FXMLLoader(getClass().getResource
-                ("view_calcula_credito.fxml"));
-        loader.setController(ControllerViewCalculaCredito.getInstance());
-        ControllerViewCalculaCredito.getInstance().setTipo("Financiamento");
+                ("CalculaCreditoView.fxml"));
+        loader.setController(CalculaCreditoController.getInstance());
+        CalculaCreditoController.getInstance().setTipo("Financiamento");
         try {
             root = loader.load();
             scene.setRoot(root);
@@ -80,20 +78,20 @@ public class OperacoesViewController {
     }
 
     public void showEmprestimo() {
-        ControllerViewCalculaCredito.getInstance().setTitle("Empréstimo " +
+        CalculaCreditoController.getInstance().setTitle("Empréstimo " +
                 "Pessoal");
-        loadVBox("view_novo_credito_emprestimo.fxml",
+        loadVBox("NovoCreditoEmprestimoView.fxml",
                 "Empréstimo")
                 .setController(ControllerViewNovoCreditoEmprestimo
                         .getInstance());
     }
 
     public void showOutraOperacao() {
-        ControllerViewCalculaCredito.getInstance().setTitle("Outra Operação "
+        CalculaCreditoController.getInstance().setTitle("Outra Operação "
                 + "Financeira");
-        loadVBox("view_novo_credito_outra_operacao.fxml",
+        loadVBox("NovoCreditoOperacaoView.fxml",
                 "Outra Operação Financeira")
-                .setController(ControllerViewNovoCreditoOutraOperacao
+                .setController(NovoCreditoOperacaoController
                         .getInstance());
     }
 
@@ -101,10 +99,10 @@ public class OperacoesViewController {
         VBox root;
         FXMLLoader loader = new FXMLLoader(getClass().getResource
                 (fxml));
-        controllerViewCalculaCredito.setTipo(tipo);
+        calculaCreditoController.setTipo(tipo);
         try {
             root = loader.load();
-            controllerViewCalculaCredito.setTipoVBox(root);
+            calculaCreditoController.setTipoVBox(root);
         } catch (IOException e) {
             e.printStackTrace();
         }

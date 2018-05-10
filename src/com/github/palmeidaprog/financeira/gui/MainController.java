@@ -9,7 +9,6 @@ import com.github.palmeidaprog.financeira.info.Cpf;
 import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
@@ -20,10 +19,10 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class Controller implements Initializable {
+public class MainController implements Initializable {
     private ClienteController clientes;
 
-    private volatile static Controller instance;
+    private volatile static MainController instance;
     @FXML private BorderPane mainPane;
     @FXML private TextField cpfText;
     @FXML private Button okCpfBtn, criaBtn, escolherBtn;
@@ -31,7 +30,7 @@ public class Controller implements Initializable {
     @FXML private Label cpfLabel;
     @FXML private VBox escolherVBox;
 
-    private Controller() {
+    private MainController() {
         try {
             clientes = ClienteController.getInstance();
         } catch (IOException e) {
@@ -51,9 +50,9 @@ public class Controller implements Initializable {
         });
     }
 
-    public synchronized static Controller getInstance() {
+    public synchronized static MainController getInstance() {
         if(instance == null) {
-            instance = new Controller();
+            instance = new MainController();
         }
         return instance;
     }

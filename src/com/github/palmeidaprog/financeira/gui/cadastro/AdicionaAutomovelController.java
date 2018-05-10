@@ -11,8 +11,8 @@ import javafx.util.Pair;
 
 import java.util.HashMap;
 
-public class ControllerViewAdicionaAutomovel {
-    private static volatile ControllerViewAdicionaAutomovel instance;
+public class AdicionaAutomovelController {
+    private static volatile AdicionaAutomovelController instance;
     private Cadastro cadastro;
 
     @FXML
@@ -29,14 +29,14 @@ public class ControllerViewAdicionaAutomovel {
     @FXML
     private TableColumn<Pendencia, String> descrPendCol;
     @FXML
-    private TableColumn<Pendencia, double> valorPendCol;
+    private TableColumn<Pendencia, String> valorPendCol;
 
     // Singleton
-    private ControllerViewAdicionaAutomovel() { }
+    private AdicionaAutomovelController() { }
 
-    public synchronized static ControllerViewAdicionaAutomovel getInstance() {
+    public synchronized static AdicionaAutomovelController getInstance() {
         if(instance == null) {
-            instance = new ControllerViewAdicionaAutomovel();
+            instance = new AdicionaAutomovelController();
         }
         return instance;
     }
@@ -48,14 +48,15 @@ public class ControllerViewAdicionaAutomovel {
     public void adicBtnClicked() {
         if(validaCampos()){
             try {
+                // remover depois (verificar) TODO: verificar
                 cadastro.getBens().inserir(new Automovel(Double.parseDouble(
                         valorText.getText()), marcaText.getText(), modeloText
                         .getText(), Integer.parseInt(anoModText.getText()),
                         Integer.parseInt(anoFabText.getText())));
-                CadastrosViewController.getInstance().fechaAdiciona();
+                EditaCadastroController.getInstance().fechaAdiciona();
                 ControllerViewCadastro.getInstance().atualizaRendas();
             } catch (NumberFormatException e) {
-                CadastrosViewController.getInstance().dialogoErro(
+                EditaCadastroController.getInstance().dialogoErro(
                         "Erro", "Valor digitado não é um numero"
                     + "válido.");
                 valorText.requestFocus();
@@ -77,7 +78,7 @@ public class ControllerViewAdicionaAutomovel {
 
     private boolean campoVazio(TextField text, String nome) {
         if(text.getText().trim().isEmpty()) {
-            CadastrosViewController.getInstance().dialogoErro("Erro",
+            EditaCadastroController.getInstance().dialogoErro("Erro",
                     "Você precisa preencher o campo " + nome + " para " +
                             "adionar o novo automóvel.");
             text.requestFocus();
@@ -87,7 +88,7 @@ public class ControllerViewAdicionaAutomovel {
     }
 
     public void cancelBtnClicked() {
-        CadastrosViewController.getInstance().fechaAdiciona();
+        EditaCadastroController.getInstance().fechaAdiciona();
     }
 
 

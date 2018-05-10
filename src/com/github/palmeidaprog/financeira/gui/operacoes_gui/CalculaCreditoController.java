@@ -1,18 +1,15 @@
 package com.github.palmeidaprog.financeira.gui.operacoes_gui;
 
-import com.github.palmeidaprog.financeira.gui.Controller;
 import com.github.palmeidaprog.financeira.gui.ViewController;
-import com.github.palmeidaprog.financeira.gui.cadastro.CadastrosViewController;
+import com.github.palmeidaprog.financeira.gui.cadastro.EditaCadastroController;
 import com.github.palmeidaprog.financeira.gui.validacoes.ValidaMoeda;
 import com.github.palmeidaprog.financeira.operacoes.OperacaoCredito;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
-import javafx.stage.WindowEvent;
 import javafx.util.StringConverter;
 
 import java.net.URL;
@@ -22,8 +19,8 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 
-public class ControllerViewCalculaCredito implements Initializable {
-    private static volatile ControllerViewCalculaCredito instance;
+public class CalculaCreditoController implements Initializable {
+    private static volatile CalculaCreditoController instance;
     private String tipo;
     private SimpleDateFormat formato;
 
@@ -36,11 +33,11 @@ public class ControllerViewCalculaCredito implements Initializable {
     @FXML private Button novoBemBtn, aceitarBtn;
     @FXML private RadioButton imovelRadio, automovelRadio;
 
-    private ControllerViewCalculaCredito() { }
+    private CalculaCreditoController() { }
 
-    public synchronized static ControllerViewCalculaCredito getInstance() {
+    public synchronized static CalculaCreditoController getInstance() {
         if(instance == null) {
-            instance = new ControllerViewCalculaCredito();
+            instance = new CalculaCreditoController();
         }
         return instance;
     }
@@ -116,8 +113,8 @@ public class ControllerViewCalculaCredito implements Initializable {
     //--Events----------------------------------------------------------------
 
     public void novoBemBtnClick() {
-        CadastrosViewController.getInstance().showAutomovel(
-                ControllerViewNovoCredito.getInstance().getCliente()
+        EditaCadastroController.getInstance().showAutomovel(
+                NovoCreditoController.getInstance().getCliente()
                         .getCadastro(),"Novo Automóvel");
     }
 
