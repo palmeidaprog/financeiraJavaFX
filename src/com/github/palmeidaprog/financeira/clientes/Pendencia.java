@@ -9,11 +9,14 @@ package com.github.palmeidaprog.financeira.clientes;
  * Professor: Antonio Canvalcanti
  */
 
+import javafx.beans.property.StringProperty;
 import java.io.Serializable;
 import java.util.Locale;
 
 public class Pendencia implements Serializable {
     private double valor;
+    private StringProperty valorP;
+    private StringProperty descricaoP;
     private String descricao;
 
     // deserialização
@@ -28,6 +31,15 @@ public class Pendencia implements Serializable {
 
     public void setValor(double valor) {
         this.valor = valor;
+        valorP.set(valorFormatado(valor));
+    }
+
+    public StringProperty valorPProperty() {
+        return valorP;
+    }
+
+    public StringProperty descricaoPProperty() {
+        return descricaoP;
     }
 
     public String getDescricao() {
@@ -36,11 +48,15 @@ public class Pendencia implements Serializable {
 
     public void setDescricao(String descricao) {
         this.descricao = descricao;
+        descricaoP.set(descricao);
+    }
+
+    private String valorFormatado(double valor) {
+        return String.format(Locale.getDefault(), "%.2f", valor);
     }
 
     public String formatado() {
-        return String.format(Locale.getDefault(), "%.2f", valor) + " "
-                + descricao;
+        return valorFormatado(valor) + " " + descricao;
     }
 
     @Override

@@ -4,7 +4,7 @@ import com.github.palmeidaprog.financeira.clientes.Cadastro;
 import com.github.palmeidaprog.financeira.clientes.Cliente;
 import com.github.palmeidaprog.financeira.clientes.PessoaFisica;
 import com.github.palmeidaprog.financeira.clientes.PessoaJuridica;
-import com.github.palmeidaprog.financeira.gui.cadastro.EditaCadastroController;
+import com.github.palmeidaprog.financeira.gui.cadastro.CadastroViewFrontController;
 import com.github.palmeidaprog.financeira.gui.operacoes_gui.OperacoesViewFrontController;
 import com.github.palmeidaprog.financeira.info.Endereco;
 import com.github.palmeidaprog.financeira.info.telefone.Telefone;
@@ -117,7 +117,7 @@ public class MostraClienteController {
      */
 
     public void editaCadastroBtnClicked() {
-        EditaCadastroController.getInstance().showEditaCadastro(
+        CadastroViewFrontController.getInstance().showEditaCadastro(
                 c.getCadastro());
     }
 

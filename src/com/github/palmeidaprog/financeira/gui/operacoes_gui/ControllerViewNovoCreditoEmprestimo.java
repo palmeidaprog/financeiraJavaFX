@@ -1,6 +1,6 @@
 package com.github.palmeidaprog.financeira.gui.operacoes_gui;
 
-import com.github.palmeidaprog.financeira.gui.cadastro.EditaCadastroController;
+import com.github.palmeidaprog.financeira.gui.cadastro.CadastroViewFrontController;
 
 public class ControllerViewNovoCreditoEmprestimo {
     private static volatile ControllerViewNovoCreditoEmprestimo instance;
@@ -16,7 +16,7 @@ public class ControllerViewNovoCreditoEmprestimo {
     }
 
     public void novoBemBtnClick() {
-        EditaCadastroController.getInstance().showAutomovel(
+        CadastroViewFrontController.getInstance().showAutomovel(
                 NovoCreditoController.getInstance().getCliente()
                         .getCadastro(),"Novo Automóvel");
     }

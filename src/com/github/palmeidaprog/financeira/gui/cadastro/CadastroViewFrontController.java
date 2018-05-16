@@ -1,43 +1,23 @@
 package com.github.palmeidaprog.financeira.gui.cadastro;
 
-import com.github.palmeidaprog.financeira.clientes.Bem;
 import com.github.palmeidaprog.financeira.clientes.Cadastro;
-import com.github.palmeidaprog.financeira.clientes.Renda;
-import com.github.palmeidaprog.financeira.gui.MostraClienteController;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
-import javafx.scene.control.*;
-import javafx.scene.control.cell.PropertyValueFactory;
-import java.net.URL;
-import java.util.List;
-import java.util.ResourceBundle;
+import com.github.palmeidaprog.financeira.gui.ViewFrontController;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 
-public class CadastroViewFrontController implements Initializable {
-    private static volatile CadastroViewFrontController instance;
+import java.io.IOException;
 
-    @FXML private Label credTotalLabel, debNomLabel, bensLabel, credDispLabel;
-    @FXML private Label debTotLabel, rendasLabel;
-    @FXML private Button adicRendaBtn, delRendaBtn, adicBemBtn, delBemBtn;
-    @FXML private Button OkBtn;
-    private EditaCadastroController cadastrosViewController =
-            EditaCadastroController.getInstance();
-
-    // tables
-    @FXML private TableView<Renda> rendaTable;
-    @FXML private TableColumn<Renda, String> descrRendaCol;
-    @FXML private TableColumn<Renda, String> valorRendaCol;
-    @FXML private TableView<Bem> bemTable;
-    @FXML private TableColumn<Bem, String> descrBemCol;
-    @FXML private TableColumn<Bem, String> valorBemCol;
-    private Cadastro cadastro;
-    private ObservableList<Bem> bens = FXCollections.observableArrayList();
-    private ObservableList<Renda> rendas = FXCollections
-            .observableArrayList();
+public class CadastroViewFrontController {
+    private Stage stage, adiciona, automovel;
+    private Scene scene;
+    private Parent root;
 
     // Singleton
     private CadastroViewFrontController() { }
+    private static volatile CadastroViewFrontController instance;
 
     public synchronized static CadastroViewFrontController getInstance() {
         if(instance == null) {
@@ -46,74 +26,84 @@ public class CadastroViewFrontController implements Initializable {
         return instance;
     }
 
-    public void initialize(URL u, ResourceBundle rb) {
-        try {
-            atualizaRendas();
-        } catch(NullPointerException e) {
-            // faz nada
+    public void showEditaCadastro(Cadastro cadastro) {
+        if(stage != null && stage.isShowing()) {
+            stage.requestFocus();
+        } else {
+            stage = new Stage();
+            FXMLLoader mainLoader = new FXMLLoader(getClass()
+                    .getResource("EditaCadastroView.fxml"));
+
+            mainLoader.setController(EditaCadastroController.getInstance());
+            try {
+                root = mainLoader.load();
+                stage.setTitle("Financeira - Editando Cadastro");
+                scene = new Scene(root, 770, 440);
+                stage.setScene(scene);
+                EditaCadastroController.getInstance().setCadastro(cadastro);
+                stage.showAndWait();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
-        descrRendaCol.setCellValueFactory(new PropertyValueFactory<>
-                ("descricao"));
-        valorRendaCol.setCellValueFactory(new PropertyValueFactory<>
-                ("valFormatado"));
-        rendaTable.setItems(rendas);
-        try {
-            atualizaBens();
-        } catch(NullPointerException e) {
-            // faz nada
+    }
+
+    public void showAutomovel(Cadastro cadastro, String title) {
+        // todo: resolver o nao aparencendo
+        if(automovel != null && automovel.isShowing()) {
+            automovel.requestFocus();
+            return;
         }
-        descrBemCol.setCellValueFactory(new PropertyValueFactory<>
-                ("descricao"));
-        valorBemCol.setCellValueFactory(new PropertyValueFactory<>
-                ("valLiqFormatado"));
-        bemTable.setItems(bens);
-    }
 
-    public <T> ObservableList<T> inicializaLista(List<T> l) {
-        return FXCollections.observableArrayList(l);
-    }
+        automovel = new Stage();
+        FXMLLoader autoLoader = new FXMLLoader(getClass().getResource(
+                "AdicionaAutomovelView.fxml"));
 
-    public void atualizaRendas() {
-        rendas = inicializaLista(cadastro.getRendas().getAll());
-    }
-
-    public void atualizaBens() {
-        bens = inicializaLista(cadastro.getBens().getAll());
-    }
-
-    public void setCadastro(Cadastro cadastro) {
-        this.cadastro = cadastro;
-        atualizaRendas();
-        atualizaBens();
-        updateCadastro();
-    }
-
-    private void updateCadastro() {
-        mostraCadastro();
-        MostraClienteController.getInstance().mostraCadastro(cadastro);
-    }
-
-    private String formataValor(double v) {
-        return String.format("%.2f", v);
+        autoLoader.setController(AdicionaAutomovelController
+                .getInstance());
+        try {
+            Parent root = autoLoader.load();
+            automovel.setScene(new Scene(root, 585, 544));
+            automovel.setTitle(title);
+            AdicionaAutomovelController.getInstance().setCadastro(
+                    cadastro);
+            automovel.show();
+        } catch(IOException e) {
+            e.printStackTrace();
+        }
     }
 
 
-    private void mostraCadastro() {
-        bensLabel.setText(formataValor(cadastro.getBens().totalLiquido()));
-        rendasLabel.setText(formataValor(cadastro.getRendas().total()));
-        credTotalLabel.setText(formataValor(cadastro.getCredito()
-                .getFinanciamento()));
-        credDispLabel.setText(formataValor(cadastro.getCredito()
-                .getPessoal()));
+    public void showNovaRenda(Cadastro cadastro) {
+        VBox root = null;
+
+        if(adiciona != null && adiciona.isShowing()) {
+            adiciona.requestFocus();
+        } else {
+            adiciona = new Stage();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource
+                    ("AdicionaRendaView.fxml"));
+            loader.setController(AdicionaRendaController.getInstance());
+            AdicionaRendaController.getInstance().setCadastro(cadastro);
+            adiciona.setTitle("Financeira - Adicionando Nova Renda");
+            try {
+                root = loader.load();
+                Scene scene = new Scene(root, 520, 220);
+                adiciona.setScene(scene);
+                adiciona.showAndWait();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
-    public void adicRendaBtnClicked() {
-        cadastrosViewController.showNovaRenda(cadastro);
 
+
+    public void fechaAdiciona() {
+        adiciona.close();
     }
 
-    public void delRendaBtnClicked() {
-        rendas.remove(rendaTable.getSelectionModel().getSelectedItem());
+    public void dialogoErro(String titulo, String msg) {
+        ViewFrontController.getInstance().dialogoErro(titulo, msg);
     }
-
 }

@@ -36,10 +36,10 @@ public class AdicionaRendaController {
                 double valor = Double.parseDouble(valorText.getText());
                 cadastro.getRendas().inserir(new Renda(valor, descrText
                         .getText()));
-                EditaCadastroController.getInstance().fechaAdiciona();
-                CadastroViewFrontController.getInstance().atualizaRendas();
+                CadastroViewFrontController.getInstance().fechaAdiciona();
+                EditaCadastroController.getInstance().atualizaRendas();
             } catch (NumberFormatException e) {
-                EditaCadastroController.getInstance().dialogoErro(
+                CadastroViewFrontController.getInstance().dialogoErro(
                         "Erro", "Valor digitado não é um numero"
                     + "válido.");
                 valorText.requestFocus();
@@ -49,7 +49,7 @@ public class AdicionaRendaController {
 
     private boolean campoVazio(TextField text, String nome) {
         if(text.getText().trim().isEmpty()) {
-            EditaCadastroController.getInstance().dialogoErro("Erro",
+            CadastroViewFrontController.getInstance().dialogoErro("Erro",
                     "Você precisa preencher o campo " + nome + " para " +
                             "adionar a nova renda.");
             text.requestFocus();
@@ -59,7 +59,7 @@ public class AdicionaRendaController {
     }
 
     public void cancelBtnClicked() {
-        EditaCadastroController.getInstance().fechaAdiciona();
+        CadastroViewFrontController.getInstance().fechaAdiciona();
     }
 
 

@@ -1,7 +1,7 @@
 package com.github.palmeidaprog.financeira.gui.operacoes_gui;
 
 import com.github.palmeidaprog.financeira.gui.ViewFrontController;
-import com.github.palmeidaprog.financeira.gui.cadastro.EditaCadastroController;
+import com.github.palmeidaprog.financeira.gui.cadastro.CadastroViewFrontController;
 import com.github.palmeidaprog.financeira.gui.validacoes.ValidaMoeda;
 import com.github.palmeidaprog.financeira.operacoes.OperacaoCredito;
 import javafx.collections.FXCollections;
@@ -113,7 +113,7 @@ public class CalculaCreditoController implements Initializable {
     //--Events----------------------------------------------------------------
 
     public void novoBemBtnClick() {
-        EditaCadastroController.getInstance().showAutomovel(
+        CadastroViewFrontController.getInstance().showAutomovel(
                 NovoCreditoController.getInstance().getCliente()
                         .getCadastro(),"Novo Automóvel");
     }
