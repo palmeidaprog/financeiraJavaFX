@@ -34,7 +34,7 @@ public class NovoClienteController implements Initializable {
     @FXML private TextField orgaoText, estadoOrgText, outroText, siglaText;
     @FXML private Button criarClienteBtn;
 
-    private ViewController viewController = ViewController.getInstance();
+    private ViewFrontController viewFrontController = ViewFrontController.getInstance();
     private ClienteController clientes;
     private VBox viewCliente;
 
@@ -43,7 +43,7 @@ public class NovoClienteController implements Initializable {
         try {
             clientes = ClienteController.getInstance();
         } catch (IOException e) {
-            viewController.dialogoErro("Erro", e.getMessage());
+            viewFrontController.dialogoErro("Erro", e.getMessage());
         }
     }
     public synchronized static NovoClienteController getInstance() {
@@ -83,7 +83,7 @@ public class NovoClienteController implements Initializable {
 
     private boolean campoVazio(TextField textField, String nome) {
         if(textField.getText().trim().isEmpty()) {
-            viewController.dialogoErro("Campo Vazio ", nome + " deve ser preen"
+            viewFrontController.dialogoErro("Campo Vazio ", nome + " deve ser preen"
                 + "chido.");
             textField.requestFocus();
             return false;
@@ -176,7 +176,7 @@ public class NovoClienteController implements Initializable {
                             new Estado(estadoOrgText.getText()));
                     try {
                         clientes.procurar(cpf);
-                        viewController.dialogoErro("Cliente já existe",
+                        viewFrontController.dialogoErro("Cliente já existe",
                                 "Cliente com CPF " + cpf + " já" +
                                         " existe.");
                     } catch (ProcuraSemResultadoException e) {
@@ -184,7 +184,7 @@ public class NovoClienteController implements Initializable {
                         sucesso = true;
                     }
                 } catch (InscricaoInvalidaException e) {
-                    viewController.dialogoErro("CPF Inválido", "O CPF " + cpfText
+                    viewFrontController.dialogoErro("CPF Inválido", "O CPF " + cpfText
                            .getText() + "não é válido.");
                 }
             } else {
@@ -193,7 +193,7 @@ public class NovoClienteController implements Initializable {
                             new Estado(estadoOrgText.getText()));
                     try {
                         clientes.procurar(cnpj);
-                        viewController.dialogoErro("Cliente já existe",
+                        viewFrontController.dialogoErro("Cliente já existe",
                                 "Cliente com CNPJ " + cnpj + " já" +
                                         " existe.");
                     } catch (ProcuraSemResultadoException e) {
@@ -201,7 +201,7 @@ public class NovoClienteController implements Initializable {
                         sucesso = true;
                     }
                 } catch (InscricaoInvalidaException e) {
-                    viewController.dialogoErro("CNPJ Inválido",
+                    viewFrontController.dialogoErro("CNPJ Inválido",
                             "O CNPJ " + cpfText.getText() +
                                     "não é válido.");
                 }
@@ -209,7 +209,7 @@ public class NovoClienteController implements Initializable {
         }
         if(sucesso) {
             MainController.getInstance().resetButtons();
-            ViewController.getInstance().showViewCliente(cliente);
+            ViewFrontController.getInstance().showViewCliente(cliente);
         }
     }
 
@@ -223,7 +223,7 @@ public class NovoClienteController implements Initializable {
         try {
             clientes.inserir(pf);
         } catch(IOException e) {
-            viewController.dialogoErro("Erro", e.getMessage());
+            viewFrontController.dialogoErro("Erro", e.getMessage());
         }
         return pf;
     }
@@ -238,7 +238,7 @@ public class NovoClienteController implements Initializable {
         try {
             clientes.inserir(pj);
         } catch(IOException e) {
-            ViewController.getInstance().dialogoErro("Erro",
+            ViewFrontController.getInstance().dialogoErro("Erro",
                     e.getMessage());
         }
         return pj;

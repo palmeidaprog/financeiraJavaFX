@@ -1,7 +1,7 @@
 package com.github.palmeidaprog.financeira.gui.cadastro;
 
 import com.github.palmeidaprog.financeira.clientes.Cadastro;
-import com.github.palmeidaprog.financeira.gui.ViewController;
+import com.github.palmeidaprog.financeira.gui.ViewFrontController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -34,13 +34,13 @@ public class EditaCadastroController {
             FXMLLoader mainLoader = new FXMLLoader(getClass()
                     .getResource("EditaCadastroView.fxml"));
 
-            mainLoader.setController(ControllerViewCadastro.getInstance());
+            mainLoader.setController(CadastroViewFrontController.getInstance());
             try {
                 root = mainLoader.load();
                 stage.setTitle("Financeira - Editando Cadastro");
                 scene = new Scene(root, 770, 440);
                 stage.setScene(scene);
-                ControllerViewCadastro.getInstance().setCadastro(cadastro);
+                CadastroViewFrontController.getInstance().setCadastro(cadastro);
                 stage.showAndWait();
             } catch (IOException e) {
                 e.printStackTrace();
@@ -104,6 +104,6 @@ public class EditaCadastroController {
     }
 
     public void dialogoErro(String titulo, String msg) {
-        ViewController.getInstance().dialogoErro(titulo, msg);
+        ViewFrontController.getInstance().dialogoErro(titulo, msg);
     }
 }

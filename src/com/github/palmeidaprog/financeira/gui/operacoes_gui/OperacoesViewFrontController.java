@@ -1,7 +1,7 @@
 package com.github.palmeidaprog.financeira.gui.operacoes_gui;
 
 import com.github.palmeidaprog.financeira.clientes.Cliente;
-import com.github.palmeidaprog.financeira.gui.ViewController;
+import com.github.palmeidaprog.financeira.gui.ViewFrontController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -10,25 +10,25 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-public class OperacoesViewController {
+public class OperacoesViewFrontController {
     private CalculaCreditoController calculaCreditoController =
             CalculaCreditoController.getInstance();
-    private static volatile OperacoesViewController instance;
+    private static volatile OperacoesViewFrontController instance;
     private Stage stage;
     private Scene scene;
     private Parent root;
 
-    private OperacoesViewController() { }
+    private OperacoesViewFrontController() { }
 
-    public synchronized static OperacoesViewController getInstance() {
+    public synchronized static OperacoesViewFrontController getInstance() {
         if(instance == null) {
-            instance = new OperacoesViewController();
+            instance = new OperacoesViewFrontController();
         }
         return instance;
     }
 
     public Cliente getCliente() {
-        return ViewController.getInstance().getCliente();
+        return ViewFrontController.getInstance().getCliente();
     }
 
     public Scene getMainScene() {
@@ -110,7 +110,7 @@ public class OperacoesViewController {
     }
 
     public void dialogoErro(String titulo, String msg) {
-        ViewController.getInstance().dialogoErro(titulo, msg);
+        ViewFrontController.getInstance().dialogoErro(titulo, msg);
     }
 
     //--Suporte---------------------------------------------------------------

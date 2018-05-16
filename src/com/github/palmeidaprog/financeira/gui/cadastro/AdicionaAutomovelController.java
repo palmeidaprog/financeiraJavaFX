@@ -3,13 +3,9 @@ package com.github.palmeidaprog.financeira.gui.cadastro;
 import com.github.palmeidaprog.financeira.clientes.Automovel;
 import com.github.palmeidaprog.financeira.clientes.Cadastro;
 import com.github.palmeidaprog.financeira.clientes.Pendencia;
-import com.github.palmeidaprog.financeira.clientes.Renda;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
-import javafx.util.Pair;
-
-import java.util.HashMap;
 
 public class AdicionaAutomovelController {
     private static volatile AdicionaAutomovelController instance;
@@ -54,7 +50,7 @@ public class AdicionaAutomovelController {
                         .getText(), Integer.parseInt(anoModText.getText()),
                         Integer.parseInt(anoFabText.getText())));
                 EditaCadastroController.getInstance().fechaAdiciona();
-                ControllerViewCadastro.getInstance().atualizaRendas();
+                CadastroViewFrontController.getInstance().atualizaRendas();
             } catch (NumberFormatException e) {
                 EditaCadastroController.getInstance().dialogoErro(
                         "Erro", "Valor digitado não é um numero"

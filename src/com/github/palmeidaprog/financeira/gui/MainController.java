@@ -76,7 +76,7 @@ public class MainController implements Initializable {
     public void criaBtnClicked() {
         resetButtons();
         criaBtn.setDisable(true);
-        ViewController.getInstance().showNovoCliente();
+        ViewFrontController.getInstance().showNovoCliente();
     }
 
     //--Eventos---------------------------------------------------------------
@@ -88,7 +88,7 @@ public class MainController implements Initializable {
             try {
                 Cpf cpf = new Cpf(cpfText.getText());
                 cliente = clientes.procurar(cpf);
-                ViewController.getInstance().showViewCliente(cliente);
+                ViewFrontController.getInstance().showViewCliente(cliente);
             } catch(InscricaoInvalidaException e) {
                 dialogoErro("CPF Inválido", e.getMessage());
             } catch(ProcuraSemResultadoException e) {
@@ -98,7 +98,7 @@ public class MainController implements Initializable {
             try {
                 Cnpj cnpj = new Cnpj(cpfText.getText());
                 cliente = clientes.procurar(cnpj);
-                ViewController.getInstance().showViewCliente(cliente);
+                ViewFrontController.getInstance().showViewCliente(cliente);
             } catch(InscricaoInvalidaException e) {
                 dialogoErro("CNPJ Inválido", e.getMessage());
             } catch(ProcuraSemResultadoException e) {

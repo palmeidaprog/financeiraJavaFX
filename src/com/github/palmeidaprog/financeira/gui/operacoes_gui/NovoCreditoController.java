@@ -54,8 +54,8 @@ public class NovoCreditoController {
     }
 
     public void  continuarBtnClicked() {
-        OperacoesViewController operacoesViewController =
-                OperacoesViewController.getInstance();
+        OperacoesViewFrontController operacoesViewController =
+                OperacoesViewFrontController.getInstance();
 
         operacoesViewController.showFinanciamento();
         if(outraOperacaoRadio.isSelected()) {

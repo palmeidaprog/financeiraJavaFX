@@ -37,7 +37,7 @@ public class AdicionaRendaController {
                 cadastro.getRendas().inserir(new Renda(valor, descrText
                         .getText()));
                 EditaCadastroController.getInstance().fechaAdiciona();
-                ControllerViewCadastro.getInstance().atualizaRendas();
+                CadastroViewFrontController.getInstance().atualizaRendas();
             } catch (NumberFormatException e) {
                 EditaCadastroController.getInstance().dialogoErro(
                         "Erro", "Valor digitado não é um numero"

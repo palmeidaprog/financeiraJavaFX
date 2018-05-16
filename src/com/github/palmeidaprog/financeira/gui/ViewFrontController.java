@@ -7,14 +7,14 @@ import javafx.scene.layout.VBox;
 
 import java.io.IOException;
 
-public class ViewController { // factory (frankenstein) // viewFactory
-    private static volatile ViewController instance;
+public class ViewFrontController { // factory (frankenstein) // viewFactory
+    private static volatile ViewFrontController instance;
 
-    private ViewController() { }
+    private ViewFrontController() { }
 
-    public synchronized static ViewController getInstance() {
+    public synchronized static ViewFrontController getInstance() {
         if(instance == null) {
-            instance = new ViewController();
+            instance = new ViewFrontController();
         }
         return instance;
     }

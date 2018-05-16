@@ -1,6 +1,6 @@
 package com.github.palmeidaprog.financeira.gui.operacoes_gui;
 
-import com.github.palmeidaprog.financeira.gui.ViewController;
+import com.github.palmeidaprog.financeira.gui.ViewFrontController;
 import com.github.palmeidaprog.financeira.gui.cadastro.EditaCadastroController;
 import com.github.palmeidaprog.financeira.gui.validacoes.ValidaMoeda;
 import com.github.palmeidaprog.financeira.operacoes.OperacaoCredito;
@@ -123,7 +123,7 @@ public class CalculaCreditoController implements Initializable {
             valorOpText.setText(formataValor(valorOpText.getText()));
             atualizaParcela();
         } catch (NumberFormatException e) {
-            ViewController.getInstance().dialogoErro("Erro",
+            ViewFrontController.getInstance().dialogoErro("Erro",
                     valorOpText.getText() + " não é um valor válido!");
         }
     }
@@ -137,7 +137,7 @@ public class CalculaCreditoController implements Initializable {
                                     replace("x", "")),
                             Double.parseDouble(jurosText.getText()), venc)));
         } catch(ParseException e) {
-            OperacoesViewController.getInstance().dialogoErro(
+            OperacoesViewFrontController.getInstance().dialogoErro(
                     "Data Inválida", "A data " + dataPicker
                             .getEditor().getText() + " não é valida");
         }
@@ -148,7 +148,7 @@ public class CalculaCreditoController implements Initializable {
             jurosText.setText(formataValor(jurosText.getText()));
             atualizaParcela();
         } catch(NumberFormatException e) {
-            OperacoesViewController.getInstance().dialogoErro("Juros " +
+            OperacoesViewFrontController.getInstance().dialogoErro("Juros " +
                     "Inválidos", "Taxa de juros ao mês é inválida.");
         }
     }

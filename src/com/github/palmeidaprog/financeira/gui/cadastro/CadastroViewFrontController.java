@@ -14,8 +14,8 @@ import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 
-public class ControllerViewCadastro implements Initializable {
-    private static volatile ControllerViewCadastro instance;
+public class CadastroViewFrontController implements Initializable {
+    private static volatile CadastroViewFrontController instance;
 
     @FXML private Label credTotalLabel, debNomLabel, bensLabel, credDispLabel;
     @FXML private Label debTotLabel, rendasLabel;
@@ -37,11 +37,11 @@ public class ControllerViewCadastro implements Initializable {
             .observableArrayList();
 
     // Singleton
-    private ControllerViewCadastro() { }
+    private CadastroViewFrontController() { }
 
-    public synchronized static ControllerViewCadastro getInstance() {
+    public synchronized static CadastroViewFrontController getInstance() {
         if(instance == null) {
-            instance = new ControllerViewCadastro();
+            instance = new CadastroViewFrontController();
         }
         return instance;
     }
