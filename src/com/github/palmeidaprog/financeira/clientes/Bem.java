@@ -10,11 +10,15 @@ package com.github.palmeidaprog.financeira.clientes;
  * Professor: Antonio Canvalcanti
  */
 
+import javafx.beans.property.StringProperty;
+
 import java.io.Serializable;
 import java.util.Locale;
 
-public class Bem implements Serializable {
+public class Bem implements Serializable, ValorDescrito {
     private double valor;
+    private StringProperty valorP;
+    private StringProperty descricaoP;
     private String descricao;
     transient private String valLiqFormatado;
     private final PendenciaController pendencias;
@@ -22,9 +26,12 @@ public class Bem implements Serializable {
     // construtor de deserializacao
     public Bem(double valor, String descricao, PendenciaController pendencias) {
         this.valor = valor;
+        valorP.set(valorFormatado(valorLiquido()));
+        descricaoP.set(descricao);
         this.descricao = descricao;
+
         this.pendencias = pendencias;
-        this.valLiqFormatado = formataValor(valorLiquido());
+        this.valLiqFormatado = valorFormatado(valorLiquido());
     }
 
     public Bem(double valor) {
@@ -32,20 +39,34 @@ public class Bem implements Serializable {
         pendencias = new PendenciaController();
     }
 
+    @Override
+    public StringProperty descricaoPProperty() {
+        return descricaoP;
+    }
+
+    @Override
+    public StringProperty valorPProperty() {
+        return valorP;
+    }
+
     public PendenciaController getPendencias() {
         return pendencias;
     }
 
+    // valor liquido
+    @Override
     public double getValor() {
         return valor;
     }
 
+    @Override
     public void setValor(double valor) {
         this.valor = valor;
-        this.valLiqFormatado = formataValor(valorLiquido());
+        this.valLiqFormatado = valorFormatado(valorLiquido());
+        valorP.set(valLiqFormatado);
     }
 
-    private String formataValor(double valor) {
+    public String valorFormatado(double valor) {
         return String.format(Locale.getDefault(), "%.2f", valor);
     }
 
@@ -57,8 +78,10 @@ public class Bem implements Serializable {
         return descricao;
     }
 
+    @Override
     public void setDescricao(String descricao) {
         this.descricao = descricao;
+        descricaoP.set(descricao);
     }
 
     @Override
