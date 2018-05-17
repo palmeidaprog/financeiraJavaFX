@@ -4,6 +4,7 @@ import com.github.palmeidaprog.financeira.clientes.Cliente;
 import com.github.palmeidaprog.financeira.gui.ViewFrontController;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.LoadException;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.VBox;
@@ -104,6 +105,8 @@ public class OperacoesViewFrontController {
         try {
             root = loader.load();
             calculaCreditoController.setTipoVBox(root);
+        } catch(LoadException e) {
+            // Controller está sendo definido em ooutra funcao.
         } catch (IOException e) {
             e.printStackTrace();
         }

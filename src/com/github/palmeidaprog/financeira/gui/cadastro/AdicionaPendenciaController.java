@@ -10,15 +10,18 @@ package com.github.palmeidaprog.financeira.gui.cadastro;
  */
 
 import com.github.palmeidaprog.financeira.clientes.Pendencia;
-import com.github.palmeidaprog.financeira.clientes.PendenciaController;
+import com.github.palmeidaprog.financeira.gui.validacoes.ValidaMoeda;
+import com.github.palmeidaprog.financeira.info.telefone.NumeroTelefone;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
-public class AdicionaPendenciaController {
-    private static volatile AdicionaPendenciaController instance;
+import java.net.URL;
+import java.util.ResourceBundle;
 
+public class AdicionaPendenciaController implements Initializable {
     @FXML
     private Label titleLabel;
     @FXML
@@ -26,8 +29,8 @@ public class AdicionaPendenciaController {
     @FXML
     private Button addBtn, cancelarBtn;
 
-
-
+    //--Singleton-------------------------------------------------------------
+    private static volatile AdicionaPendenciaController instance;
     private AdicionaPendenciaController() { }
 
     public static synchronized AdicionaPendenciaController getInstance() {
@@ -36,6 +39,37 @@ public class AdicionaPendenciaController {
         }
         return instance;
     }
+
+    //--Initialize------------------------------------------------------------
+
+    public void initialize(URL u, ResourceBundle rb) {
+        ValidaMoeda valida = new ValidaMoeda(valorText);
+    }
+
+    //--Eventos---------------------------------------------------------------
+
+    public void addBtnClicked() {
+        if(validaCampos()) {
+            try {
+                AdicionaAutomovelController.getInstance().adicionaPendencia(
+                        new Pendencia(Double.parseDouble(valorText.getText()),
+                                descrText.getText()));
+                cancelarBtnClicked();
+            } catch(NumberFormatException e) {
+                CadastroViewFrontController.getInstance().dialogoErro(
+                        "Formato Inválido", "Formato do valor " +
+                                "inválido.");
+                valorText.requestFocus();
+            }
+        }
+    }
+
+    public void cancelarBtnClicked() {
+        CadastroViewFrontController.getInstance().closeNovaPendencia();
+    }
+
+
+    //--Validaçòes------------------------------------------------------------
 
     private boolean validaCampos() {
         return !(campoVazio(descrText, "Descrição") || campoVazio(
@@ -50,18 +84,5 @@ public class AdicionaPendenciaController {
             return true;
         }
         return false;
-     }
-
-     public void addBtnClicked() {
-        if(validaCampos()) {
-            AdicionaAutomovelController.getInstance().adicionaPendencia(
-                    new Pendencia(Double.parseDouble(valorText.getText()),
-                            descrText.getText()));
-            cancelarBtnClicked();
-        }
-     }
-
-     public void cancelarBtnClicked() {
-        CadastroViewFrontController.getInstance().closeNovaPendencia();
      }
 }

@@ -9,6 +9,7 @@ package com.github.palmeidaprog.financeira.clientes;
  * Professor: Antonio Canvalcanti
  */
 
+import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
 import java.io.Serializable;
@@ -17,15 +18,15 @@ import java.util.Locale;
 public class Renda implements Serializable, ValorDescrito {
     private double valor;
     private String descricao;
-    private StringProperty descricaoP;
-    private StringProperty valorP;
+    private StringProperty descricaoP = new SimpleStringProperty();
+    private StringProperty valorP = new SimpleStringProperty();
     transient private String valFormatado;
 
     public Renda(double valor, String descricao) {
         this.valor = valor;
-        valorP.set(valorFormatado(valor));
+        valorP.setValue(valorFormatado(valor));
         this.descricao = descricao;
-        descricaoP.set(descricao);
+        descricaoP.setValue(descricao);
         valFormatado = valorFormatado();
     }
 
@@ -47,7 +48,7 @@ public class Renda implements Serializable, ValorDescrito {
     public void setValor(double valor) {
         this.valor = valor;
         valFormatado = valorFormatado();
-        valorP.set(valorFormatado(valor));
+        valorP.setValue(valorFormatado(valor));
     }
 
     private String valorFormatado() {
@@ -64,7 +65,7 @@ public class Renda implements Serializable, ValorDescrito {
 
     public void setDescricao(String descricao) {
         this.descricao = descricao;
-        descricaoP.set(descricao);
+        descricaoP.setValue(descricao);
     }
 
     public String formatado() {

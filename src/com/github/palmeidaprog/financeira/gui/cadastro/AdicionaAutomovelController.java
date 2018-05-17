@@ -13,6 +13,7 @@ package com.github.palmeidaprog.financeira.gui.cadastro;
 import com.github.palmeidaprog.financeira.clientes.Automovel;
 import com.github.palmeidaprog.financeira.clientes.Cadastro;
 import com.github.palmeidaprog.financeira.clientes.Pendencia;
+import com.github.palmeidaprog.financeira.clientes.ValorDescrito;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -38,12 +39,12 @@ public class AdicionaAutomovelController implements Initializable {
     @FXML
     private Button adicPendBtn, delPendBtn, criarBtn;
     @FXML
-    private TableView<Pendencia> pendTable;
+    private TableView<ValorDescrito> pendTable;
     @FXML
-    private TableColumn<Pendencia, String> descrPendCol;
+    private TableColumn<ValorDescrito, String> descrPendCol;
     @FXML
-    private TableColumn<Pendencia, String> valorPendCol;
-    private ObservableList<Pendencia> pendencias;
+    private TableColumn<ValorDescrito, String> valorPendCol;
+    private ObservableList<ValorDescrito> pendencias;
 
     // Singleton
     private AdicionaAutomovelController() { }
@@ -56,12 +57,9 @@ public class AdicionaAutomovelController implements Initializable {
     }
 
     public void initialize(URL u, ResourceBundle rb) {
-        pendencias = FXCollections.observableArrayList(new ArrayList<>());
-        pendTable.setItems(pendencias);
-        descrPendCol.setCellValueFactory(cellData -> cellData.getValue()
-                .descricaoPProperty());
-        valorPendCol.setCellValueFactory(cellData -> cellData.getValue()
-                .valorPProperty());
+        EventosTabelaValorDescrito eventos = new EventosTabelaValorDescrito(
+                pendTable);
+        pendencias = eventos.getLista();
     }
 
     public void setCadastro(Cadastro cadastro) {
@@ -96,13 +94,29 @@ public class AdicionaAutomovelController implements Initializable {
     }
 
     private boolean validaCampos() {
-        if(!campoVazio(marcaText, "Marca") &&
-                !campoVazio(modeloText, "Modelo") &&
-                !campoVazio(anoModText, "Ano Modelo") &&
-                !campoVazio(anoFabText, "Ano de Fabricação") &&
-                !campoVazio(valorText, "valor")) {
-            return true;
+        //todo: resolver validcações e adicionar o carro. Lembrar do ano
+        // minimo possivel
+        int anoM, anoF;
+        try {
+            anoM = Integer.parseInt(anoFabText.getText());
+        } catch(NumberFormatException e) {
+            CadastroViewFrontController.getInstance().dialogoErro("Ano inválido");
         }
+
+        try {
+            if(!campoVazio(marcaText, "Marca") &&
+                    !campoVazio(modeloText, "Modelo") &&
+                    !campoVazio(anoModText, "Ano Modelo") &&
+                    !campoVazio(anoFabText, "Ano de Fabricação") &&
+                    !campoVazio(valorText, "valor") && ( > Integer.parseInt(
+                            anoModText.getText()))) {
+                return true;
+            }
+        } catch(NumberFormatException e) {
+
+        }
+
+
         return false;
     }
 

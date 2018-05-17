@@ -10,7 +10,6 @@ import java.util.Locale;
 public class ValidaMoeda {
     private final TextField textField;
 
-    // TODO: (TJ) View ou outra coisa / Code Smell?
     public ValidaMoeda(TextField textField) {
         this.textField = textField;
         eventos();

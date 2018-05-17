@@ -10,6 +10,7 @@ package com.github.palmeidaprog.financeira.clientes;
  * Professor: Antonio Canvalcanti
  */
 
+import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
 import java.io.Serializable;
@@ -17,8 +18,8 @@ import java.util.Locale;
 
 public class Bem implements Serializable, ValorDescrito {
     private double valor;
-    private StringProperty valorP;
-    private StringProperty descricaoP;
+    private StringProperty valorP = new SimpleStringProperty();
+    private StringProperty descricaoP = new SimpleStringProperty();
     private String descricao;
     transient private String valLiqFormatado;
     private final PendenciaController pendencias;
@@ -26,8 +27,8 @@ public class Bem implements Serializable, ValorDescrito {
     // construtor de deserializacao
     public Bem(double valor, String descricao, PendenciaController pendencias) {
         this.valor = valor;
-        valorP.set(valorFormatado(valorLiquido()));
-        descricaoP.set(descricao);
+        valorP.setValue(valorFormatado(valorLiquido()));
+        descricaoP.setValue(descricao);
         this.descricao = descricao;
 
         this.pendencias = pendencias;
@@ -63,7 +64,7 @@ public class Bem implements Serializable, ValorDescrito {
     public void setValor(double valor) {
         this.valor = valor;
         this.valLiqFormatado = valorFormatado(valorLiquido());
-        valorP.set(valLiqFormatado);
+        valorP.setValue(valLiqFormatado);
     }
 
     public String valorFormatado(double valor) {
@@ -81,7 +82,7 @@ public class Bem implements Serializable, ValorDescrito {
     @Override
     public void setDescricao(String descricao) {
         this.descricao = descricao;
-        descricaoP.set(descricao);
+        descricaoP.setValue(descricao);
     }
 
     @Override
