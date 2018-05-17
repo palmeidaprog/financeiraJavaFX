@@ -1,5 +1,15 @@
 package com.github.palmeidaprog.financeira.gui.cadastro;
 
+/*
+ * UNICAP - Univesidade Catolica de Pernambuco
+ * @author Aluno: Paulo R. Almeida Filho
+ * http://www.github.com/palmeidaprog/financeira
+ * @email pauloalmeidaf@gmail.com
+ * @email palmeidaprogramming@gmail.com
+ * Professor: Antonio Canvalcanti
+ */
+
+
 import com.github.palmeidaprog.financeira.clientes.Automovel;
 import com.github.palmeidaprog.financeira.clientes.Cadastro;
 import com.github.palmeidaprog.financeira.clientes.Pendencia;
@@ -78,7 +88,11 @@ public class AdicionaAutomovelController implements Initializable {
     }
 
     public void adicPendBtnClicked() {
-        // todo: adiciona button
+        CadastroViewFrontController.getInstance().showNovaPendencia();
+    }
+
+    public void adicionaPendencia(Pendencia pendencia) {
+        pendencias.add(pendencia);
     }
 
     private boolean validaCampos() {
@@ -107,7 +121,6 @@ public class AdicionaAutomovelController implements Initializable {
     public void cancelBtnClicked() {
         CadastroViewFrontController.getInstance().fechaAdiciona();
     }
-
 
 
 }

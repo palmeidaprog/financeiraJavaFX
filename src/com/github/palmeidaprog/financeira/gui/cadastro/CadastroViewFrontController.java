@@ -11,7 +11,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class CadastroViewFrontController {
-    private Stage stage, adiciona, automovel;
+    private Stage stage, adiciona, automovel, pendencia;
     private Scene scene;
     private Parent root;
 
@@ -71,6 +71,32 @@ public class CadastroViewFrontController {
         } catch(IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public void showNovaPendencia() {
+        VBox root = null;
+
+        if(pendencia != null && pendencia.isShowing()) {
+            pendencia.requestFocus();
+        } else {
+            pendencia = new Stage();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource
+                    ("AdicionaPendenciaView.fxml"));
+            loader.setController(AdicionaPendenciaController.getInstance());
+            pendencia.setTitle("Financeira - Adicionando Nova Pendencia");
+            try {
+                root = loader.load();
+                Scene scene = new Scene(root, 520, 220);
+                pendencia.setScene(scene);
+                pendencia.showAndWait();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public void closeNovaPendencia() {
+        pendencia.close();
     }
 
 
