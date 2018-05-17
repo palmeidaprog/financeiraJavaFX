@@ -9,30 +9,52 @@ package com.github.palmeidaprog.financeira.clientes;
  * Professor: Antonio Canvalcanti
  */
 
+import javafx.beans.property.StringProperty;
+
 import java.io.Serializable;
 import java.util.Locale;
 
-public class Renda implements Serializable {
+public class Renda implements Serializable, ValorDescrito {
     private double valor;
     private String descricao;
+    private StringProperty descricaoP;
+    private StringProperty valorP;
     transient private String valFormatado;
 
     public Renda(double valor, String descricao) {
         this.valor = valor;
+        valorP.set(valorFormatado(valor));
         this.descricao = descricao;
+        descricaoP.set(descricao);
         valFormatado = valorFormatado();
     }
 
+    @Override
     public double getValor() {
         return valor;
+    }
+
+    @Override
+    public StringProperty valorPProperty() {
+        return valorP;
+    }
+
+    @Override
+    public StringProperty descricaoPProperty() {
+        return descricaoP;
     }
 
     public void setValor(double valor) {
         this.valor = valor;
         valFormatado = valorFormatado();
+        valorP.set(valorFormatado(valor));
     }
 
     private String valorFormatado() {
+        return valorFormatado(valor);
+    }
+
+    public String valorFormatado(double valor) {
         return String.format(Locale.getDefault(), "%.2f", valor);
     }
 
@@ -42,6 +64,7 @@ public class Renda implements Serializable {
 
     public void setDescricao(String descricao) {
         this.descricao = descricao;
+        descricaoP.set(descricao);
     }
 
     public String formatado() {

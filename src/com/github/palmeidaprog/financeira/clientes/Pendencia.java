@@ -13,7 +13,7 @@ import javafx.beans.property.StringProperty;
 import java.io.Serializable;
 import java.util.Locale;
 
-public class Pendencia implements Serializable {
+public class Pendencia implements Serializable, ValorDescrito {
     private double valor;
     private StringProperty valorP;
     private StringProperty descricaoP;
@@ -22,40 +22,49 @@ public class Pendencia implements Serializable {
     // deserialização
     public Pendencia(double valor, String descricao) {
         this.valor = valor;
+        valorP.set(valorFormatado(valor));
         this.descricao = descricao;
+        descricaoP.set(descricao);
     }
 
+    @Override
     public double getValor() {
         return valor;
     }
 
+    @Override
     public void setValor(double valor) {
         this.valor = valor;
         valorP.set(valorFormatado(valor));
     }
 
+    @Override
     public StringProperty valorPProperty() {
         return valorP;
     }
 
+    @Override
     public StringProperty descricaoPProperty() {
         return descricaoP;
     }
 
+    @Override
     public String getDescricao() {
         return descricao;
     }
 
+    @Override
     public void setDescricao(String descricao) {
         this.descricao = descricao;
         descricaoP.set(descricao);
     }
 
-    private String valorFormatado(double valor) {
+    @Override
+    public String valorFormatado(double valor) {
         return String.format(Locale.getDefault(), "%.2f", valor);
     }
 
-    public String formatado() {
+    private String formatado() {
         return valorFormatado(valor) + " " + descricao;
     }
 

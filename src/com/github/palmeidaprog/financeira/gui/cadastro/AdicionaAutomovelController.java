@@ -3,6 +3,7 @@ package com.github.palmeidaprog.financeira.gui.cadastro;
 import com.github.palmeidaprog.financeira.clientes.Automovel;
 import com.github.palmeidaprog.financeira.clientes.Cadastro;
 import com.github.palmeidaprog.financeira.clientes.Pendencia;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -10,6 +11,7 @@ import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
 
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class AdicionaAutomovelController implements Initializable {
@@ -44,6 +46,8 @@ public class AdicionaAutomovelController implements Initializable {
     }
 
     public void initialize(URL u, ResourceBundle rb) {
+        pendencias = FXCollections.observableArrayList(new ArrayList<>());
+        pendTable.setItems(pendencias);
         descrPendCol.setCellValueFactory(cellData -> cellData.getValue()
                 .descricaoPProperty());
         valorPendCol.setCellValueFactory(cellData -> cellData.getValue()
@@ -71,6 +75,10 @@ public class AdicionaAutomovelController implements Initializable {
                 valorText.requestFocus();
             }
         }
+    }
+
+    public void adicPendBtnClicked() {
+        // todo: adiciona button
     }
 
     private boolean validaCampos() {
