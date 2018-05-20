@@ -111,10 +111,6 @@ public class MostraClienteController {
                 .getFinanciamento()));
         credDispLabel.setText(formataValor(c.getCredito().getPessoal()));
     }
-    /*
-    redDispLabel, debTotLabel, debNomLabel, rendasLabel;
-    @FXML private Label bensLabel;
-     */
 
     public void editaCadastroBtnClicked() {
         CadastroViewFrontController.getInstance().showEditaCadastro(

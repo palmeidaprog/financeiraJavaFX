@@ -15,7 +15,7 @@ public class CadastroViewFrontController {
     private Scene scene;
     private Parent root;
 
-    // Singleton
+    //--Singleton-------------------------------------------------------------
     private CadastroViewFrontController() { }
     private static volatile CadastroViewFrontController instance;
 
@@ -26,6 +26,9 @@ public class CadastroViewFrontController {
         return instance;
     }
 
+    //--Chamadas de Views-----------------------------------------------------
+
+    // Editar Cadastro
     public void showEditaCadastro(Cadastro cadastro) {
         if(stage != null && stage.isShowing()) {
             stage.requestFocus();
@@ -47,6 +50,7 @@ public class CadastroViewFrontController {
             }
         }
     }
+
 
     public void showAutomovel(Cadastro cadastro, String title) {
         // todo: resolver o nao aparencendo
@@ -73,6 +77,12 @@ public class CadastroViewFrontController {
         }
     }
 
+    // fecha janela de adicionar automovel
+    public void fechaAutomovel() {
+        automovel.close();
+    }
+
+    // Adicionar pendencia (Chamado de AdicionarAutomovel)
     public void showNovaPendencia() {
         VBox root = null;
 
@@ -95,6 +105,7 @@ public class CadastroViewFrontController {
         }
     }
 
+    // fecha Adicioanr Pendencia
     public void closeNovaPendencia() {
         pendencia.close();
     }
@@ -123,11 +134,11 @@ public class CadastroViewFrontController {
         }
     }
 
-
-
     public void fechaAdiciona() {
         adiciona.close();
     }
+
+    //--Dialogos--------------------------------------------------------------
 
     public void dialogoErro(String titulo, String msg) {
         ViewFrontController.getInstance().dialogoErro(titulo, msg);

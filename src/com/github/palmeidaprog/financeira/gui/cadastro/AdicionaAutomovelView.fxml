@@ -90,7 +90,7 @@
                         <HBox alignment="CENTER" prefHeight="38.0" prefWidth="600.0" spacing="20.0">
                            <children>
                               <Button fx:id="adicPendBtn" mnemonicParsing="false" onAction="#adicPendBtnClicked" prefHeight="26.0" prefWidth="197.0" text="Adicionar Pendência" />
-                              <Button fx:id="delPendBtn" mnemonicParsing="false" prefHeight="26.0" prefWidth="208.0" text="Deletar Selecionada" />
+                              <Button fx:id="delPendBtn" mnemonicParsing="false" onAction="#delPendBtnClicked" prefHeight="26.0" prefWidth="208.0" text="Deletar Selecionada" />
                            </children>
                            <padding>
                               <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
@@ -116,9 +116,10 @@
                   <Insets />
                </VBox.margin>
             </VBox>
-            <HBox alignment="CENTER" prefHeight="60.0" prefWidth="600.0">
+            <HBox alignment="CENTER" prefHeight="60.0" prefWidth="600.0" spacing="25.0">
                <children>
-                  <Button fx:id="criarBtn" disable="true" mnemonicParsing="false" text="Criar" />
+                  <Button fx:id="criarBtn" mnemonicParsing="false" onAction="#adicBtnClicked" text="Adicionar" />
+                  <Button fx:id="cancelBtn" mnemonicParsing="false" onAction="#cancelBtnClicked" text="Cancelar" />
                </children>
             </HBox>
          </children>

@@ -14,21 +14,20 @@ import com.github.palmeidaprog.financeira.clientes.Automovel;
 import com.github.palmeidaprog.financeira.clientes.Cadastro;
 import com.github.palmeidaprog.financeira.clientes.Pendencia;
 import com.github.palmeidaprog.financeira.clientes.ValorDescrito;
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
-
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class AdicionaAutomovelController implements Initializable {
-    private static volatile AdicionaAutomovelController instance;
     private Cadastro cadastro;
 
+    //--FXML------------------------------------------------------------------
     @FXML
     private Label descrLabel, bemLabel;
     @FXML
@@ -46,7 +45,8 @@ public class AdicionaAutomovelController implements Initializable {
     private TableColumn<ValorDescrito, String> valorPendCol;
     private ObservableList<ValorDescrito> pendencias;
 
-    // Singleton
+    //--Singleton-------------------------------------------------------------
+    private static volatile AdicionaAutomovelController instance;
     private AdicionaAutomovelController() { }
 
     public synchronized static AdicionaAutomovelController getInstance() {
@@ -56,71 +56,109 @@ public class AdicionaAutomovelController implements Initializable {
         return instance;
     }
 
+    //--Inicializacao---------------------------------------------------------
+
     public void initialize(URL u, ResourceBundle rb) {
         EventosTabelaValorDescrito eventos = new EventosTabelaValorDescrito(
                 pendTable);
         pendencias = eventos.getLista();
     }
 
+    //--Setters Getters-------------------------------------------------------
+
     public void setCadastro(Cadastro cadastro) {
         this.cadastro = cadastro;
     }
 
+
+    //--Eventos---------------------------------------------------------------
+
+    // click do botao Adicionar
     public void adicBtnClicked() {
         if(validaCampos()){
-            try {
-                // remover depois (verificar) TODO: verificar
-                cadastro.getBens().inserir(new Automovel(Double.parseDouble(
-                        valorText.getText()), marcaText.getText(), modeloText
-                        .getText(), Integer.parseInt(anoModText.getText()),
-                        Integer.parseInt(anoFabText.getText())));
-                CadastroViewFrontController.getInstance().fechaAdiciona();
-                EditaCadastroController.getInstance().atualizaRendas();
-            } catch (NumberFormatException e) {
-                CadastroViewFrontController.getInstance().dialogoErro(
-                        "Erro", "Valor digitado não é um numero"
-                    + "válido.");
-                valorText.requestFocus();
-            }
+            // todo: terminar o adicionar automovel button (checar os campos
+            // do financiamento se esta adicionando o novo automovel
+            cadastro.getBens().inserir(new Automovel(Double.parseDouble(
+                    valorText.getText()), marcaText.getText(), modeloText
+                    .getText(), Integer.parseInt(anoModText.getText()),
+                    Integer.parseInt(anoFabText.getText())));
+            CadastroViewFrontController.getInstance().fechaAutomovel();
+            EditaCadastroController.getInstance().atualizaRendas();
         }
     }
 
+    // evento do deletar Pendencia da TableView
+    public void delPendBtnClicked() {
+        pendencias.remove(pendTable.getSelectionModel().getSelectedItem());
+    }
+
+    // evento Adicionar Pendencia na TableVoew
     public void adicPendBtnClicked() {
         CadastroViewFrontController.getInstance().showNovaPendencia();
     }
+
+    // evento cancelar (adicionar automovel)
+    public void cancelBtnClicked() {
+        CadastroViewFrontController.getInstance().fechaAutomovel();
+    }
+
+
+    //--Metodos Suporte-------------------------------------------------------
 
     public void adicionaPendencia(Pendencia pendencia) {
         pendencias.add(pendencia);
     }
 
+    // validáçào global de todos campos antes de adicioanr o automovel
     private boolean validaCampos() {
-        //todo: resolver validcações e adicionar o carro. Lembrar do ano
-        // minimo possivel
-        int anoM, anoF;
+        int anoF, anoM;
         try {
-            anoM = Integer.parseInt(anoFabText.getText());
-        } catch(NumberFormatException e) {
-            CadastroViewFrontController.getInstance().dialogoErro("Ano inválido");
-        }
-
-        try {
-            if(!campoVazio(marcaText, "Marca") &&
-                    !campoVazio(modeloText, "Modelo") &&
-                    !campoVazio(anoModText, "Ano Modelo") &&
-                    !campoVazio(anoFabText, "Ano de Fabricação") &&
-                    !campoVazio(valorText, "valor") && ( > Integer.parseInt(
-                            anoModText.getText()))) {
-                return true;
+            anoF = parseInt(anoFabText);
+            anoM = parseInt(anoModText);
+            if(anoF > anoM) {
+                CadastroViewFrontController.getInstance().dialogoErro(
+                        "Erro Logico", "O ano de fabricação não "
+                                + "pode ser posterior ao ano modelo.");
+                anoFabText.requestFocus();
+                return false;
+            } else if(anoF < 1769) {
+                CadastroViewFrontController.getInstance().dialogoErro(
+                        "Erro Logico", "O ano de fabricação não "
+                                + "pode ser anterior ao ano 1767.");
+                anoFabText.requestFocus();
+            } else if(anoM < 1769) {
+                CadastroViewFrontController.getInstance().dialogoErro(
+                        "Erro Logico", "O ano de modelo não "
+                                + "pode ser anterior ao ano 1767.");
+                anoModText.requestFocus();
             }
-        } catch(NumberFormatException e) {
-
+        } catch(Exception e) {
+            return false;
         }
 
-
-        return false;
+        return (!campoVazio(marcaText, "Marca") &&
+                !campoVazio(modeloText, "Modelo") &&
+                !campoVazio(anoModText, "Ano Modelo") &&
+                !campoVazio(anoFabText, "Ano de Fabricação") &&
+                !campoVazio(valorText, "valor"));
     }
 
+    //suport para validaCampos()
+    private int parseInt(TextField tf) throws Exception {
+        int num;
+        try {
+            num = Integer.parseInt(tf.getText());
+        } catch(NumberFormatException e) {
+            CadastroViewFrontController.getInstance().dialogoErro(
+                    "Ano Inválido", "Formato "
+                    + "inválido de número");
+            tf.requestFocus();
+            throw new Exception();
+        }
+        return num;
+    }
 
+    // suporte para validaCampos()
     private boolean campoVazio(TextField text, String nome) {
         if(text.getText().trim().isEmpty()) {
             CadastroViewFrontController.getInstance().dialogoErro("Erro",
@@ -131,10 +169,4 @@ public class AdicionaAutomovelController implements Initializable {
         }
         return false;
     }
-
-    public void cancelBtnClicked() {
-        CadastroViewFrontController.getInstance().fechaAdiciona();
-    }
-
-
 }
