@@ -11,13 +11,15 @@ package com.github.palmeidaprog.financeira.clientes;
  */
 
 import com.github.palmeidaprog.financeira.interfaces.ValorDescrito;
+import com.github.palmeidaprog.financeira.interfaces.ObservableSerializable;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
-
 import java.io.Serializable;
 import java.util.Locale;
 
-public class Bem implements Serializable, ValorDescrito {
+
+public class Bem extends ObservableSerializable implements Serializable,
+        ValorDescrito {
     private double valor;
     private StringProperty valorP = new SimpleStringProperty();
     private StringProperty descricaoP = new SimpleStringProperty();
@@ -31,7 +33,6 @@ public class Bem implements Serializable, ValorDescrito {
         valorP.setValue(valorFormatado(valorLiquido()));
         descricaoP.setValue(descricao);
         this.descricao = descricao;
-
         this.pendencias = pendencias;
         this.valLiqFormatado = valorFormatado(valorLiquido());
     }
@@ -66,6 +67,7 @@ public class Bem implements Serializable, ValorDescrito {
         this.valor = valor;
         this.valLiqFormatado = valorFormatado(valorLiquido());
         valorP.setValue(valLiqFormatado);
+        notifyChange();
     }
 
     public String valorFormatado(double valor) {
@@ -84,6 +86,7 @@ public class Bem implements Serializable, ValorDescrito {
     public void setDescricao(String descricao) {
         this.descricao = descricao;
         descricaoP.setValue(descricao);
+        notifyChange();
     }
 
     @Override
@@ -95,4 +98,6 @@ public class Bem implements Serializable, ValorDescrito {
                 ", pendencias=" + pendencias +
                 '}';
     }
+
+
 }

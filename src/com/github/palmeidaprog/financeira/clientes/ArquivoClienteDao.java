@@ -3,28 +3,34 @@ package com.github.palmeidaprog.financeira.clientes;
 import com.github.palmeidaprog.financeira.exception.ProcuraSemResultadoException;
 import com.github.palmeidaprog.financeira.info.Cnpj;
 import com.github.palmeidaprog.financeira.info.Cpf;
+import com.github.palmeidaprog.financeira.interfaces.Memento;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
-
 import java.io.*;
 import java.util.ArrayList;
-import java.util.EventListener;
 import java.util.List;
+import java.util.Observable;
+import java.util.Observer;
 
-public class ClienteDAO {
+
+// @design memento
+// Implementação SalvaTudo no arquivo nas mudanças
+// Tb conhecido co0mo Surubão Design Pattern
+public class ArquivoClienteDao extends ClienteDao implements Memento,
+        Observer {
     private final String ARQUIVO = "clientes.ser";
     private ObservableList<Cliente> clientes = FXCollections
             .observableArrayList(); // persistenciaa
 
     // Singleton
-    private static volatile ClienteDAO instance;
-    private ClienteDAO() throws IOException {
+    private static volatile ArquivoClienteDao instance;
+    private ArquivoClienteDao() throws IOException {
         clientes.addListener(new ListChangeListener<Cliente>() {
             @Override
             public void onChanged(Change<? extends Cliente> c) {
                 try {
-                    salva();
+                    setState();
                 } catch(IOException e) {
                     e.printStackTrace();
                 }
@@ -37,7 +43,7 @@ public class ClienteDAO {
                 throw new IOException("Problemas ao criar arquivo de dados");
             }
         } else if(file.length() > 0) {
-            le();
+            getState();
         }
         clientes.addListener(new ListChangeListener<Cliente>() {
             @Override
@@ -51,11 +57,11 @@ public class ClienteDAO {
         });
     }
 
-    public synchronized static ClienteDAO getInstance() throws
+    public synchronized static ArquivoClienteDao getInstance() throws
             IOException {
         if(instance == null) {
             try {
-                instance = new ClienteDAO();
+                instance = new ArquivoClienteDao();
             } catch (IOException e) {
                 e.printStackTrace();
                 throw new IOException("Não foi possivel ler o banco de dados"
@@ -68,7 +74,7 @@ public class ClienteDAO {
     public void inserir(Cliente cliente) throws IOException {
         clientes.add(cliente);
         try {
-            salva();
+            setState();
         } catch (IOException e) {
             e.printStackTrace();
             clientes.remove(cliente);
@@ -78,7 +84,7 @@ public class ClienteDAO {
 
     public void atualiza() throws IOException {
         try {
-            salva();
+            setState();
         } catch (IOException e) {
             e.printStackTrace();
             throw new IOException("Não foi possivel salvar as alteracoes!");
@@ -88,7 +94,7 @@ public class ClienteDAO {
     public void remover(Cliente cliente) throws IOException {
         clientes.remove(cliente);
         try {
-            salva();
+            setState();
         } catch (IOException e) {
             e.printStackTrace();
             clientes.add(cliente);
@@ -96,20 +102,14 @@ public class ClienteDAO {
         }
     }
 
-    public ObservableList<Cliente> getClientes() {
+    /*public ObservableList<Cliente> getClientes() {
         return clientes;
-    }
+    }*/
 
-    private void salva() throws IOException {
-        try(ObjectOutputStream objOut  = new ObjectOutputStream(new
-                FileOutputStream(ARQUIVO))) {
-            List<Cliente> cl = new ArrayList<>();
-            cl.addAll(clientes);
-            objOut.writeObject(cl);
-        }
-    }
+    //--Memento Design--------------------------------------------------------
 
-    private void le() throws IOException {
+    @Override
+    public void getState() throws IOException {
         try(ObjectInputStream objIn  = new ObjectInputStream(new
                 FileInputStream(ARQUIVO))) {
             clientes = FXCollections.observableArrayList
@@ -118,6 +118,28 @@ public class ClienteDAO {
             e.printStackTrace();
         }
     }
+
+    public void setState() throws IOException {
+        try(ObjectOutputStream objOut  = new ObjectOutputStream(new
+                FileOutputStream(ARQUIVO))) {
+            List<Cliente> cl = new ArrayList<>();
+            cl.addAll(clientes);
+            objOut.writeObject(cl);
+        }
+    }
+
+    //--Observer--------------------------------------------------------------
+
+    @Override
+    public void update(Observable o, Object arg) {
+        try {
+            setState();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    //------------------------------------------------------------------------
 
     public Cliente get(int index) {
         return clientes.get(index);

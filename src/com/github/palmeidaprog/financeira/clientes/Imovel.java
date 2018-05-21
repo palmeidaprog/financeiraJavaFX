@@ -18,7 +18,7 @@ import java.io.Serializable;
 
 public class Imovel extends Bem implements Serializable {
     private String descricao;
-    private Endereco endereco;
+    private final Endereco endereco;
     private final TelefoneController telefones;
 
     // deserialização
@@ -74,6 +74,7 @@ public class Imovel extends Bem implements Serializable {
 
     public void setDescricao(String descricao) {
         this.descricao = descricao;
+        notifyChange();
     }
 
     @Override

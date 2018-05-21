@@ -12,25 +12,53 @@ package com.github.palmeidaprog.financeira.info;
 
 import com.github.palmeidaprog.financeira.exception.ImpossivelRemoverException;
 import com.github.palmeidaprog.financeira.exception.ProcuraSemResultadoException;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Observable;
+import java.util.Observer;
 
-public class EnderecoController implements Serializable {
-    private final List<Endereco> enderecos;
+public class EnderecoController extends Observable implements Serializable,
+        Observer {
+
+    private List<Endereco> enderecosL;
+    private transient ObservableList<Endereco> enderecos;
     private Endereco principal;
+    private List<Observable> observables = new ArrayList<>();
 
     public EnderecoController(Endereco endereco) {
-        enderecos = new ArrayList<>();
+        inicializaListas();
         principal = endereco;
         enderecos.add(endereco);
     }
 
+    // deserializaçào
     public EnderecoController(List<Endereco> enderecos, Endereco principal) {
-        this.enderecos = enderecos;
+        inicializaListas(enderecos);
         this.principal = principal;
     }
+
+    //--Suporte para construtor-----------------------------------------------
+
+    private void inicializaListas() {
+        inicializaListas(new ArrayList<>());
+    }
+
+    private void inicializaListas(List<Endereco> lista) {
+        this.enderecosL = lista;
+        this.enderecos = FXCollections.observableList(this.enderecosL);
+    }
+
+    //--Observer interface----------------------------------------------------
+
+    public void update(Observable o, Object obj) {
+
+    }
+
+    //------------------------------------------------------------------------
 
     public void inserir(Endereco endereco) {
         enderecos.add(endereco);
@@ -42,6 +70,7 @@ public class EnderecoController implements Serializable {
             principal = endereco;
         }
     }
+
 
     public void remover(Endereco endereco) throws ImpossivelRemoverException {
         if(isRemovivel(endereco)) {

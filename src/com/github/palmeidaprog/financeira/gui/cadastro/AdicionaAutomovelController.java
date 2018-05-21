@@ -20,7 +20,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
 import java.net.URL;
-import java.util.Observer;
 import java.util.ResourceBundle;
 
 public class AdicionaAutomovelController implements Initializable {

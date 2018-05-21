@@ -12,17 +12,16 @@ package com.github.palmeidaprog.financeira.clientes;
 
 import com.github.palmeidaprog.financeira.exception.ProcuraSemResultadoException;
 import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Locale;
+import java.util.*;
 
-public class BemController implements Serializable {
-    public List<Bem> bens;
+public class BemController extends Observable implements Serializable,
+        Observer {
+    private List<Bem> bensL;
+    private transient ObservableList<Bem> bens;
 
     //construtor de deserialização
     public BemController(List<Bem> bens) {
@@ -31,13 +30,39 @@ public class BemController implements Serializable {
     }
 
     public BemController() {
-        bens = new ArrayList<>();
+        bensL = new ArrayList<>();
+        bens = FXCollections.observableList(bensL);
+
     }
 
     public BemController(Bem bem) {
         this();
         inserir(bem);
     }
+
+    //--Evento da observableList----------------------------------------------
+    private void ativoEvento() {
+        bens.addListener(new ListChangeListener<Bem>() {
+            @Override
+            public void onChanged(Change<? extends Bem> c) {
+                while(c.next()) {
+
+                }
+            }
+        });
+    }
+
+    //--Observer interface----------------------------------------------------
+
+    @Override
+    public void update(Observable o, Object arg) {
+
+    }
+
+
+    //------------------------------------------------------------------------
+
+
 
     public void inserir(Bem bem) {
         bens.add(bem);
@@ -156,4 +181,6 @@ public class BemController implements Serializable {
                 "bens=" + bens +
                 '}';
     }
+
+    //--
 }

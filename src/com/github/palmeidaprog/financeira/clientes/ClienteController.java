@@ -17,8 +17,9 @@ import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 
-public class ClienteController {
-    ClienteDAO dao = ClienteDAO.getInstance();
+// @design observer
+public class ClienteController implements Observer {
+    ClienteDao dao = FactoryClienteDao.getInstance();
 
     // Singleton
     private static volatile ClienteController instance;
@@ -46,20 +47,9 @@ public class ClienteController {
         dao.remover(cliente);
     }
 
-    public void remover(int index) throws IOException {
-        remover(get(index));
-    }
-
-    public void update(Observable o, Object arg)) throws IOException {
-        dao.atualiza();
-    }
-
-    public Cliente get(int index) {
-        return dao.get(index);
-    }
-
-    public int indexOf(Cliente cliente) throws ProcuraSemResultadoException {
-        return dao.indexOf(cliente);
+    @Override
+    public void update(Observable o, Object arg) {
+        dao.update(o, arg);
     }
 
     public PessoaFisica procurar(Cpf cpf) throws
@@ -76,4 +66,24 @@ public class ClienteController {
             ProcuraSemResultadoException {
         return dao.procurar(nomeOuCometario);
     }
+
+    //--Metodos Antigos (Candidatos a serem removidos)------------------------
+
+
+    /*
+    public Cliente get(int index) {
+        return dao.get(index);
+    }*/
+
+    /*public int indexOf(Cliente cliente) throws ProcuraSemResultadoException {
+        return dao.indexOf(cliente);
+    }*/
+
+    /*
+    @Deprecated
+    public void remover(int index) throws IOException {
+        remover(get(index));
+    }*/
+
+
 }
