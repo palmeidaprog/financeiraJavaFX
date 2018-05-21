@@ -13,15 +13,14 @@ package com.github.palmeidaprog.financeira.gui.cadastro;
 import com.github.palmeidaprog.financeira.clientes.Automovel;
 import com.github.palmeidaprog.financeira.clientes.Cadastro;
 import com.github.palmeidaprog.financeira.clientes.Pendencia;
-import com.github.palmeidaprog.financeira.clientes.ValorDescrito;
+import com.github.palmeidaprog.financeira.interfaces.ValorDescrito;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Observer;
 import java.util.ResourceBundle;
 
 public class AdicionaAutomovelController implements Initializable {
@@ -126,11 +125,13 @@ public class AdicionaAutomovelController implements Initializable {
                         "Erro Logico", "O ano de fabricação não "
                                 + "pode ser anterior ao ano 1767.");
                 anoFabText.requestFocus();
+                return false;
             } else if(anoM < 1769) {
                 CadastroViewFrontController.getInstance().dialogoErro(
                         "Erro Logico", "O ano de modelo não "
                                 + "pode ser anterior ao ano 1767.");
                 anoModText.requestFocus();
+                return false;
             }
         } catch(Exception e) {
             return false;
@@ -143,7 +144,7 @@ public class AdicionaAutomovelController implements Initializable {
                 !campoVazio(valorText, "valor"));
     }
 
-    //suport para validaCampos()
+    //suporte para validaCampos()
     private int parseInt(TextField tf) throws Exception {
         int num;
         try {

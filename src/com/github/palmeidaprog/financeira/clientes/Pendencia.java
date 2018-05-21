@@ -9,11 +9,9 @@ package com.github.palmeidaprog.financeira.clientes;
  * Professor: Antonio Canvalcanti
  */
 
-import javafx.beans.InvalidationListener;
+import com.github.palmeidaprog.financeira.interfaces.ValorDescrito;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 
 import java.io.Serializable;
 import java.util.Locale;

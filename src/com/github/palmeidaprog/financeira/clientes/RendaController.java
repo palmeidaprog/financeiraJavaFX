@@ -10,6 +10,7 @@ package com.github.palmeidaprog.financeira.clientes;
  */
 
 import com.github.palmeidaprog.financeira.exception.ProcuraSemResultadoException;
+import javafx.beans.Observable;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -21,12 +22,15 @@ import java.util.List;
 import java.util.Locale;
 
 public class RendaController implements Serializable {
-    private List<Renda> rendas = new ArrayList<>();
+    private List<Renda> rendaL = new ArrayList<>();
+    private transient ObservableList<Renda> rendas = FXCollections
+            .observableList(rendaL);
 
     //deserializacao
     public RendaController(List<Renda> rendas) {
         if(rendas != null) {
-            this.rendas = rendas;
+            this.rendaL = rendas;
+            rendas = FXCollections.observableList(rendaL);
         }
     }
 
@@ -41,6 +45,8 @@ public class RendaController implements Serializable {
         rendas.add(renda);
         sort(rendas);
     }
+
+    private void criarEventoClonar(int )
 
     public void remover(Renda renda) {
         rendas.remove(renda);

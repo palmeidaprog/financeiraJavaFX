@@ -10,6 +10,7 @@ package com.github.palmeidaprog.financeira.clientes;
  * Professor: Antonio Canvalcanti
  */
 
+import com.github.palmeidaprog.financeira.interfaces.ValorDescrito;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 

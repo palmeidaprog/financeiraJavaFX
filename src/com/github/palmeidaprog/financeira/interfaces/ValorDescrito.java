@@ -1,4 +1,4 @@
-package com.github.palmeidaprog.financeira.clientes;
+package com.github.palmeidaprog.financeira.interfaces;
 
 /*
  * UNICAP - Univesidade Catolica de Pernambuco

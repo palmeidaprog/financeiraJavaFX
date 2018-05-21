@@ -1,6 +1,6 @@
 package com.github.palmeidaprog.financeira.gui.cadastro;
 
-import com.github.palmeidaprog.financeira.clientes.ValorDescrito;
+import com.github.palmeidaprog.financeira.interfaces.ValorDescrito;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.TableColumn;

@@ -14,6 +14,8 @@ import com.github.palmeidaprog.financeira.info.Cnpj;
 import com.github.palmeidaprog.financeira.info.Cpf;
 import java.io.IOException;
 import java.util.List;
+import java.util.Observable;
+import java.util.Observer;
 
 public class ClienteController {
     ClienteDAO dao = ClienteDAO.getInstance();
@@ -48,7 +50,7 @@ public class ClienteController {
         remover(get(index));
     }
 
-    public void atualiza() throws IOException {
+    public void update(Observable o, Object arg)) throws IOException {
         dao.atualiza();
     }
 
