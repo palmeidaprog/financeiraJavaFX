@@ -16,6 +16,7 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import java.io.Serializable;
 import java.util.Locale;
+import java.util.Map;
 
 
 public class Bem extends ObservableSerializable implements Serializable,
@@ -67,9 +68,10 @@ public class Bem extends ObservableSerializable implements Serializable,
         this.valor = valor;
         this.valLiqFormatado = valorFormatado(valorLiquido());
         valorP.setValue(valLiqFormatado);
-        notifyChange();
+        notifyChange(this.valor);
     }
 
+    @Override
     public String valorFormatado(double valor) {
         return String.format(Locale.getDefault(), "%.2f", valor);
     }
@@ -78,6 +80,7 @@ public class Bem extends ObservableSerializable implements Serializable,
         return Math.max(0, getValor() - pendencias.total());
     }
 
+    @Override
     public String getDescricao() {
         return descricao;
     }
@@ -86,7 +89,7 @@ public class Bem extends ObservableSerializable implements Serializable,
     public void setDescricao(String descricao) {
         this.descricao = descricao;
         descricaoP.setValue(descricao);
-        notifyChange();
+        notifyChange(descricao);
     }
 
     @Override
@@ -99,5 +102,25 @@ public class Bem extends ObservableSerializable implements Serializable,
                 '}';
     }
 
+    @Override
+    public int hashCode() {
+        return Double.hashCode(valor) + valorP.hashCode() + descricaoP
+                .hashCode() + descricao.hashCode() + valLiqFormatado
+                .hashCode() + pendencias.hashCode();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        System.out.println("equals obj");
+        if (obj == this) {
+            return true;
+        }
+        return false;
+    }
+
+    public boolean equals(Bem b) {
+        System.out.println("equals bem");
+        return true;
+    }
 
 }

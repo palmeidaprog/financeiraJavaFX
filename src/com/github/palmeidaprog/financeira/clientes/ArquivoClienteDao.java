@@ -17,8 +17,7 @@ import java.util.Observer;
 // @design memento
 // Implementação SalvaTudo no arquivo nas mudanças
 // Tb conhecido co0mo Surubão Design Pattern
-public class ArquivoClienteDao extends ClienteDao implements Memento,
-        Observer {
+public class ArquivoClienteDao extends ClienteDao implements Memento {
     private final String ARQUIVO = "clientes.ser";
     private ObservableList<Cliente> clientes = FXCollections
             .observableArrayList(); // persistenciaa

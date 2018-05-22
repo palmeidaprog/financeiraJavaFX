@@ -32,7 +32,7 @@ public class BemController extends Observable implements Serializable,
     public BemController() {
         bensL = new ArrayList<>();
         bens = FXCollections.observableList(bensL);
-
+        ativarEvento();
     }
 
     public BemController(Bem bem) {
@@ -41,12 +41,14 @@ public class BemController extends Observable implements Serializable,
     }
 
     //--Evento da observableList----------------------------------------------
-    private void ativoEvento() {
+    private void ativarEvento() {
         bens.addListener(new ListChangeListener<Bem>() {
             @Override
             public void onChanged(Change<? extends Bem> c) {
                 while(c.next()) {
-
+                    bensL.addAll(c.getAddedSubList());
+                    bensL.removeAll(c.getRemoved());
+                    update(BemController.this, bensL);
                 }
             }
         });
@@ -59,10 +61,7 @@ public class BemController extends Observable implements Serializable,
 
     }
 
-
     //------------------------------------------------------------------------
-
-
 
     public void inserir(Bem bem) {
         bens.add(bem);

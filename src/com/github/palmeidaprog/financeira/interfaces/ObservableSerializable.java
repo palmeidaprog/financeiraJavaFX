@@ -4,8 +4,8 @@ import java.util.Observable;
 
 public abstract class ObservableSerializable extends Observable {
 
-    public void notifyChange() {
+    protected void notifyChange(Object obj) {
         setChanged();
-        notifyObservers(this);
+        notifyObservers(obj);
     }
 }
