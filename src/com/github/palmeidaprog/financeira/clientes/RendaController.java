@@ -46,7 +46,7 @@ public class RendaController implements Serializable {
         sort(rendas);
     }
 
-    private void criarEventoClonar(int )
+    //private void criarEventoClonar(int )
 
     public void remover(Renda renda) {
         rendas.remove(renda);
