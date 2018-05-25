@@ -1,6 +1,7 @@
 #intellij folders
 .idea/
 out/
+.scannerwork/
 
 # temporary file for libreoffice
 scrum/.~lock* 
