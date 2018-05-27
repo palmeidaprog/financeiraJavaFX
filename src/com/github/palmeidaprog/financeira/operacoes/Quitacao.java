@@ -47,6 +47,7 @@ public class Quitacao extends Debito implements Serializable {
 
     public void setTotal(double total) {
         this.total = total;
+        notifyChange(this.total);
     }
 
     public double getDesconto() {
@@ -55,8 +56,10 @@ public class Quitacao extends Debito implements Serializable {
 
     public void setDesconto(double desconto) {
         this.desconto = desconto;
+        notifyChange(desconto);
     }
 
+    //--Object override-------------------------------------------------------
 
     @Override
     public String toString() {
@@ -64,5 +67,24 @@ public class Quitacao extends Debito implements Serializable {
                 "total=" + total +
                 ", desconto=" + desconto +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        } else if (!(o instanceof Quitacao)) {
+            return false;
+        } else {
+            Quitacao quitacao = (Quitacao) o;
+            return super.equals(o) && quitacao.total == total &&
+                    quitacao.desconto == desconto;
+        }
+    }
+
+    @Override
+    public int hashCode() {
+        return super.hashCode() + Double.hashCode(total) +
+                Double.hashCode(desconto);
     }
 }

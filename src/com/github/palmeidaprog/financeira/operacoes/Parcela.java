@@ -41,10 +41,30 @@ public class Parcela extends Debito implements Serializable {
                  + 1);
     }
 
+    //--Object override-------------------------------------------------------
+
     @Override
     public String toString() {
         return "Parcela{" +
                 "numeroDaParcela=" + numeroDaParcela +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if(this == o) {
+            return true;
+        } else if(!(o instanceof Parcela)) {
+            return false;
+        } else {
+            Parcela parcela = (Parcela) o;
+            return super.equals(o) &&
+                    numeroDaParcela == parcela.numeroDaParcela;
+        }
+    }
+
+    @Override
+    public int hashCode() {
+        return super.hashCode() + numeroDaParcela;
     }
 }

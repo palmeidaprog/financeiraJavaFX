@@ -9,10 +9,16 @@ package com.github.palmeidaprog.financeira.operacoes;
  * Professor: Antonio Canvalcanti
  */
 
+import com.github.palmeidaprog.financeira.interfaces.ObservableSerializable;
+
 import java.io.Serializable;
 import java.util.Date;
+import java.util.Objects;
+import java.util.Observable;
+import java.util.Observer;
 
-public class Debito implements Serializable {
+public class Debito extends ObservableSerializable implements Serializable,
+        Observer {
     private final double valor;
     private Date vencimento;
     private double multa;
@@ -51,6 +57,7 @@ public class Debito implements Serializable {
 
     public void setVencimento(Date vencimento) {
         this.vencimento = vencimento;
+        notifyChange(this.vencimento);
     }
 
     public double getMulta() {
@@ -59,6 +66,7 @@ public class Debito implements Serializable {
 
     public void setMulta(double multa) {
         this.multa = multa;
+        notifyChange(this.multa);
     }
 
     public double getJurosPorDia() {
@@ -67,6 +75,7 @@ public class Debito implements Serializable {
 
     public void setJurosPorDia(double jurosPorDia) {
         this.jurosPorDia = jurosPorDia;
+        notifyChange(this.jurosPorDia);
     }
 
     public Pagamento getPagamento() {
@@ -75,6 +84,39 @@ public class Debito implements Serializable {
 
     public void setPagamento(Pagamento pagamento) {
         this.pagamento = pagamento;
+        notifyChange(this.pagamento);
+    }
+
+    //--Observer methods------------------------------------------------------
+
+    @Override
+    public void update(Observable o, Object arg) {
+        notifyChange(o);
+    }
+
+    //--Object override-------------------------------------------------------
+
+    @Override
+    public boolean equals(Object o) {
+        if(this == o) {
+            return true;
+        } else if(!(o instanceof Debito)) {
+            return false;
+        } else {
+            Debito debito = (Debito) o;
+            return debito.valor == valor &&
+                    debito.multa == multa &&
+                    debito.jurosPorDia == jurosPorDia &&
+                    vencimento == debito.vencimento &&
+                    pagamento.equals(debito.pagamento);
+        }
+    }
+
+    @Override
+    public int hashCode() {
+        return Double.hashCode(valor) + vencimento.hashCode() +
+                Double.hashCode(multa) + Double.hashCode(jurosPorDia) +
+                pagamento.hashCode();
     }
 
     @Override

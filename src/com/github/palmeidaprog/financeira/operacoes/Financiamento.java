@@ -11,6 +11,8 @@ package com.github.palmeidaprog.financeira.operacoes;
 
 import com.github.palmeidaprog.financeira.clientes.Bem;
 
+import java.util.Objects;
+
 public class Financiamento extends OperacaoCredito {
     private Bem garantia;
 
@@ -36,10 +38,29 @@ public class Financiamento extends OperacaoCredito {
         this.garantia = garantia;
     }
 
+    //--Object override-------------------------------------------------------
+
     @Override
     public String toString() {
         return "Financiamento{" +
                 "garantia=" + garantia +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if(this == o) {
+            return true;
+        } else if(!(o instanceof Financiamento)) {
+            return false;
+        } else {
+            Financiamento that = (Financiamento) o;
+            return super.equals(o) && garantia.equals(that.garantia);
+        }
+    }
+
+    @Override
+    public int hashCode() {
+        return super.hashCode() + Objects.hash(garantia);
     }
 }

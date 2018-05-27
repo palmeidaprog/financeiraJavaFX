@@ -9,8 +9,10 @@ package com.github.palmeidaprog.financeira.operacoes;
  * Professor: Antonio Canvalcanti
  */
 
+import com.github.palmeidaprog.financeira.interfaces.ObservableSerializable;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.Objects;
 
 public class Pagamento implements Serializable {
     private final Date dataDePagto;
@@ -42,6 +44,8 @@ public class Pagamento implements Serializable {
         return desconto;
     }
 
+    //--Object override-------------------------------------------------------
+
     @Override
     public String toString() {
         return "Pagamento{" +
@@ -49,5 +53,25 @@ public class Pagamento implements Serializable {
                 ", valor=" + valor +
                 ", desconto=" + desconto +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if(this == o) {
+            return true;
+        } else if(!(o instanceof Pagamento)) {
+            return false;
+        } else {
+            Pagamento pagamento = (Pagamento) o;
+            return pagamento.valor == valor &&
+                    pagamento.desconto == desconto &&
+                    dataDePagto.equals(pagamento.dataDePagto);
+        }
+    }
+
+    @Override
+    public int hashCode() {
+        return dataDePagto.hashCode() + Double.hashCode(valor) +
+                Double.hashCode(desconto);
     }
 }

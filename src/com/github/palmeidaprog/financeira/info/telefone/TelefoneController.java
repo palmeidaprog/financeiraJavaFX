@@ -9,14 +9,12 @@ package com.github.palmeidaprog.financeira.info.telefone;
  * Professor: Antonio Canvalcanti
  */
 
-
 import com.github.palmeidaprog.financeira.exception.ImpossivelRemoverException;
 import com.github.palmeidaprog.financeira.exception.ProcuraSemResultadoException;
 import com.github.palmeidaprog.financeira.interfaces.ObservableSerializable;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
-
 import java.io.Serializable;
 import java.util.*;
 
@@ -55,8 +53,8 @@ public class TelefoneController extends ObservableSerializable implements
             @Override
             public void onChanged(Change<? extends Telefone> c) {
                 while(c.next()) {
-                    telefones.addAll(c.getAddedSubList());
-                    telefones.removeAll(c.getRemoved());
+                    inserir(c.getAddedSubList());
+                    remover(c.getRemoved());
                 }
             }
         });
@@ -69,26 +67,44 @@ public class TelefoneController extends ObservableSerializable implements
     }
 
     public void inserir(Telefone telefone, boolean isPrincipal) {
+        telefone.addObserver(this);
         telefones.add(telefone);
         if(isPrincipal) {
             principal = telefone;
         }
     }
 
+    public void inserir(Collection<? extends Telefone> c) {
+        for(Telefone t : c) {
+            inserir(t);
+        }
+    }
+
     public void remover(Telefone telefone) throws ImpossivelRemoverException {
         if(isRemovivel(telefone)) {
+            telefone.deleteObserver(this);
             telefones.remove(telefone);
         }
     }
 
+    public void remover(Collection<? extends Telefone> c) {
+        for(Telefone t : c) {
+            try {
+                remover(t);
+            } catch(ImpossivelRemoverException e) {
+                // pular caso principal esteja na lista
+            }
+        }
+    }
+
     public void remover(int index) throws ImpossivelRemoverException {
-        remover(get(index));
+        Telefone telefone = get(index);
+        telefone.deleteObserver(this);
+        remover(telefone);
     }
 
     public Telefone get(int index) {
-        Telefone telefone = telefones.get(index);
-        setPrincipal(telefone);
-        return telefone;
+        return telefones.get(index);
     }
 
     public boolean isPrincipal(Telefone telefone) {
@@ -173,6 +189,13 @@ public class TelefoneController extends ObservableSerializable implements
         return true;
     }
 
+    //--Observer--------------------------------------------------------------
+
+    @Override
+    public void update(Observable o, Object arg) {
+        notifyChange(o);
+    }
+
     //--Object override-------------------------------------------------------
 
     @Override
@@ -182,7 +205,6 @@ public class TelefoneController extends ObservableSerializable implements
                 ", principal=" + principal +
                 '}';
     }
-
 
     @Override
     public boolean equals(Object o) {

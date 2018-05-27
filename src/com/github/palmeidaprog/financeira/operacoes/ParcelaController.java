@@ -9,22 +9,27 @@ package com.github.palmeidaprog.financeira.operacoes;
  * Professor: Antonio Canvalcanti
  */
 
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
+import com.github.palmeidaprog.financeira.interfaces.ObservableSerializable;
 
-public class ParcelaController implements Serializable {
-    private final List<Parcela> parcelas;
+import java.io.Serializable;
+import java.util.*;
+
+public class ParcelaController extends ObservableSerializable implements
+        Serializable, Observer {
+    private List<Parcela> parcelas;
+    private List<Parcela> pagas;
     private int numeroDeParcelas;
     private double valorParcela;
     private int parcelasRestantes;
 
     // deserializacao
-    public ParcelaController(List<Parcela> parcelas, int numeroDeParcelas,
-                             double valorParcela, int parcelasRestantes) {
+    public ParcelaController(List<Parcela> parcelas, List<Parcela> pagas,
+                             int numeroDeParcelas, double valorParcela,
+                             int parcelasRestantes) {
         this.parcelas = parcelas;
+        this.pagas = pagas;
+        addObserversToElements(this, parcelas);
+        addObserversToElements(this, pagas);
         this.numeroDeParcelas = numeroDeParcelas;
         this.valorParcela = valorParcela;
         this.parcelasRestantes = parcelasRestantes;
@@ -32,6 +37,7 @@ public class ParcelaController implements Serializable {
 
     public ParcelaController(int numeroDeParcelas, Parcela primeiraParcela) {
         parcelas = new ArrayList<>(numeroDeParcelas);
+        pagas = new ArrayList<>();
         this.numeroDeParcelas = numeroDeParcelas;
         numeroDeParcelas = parcelasRestantes;
         valorParcela = primeiraParcela.getValor();
@@ -42,9 +48,12 @@ public class ParcelaController implements Serializable {
             primeiraParcela) {
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(primeiraParcela.getVencimento());
-        parcelas.set(0, primeiraParcela);
+        primeiraParcela.addObserver(this);
+        parcelas.add(0, primeiraParcela);
         for(int i = 1; i < numeroDeParcelas; i++) {
-            parcelas.set(i, parcelas.get(i - 1).proximaParcela());
+            Parcela p = parcelas.get(i - 1).proximaParcela();
+            p.addObserver(this);
+            parcelas.add(i, p);
         }
     }
 
@@ -60,6 +69,19 @@ public class ParcelaController implements Serializable {
         return parcelas.get(0);
     }
 
+    //--Observer method-------------------------------------------------------
+
+    @Override
+    public void update(Observable o, Object arg) {
+        if(arg instanceof Pagamento && o instanceof Parcela) {
+            parcelas.remove(o);
+            pagas.add((Parcela) o);
+        }
+        notifyChange(parcelas);
+    }
+
+    //--Object override-------------------------------------------------------
+
     @Override
     public String toString() {
         return "ParcelaController{" +
@@ -68,5 +90,58 @@ public class ParcelaController implements Serializable {
                 ", valorParcela=" + valorParcela +
                 ", parcelasRestantes=" + parcelasRestantes +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if(this == o) {
+            return true;
+        } else if(!(o instanceof ParcelaController)) {
+            return false;
+        } else {
+            ParcelaController that = (ParcelaController) o;
+            return numeroDeParcelas == that.numeroDeParcelas &&
+                    that.valorParcela == valorParcela &&
+                    parcelasRestantes == that.parcelasRestantes &&
+                    comparaList(parcelas, that.parcelas) &&
+                    comparaList(pagas, that.pagas);
+        }
+    }
+
+    @Override
+    public int hashCode() {
+        int soma = 0;
+        for(Parcela b : parcelas) {
+            soma += b.hashCode();
+        }
+
+        for(Parcela b : pagas) {
+            soma += b.hashCode();
+        }
+
+        return soma + numeroDeParcelas + Double.hashCode(valorParcela) +
+                parcelasRestantes;
+    }
+
+    // suporte para equals()
+    private <T> boolean comparaList(Collection<T> b, Collection<T> l) {
+        Iterator bi = b.iterator();
+        Iterator li = l.iterator();
+
+        if(b.size() != l.size()) {
+            return false;
+        }
+        while(bi.hasNext()) {
+            Object bo = bi.next();
+            Object lo = li.next();
+
+            if(bo instanceof Parcela) {
+                Parcela parc = (Parcela) bo;
+                if(!parc.equals(lo)) {
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 }

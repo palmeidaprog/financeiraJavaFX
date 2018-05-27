@@ -10,30 +10,40 @@ package com.github.palmeidaprog.financeira.operacoes;
  */
 
 import com.github.palmeidaprog.financeira.exception.ProcuraSemResultadoException;
+import com.github.palmeidaprog.financeira.info.telefone.Telefone;
+import com.github.palmeidaprog.financeira.interfaces.ObservableSerializable;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
-public class PagamentoController implements Serializable {
+public class PagamentoController extends ObservableSerializable implements
+        Serializable, Observer {
     private List<Pagamento> pagamentos = new ArrayList<>();
 
     public void inserir(Pagamento pagamento) {
         pagamentos.add(pagamento);
+        notifyChange(pagamentos);
     }
 
     public void inserir(Collection<Pagamento> pagamentos) {
-        this.pagamentos.addAll(pagamentos);
+        for(Pagamento p : pagamentos) {
+            inserir(p);
+        }
+    }
+
+    public void remover(Collection<Pagamento> pagamentos) {
+        for(Pagamento p : pagamentos) {
+            remover(p);
+        }
     }
 
     public void remover(Pagamento pagamento) {
         pagamentos.remove(pagamento);
+        notifyChange(pagamentos);
     }
 
     public void remover(int index) {
-        pagamentos.remove(index);
+        remover(get(index));
     }
 
     public Pagamento get(int index) {
@@ -96,10 +106,61 @@ public class PagamentoController implements Serializable {
         return soma;
     }
 
+    //--Observer method-------------------------------------------------------
+
+    @Override
+    public void update(Observable o, Object arg) {
+        notifyChange(o);
+    }
+
+    //--Object Override-------------------------------------------------------
+
     @Override
     public String toString() {
         return "PagamentoController{" +
                 "pagamentos=" + pagamentos +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if(this == o) {
+            return true;
+        } else if(!(o instanceof PagamentoController)) {
+            return false;
+        } else {
+            PagamentoController that = (PagamentoController) o;
+            return comparaList(pagamentos, that.pagamentos);
+        }
+    }
+
+    @Override
+    public int hashCode() {
+        int soma = 0;
+        for(Pagamento b : pagamentos) {
+            soma += b.hashCode();
+        }
+        return soma;
+    }
+
+    private <T> boolean comparaList(Collection<T> b, Collection<T> l) {
+        Iterator bi = b.iterator();
+        Iterator li = l.iterator();
+
+        if(b.size() != l.size()) {
+            return false;
+        }
+        while(bi.hasNext()) {
+            Object bo = bi.next();
+            Object lo = li.next();
+
+            if(bo instanceof Pagamento) {
+                Pagamento tel = (Pagamento) bo;
+                if(!tel.equals(lo)) {
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 }
