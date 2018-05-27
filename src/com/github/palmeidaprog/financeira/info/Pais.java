@@ -322,6 +322,7 @@ public enum Pais implements Serializable{
         return nome + " (+" + codigo + ")";
     }
 
+
     @Override
     public String toString() {
         return "Pais{" +

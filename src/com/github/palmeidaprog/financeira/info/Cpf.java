@@ -3,6 +3,8 @@ package com.github.palmeidaprog.financeira.info;
 import java.io.Serializable;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
+
 import com.github.palmeidaprog.financeira.exception.InscricaoInvalidaException;
 
 /*
@@ -100,10 +102,29 @@ public class Cpf extends InscricaoFiscal implements Serializable {
         }
     }
 
+    //--Object override-------------------------------------------------------
+
     @Override
     public String toString() {
         return "Cpf{" +
                 "CPF='" + CPF + '\'' +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if(this == o) {
+            return true;
+        } else if(!(o instanceof Cpf)) {
+            return false;
+        } else {
+            Cpf cpf = (Cpf) o;
+            return super.equals(o) && CPF.equals(cpf.CPF);
+        }
+    }
+
+    @Override
+    public int hashCode() {
+        return super.hashCode() + CPF.hashCode();
     }
 }

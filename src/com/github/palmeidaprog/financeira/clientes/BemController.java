@@ -15,6 +15,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 
+import javax.swing.text.html.HTMLDocument;
 import java.io.Serializable;
 import java.util.*;
 
@@ -174,6 +175,8 @@ public class BemController extends Observable implements Serializable,
         return String.format(Locale.getDefault(), "%.2f", valor);
     }
 
+    //--Object override-------------------------------------------------------
+
     @Override
     public String toString() {
         return "BemController{" +
@@ -181,5 +184,65 @@ public class BemController extends Observable implements Serializable,
                 '}';
     }
 
-    //--
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        } else if (!(o instanceof BemController)) {
+            return false;
+        } else {
+            BemController b = (BemController) o;
+            return b.comparaList(this.bensL, b.bensL);
+        }
+    }
+
+    @Override
+    public int hashCode() {
+        int soma = 0;
+        for(Bem b : bensL) {
+            if(b instanceof Automovel) {
+                Automovel auto = (Automovel) b;
+                soma += auto.hashCode();
+            } else if(b instanceof Imovel) {
+                Imovel imov = (Imovel) b;
+                soma += imov.hashCode();
+            } else {
+                soma += b.hashCode();
+            }
+        }
+        return soma;
+    }
+
+    // suporte para equals()
+    private <T> boolean comparaList(Collection<T> b, Collection<T> l) {
+        Iterator bi = b.iterator();
+        Iterator li = l.iterator();
+
+        if(b.size() != l.size()) {
+            return false;
+        }
+        while(bi.hasNext()) {
+            Object bo = bi.next();
+            Object lo = li.next();
+
+            if(bo instanceof Automovel) {
+                Automovel auto = (Automovel) bo;
+                if(!auto.equals(lo)) {
+                    return false;
+                }
+            } else if(bo instanceof Imovel) {
+                Imovel imov = (Imovel) bo;
+                if(!imov.equals(lo)) {
+                    return false;
+                }
+            } else {
+                Bem bem = (Bem) bo;
+                if(!bem.equals(lo)) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
 }

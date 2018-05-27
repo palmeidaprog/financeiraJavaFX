@@ -11,24 +11,44 @@ package com.github.palmeidaprog.financeira.clientes;
 
 import com.github.palmeidaprog.financeira.exception.ProcuraSemResultadoException;
 import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Locale;
+import java.util.*;
 
 public class PendenciaController implements Serializable {
-    private final List<Pendencia> pendencias;
+    private List<Pendencia> pendenciasL;
+    private transient ObservableList<Pendencia> pendencias;
 
     // desserialização
     public PendenciaController(List<Pendencia> pendencias) {
-        this.pendencias = pendencias;
+        this.pendenciasL = pendencias;
+        this.pendencias = FXCollections.observableList(pendenciasL);
+        eventoLista();
     }
 
     public PendenciaController() {
-        pendencias = new ArrayList<>();
+        pendenciasL = new ArrayList<>();
+        this.pendencias = FXCollections.observableList(pendenciasL);
+        eventoLista();
     }
+
+    //--Eventos---------------------------------------------------------------
+
+    private void eventoLista() {
+        pendencias.addListener(new ListChangeListener<Pendencia>() {
+            @Override
+            public void onChanged(Change<? extends Pendencia> c) {
+                while(c.next()) {
+                    pendenciasL.addAll(c.getAddedSubList());
+                    pendenciasL.removeAll(c.getRemoved());
+                }
+            }
+        });
+    }
+
+    //------------------------------------------------------------------------
 
     public void inserir(Pendencia pendencia) {
         pendencias.add(pendencia);
@@ -108,10 +128,57 @@ public class PendenciaController implements Serializable {
         return formataValor(total());
     }
 
+    //--Object OVerride-------------------------------------------------------
+
     @Override
     public String toString() {
         return "PendenciaController{" +
                 "pendencias=" + pendencias +
                 '}';
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        } else if (!(o instanceof PendenciaController)) {
+            return false;
+        } else {
+            PendenciaController b = (PendenciaController) o;
+            return b.comparaList(this.pendenciasL, b.pendenciasL);
+        }
+    }
+
+    @Override
+    public int hashCode() {
+        int soma = 0;
+        for(Pendencia b : pendenciasL) {
+            soma += b.hashCode();
+        }
+        return soma;
+    }
+
+    // suporte para equals()
+    private <T> boolean comparaList(Collection<T> b, Collection<T> l) {
+        Iterator bi = b.iterator();
+        Iterator li = l.iterator();
+
+        if(b.size() != l.size()) {
+            return false;
+        }
+        while(bi.hasNext()) {
+            Object bo = bi.next();
+            Object lo = li.next();
+
+            if(bo instanceof Pendencia) {
+                Pendencia pend = (Pendencia) bo;
+                if(pend.equals(lo)) {
+                    continue;
+                }
+            }
+            return false;
+        }
+        return true;
+    }
+
 }

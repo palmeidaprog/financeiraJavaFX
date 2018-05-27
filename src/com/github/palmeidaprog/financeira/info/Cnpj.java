@@ -13,6 +13,7 @@ package com.github.palmeidaprog.financeira.info;
 import com.github.palmeidaprog.financeira.exception.InscricaoInvalidaException;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 public class Cnpj extends InscricaoFiscal implements Serializable {
     private final String CNPJ;
@@ -42,10 +43,6 @@ public class Cnpj extends InscricaoFiscal implements Serializable {
         return CNPJ;
     }
 
-    public boolean equals(Cnpj cnpj) {
-        return (cnpj != null && this.CNPJ.equals(cnpj.getCNPJ()));
-    }
-
     public String formatado() {
         if(CNPJ.length() != 14) {
             return CNPJ;
@@ -56,10 +53,29 @@ public class Cnpj extends InscricaoFiscal implements Serializable {
         }
     }
 
+    //--Object override-------------------------------------------------------
+
     @Override
     public String toString() {
         return "Cnpj{" +
                 "CNPJ='" + CNPJ + '\'' +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if(this == o) {
+            return true;
+        } else if (!(o instanceof Cnpj)) {
+            return false;
+        } else {
+            Cnpj cnpj = (Cnpj) o;
+            return super.equals(o) && CNPJ.equals(cnpj.CNPJ);
+        }
+    }
+
+    @Override
+    public int hashCode() {
+        return super.hashCode() + CNPJ.hashCode();
     }
 }

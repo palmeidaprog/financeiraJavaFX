@@ -10,9 +10,10 @@ package com.github.palmeidaprog.financeira.info;
  * Professor: Antonio Canvalcanti
  */
 
+import com.github.palmeidaprog.financeira.interfaces.ObservableSerializable;
 import java.io.Serializable;
 
-public class Estado implements Serializable {
+public class Estado extends ObservableSerializable implements Serializable {
     private String nome;
     private String sigla;
 
@@ -35,10 +36,12 @@ public class Estado implements Serializable {
 
     public void setSigla(String sigla) {
         this.sigla = sigla;
+        notifyChange(this);
     }
 
     public void setNome(String nome) {
         this.nome = nome;
+        notifyChange(this);
     }
 
     public boolean equals(Estado estado) {
@@ -51,11 +54,31 @@ public class Estado implements Serializable {
                 + ")";
      }
 
+     //--Object override------------------------------------------------------
+
     @Override
     public String toString() {
         return "Estado{" +
                 "nome='" + nome + '\'' +
                 ", sigla='" + sigla + '\'' +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if(this == o) {
+            return true;
+        } else if(!(o instanceof Estado)) {
+            return false;
+        } else {
+            Estado estado = (Estado) o;
+            return nome.equals(estado.nome) &&
+                    sigla.equals(estado.sigla);
+        }
+    }
+
+    @Override
+    public int hashCode() {
+        return nome.hashCode() + sigla.hashCode();
     }
 }

@@ -28,10 +28,29 @@ public class CodigoArea implements Serializable {
         return codigo;
     }
 
+    //--Object oveeride-------------------------------------------------------
+
     @Override
     public String toString() {
         return "CodigoArea{" +
                 "codigo='" + codigo + '\'' +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if(this == o) {
+            return true;
+        } else if(!(o instanceof CodigoArea)) {
+            return false;
+        } else {
+            CodigoArea cod = (CodigoArea) o;
+            return codigo.equals(cod.codigo);
+        }
+    }
+
+    @Override
+    public int hashCode() {
+        return codigo.hashCode();
     }
 }

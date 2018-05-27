@@ -11,10 +11,12 @@ package com.github.palmeidaprog.financeira.info.telefone;
          */
 
 import com.github.palmeidaprog.financeira.info.Pais;
+import com.github.palmeidaprog.financeira.interfaces.ObservableSerializable;
 
 import java.io.Serializable;
+import java.util.Objects;
 
-public class Telefone implements Serializable {
+public class Telefone extends ObservableSerializable implements Serializable {
     private CodigoArea codigoArea;
     private NumeroTelefone numero;
     private TipoTelefone tipo;
@@ -35,6 +37,7 @@ public class Telefone implements Serializable {
 
     public void setPais(Pais pais) {
         this.pais = pais;
+        notifyChange(this.pais);
     }
 
     public CodigoArea getCodigoArea() {
@@ -43,6 +46,7 @@ public class Telefone implements Serializable {
 
     public void setCodigoArea(CodigoArea codigoArea) {
         this.codigoArea = codigoArea;
+        notifyChange(this.codigoArea);
     }
 
     public NumeroTelefone getNumero() {
@@ -51,10 +55,12 @@ public class Telefone implements Serializable {
 
     public void setNumero(NumeroTelefone numero) {
         this.numero = numero;
+        notifyChange(this.numero);
     }
 
     public void setTipo(TipoTelefone tipo) {
         this.tipo = tipo;
+        notifyChange(this.tipo);
     }
 
     public TipoTelefone getTipo() {
@@ -65,6 +71,8 @@ public class Telefone implements Serializable {
         return "+" + pais.getCodigo() + "-" + codigoArea + "-" + numero;
     }
 
+    //--Object override-------------------------------------------------------
+
     @Override
     public String toString() {
         return "Telefone{" +
@@ -73,5 +81,26 @@ public class Telefone implements Serializable {
                 ", tipo=" + tipo +
                 ", pais=" + pais +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if(this == o) {
+            return true;
+        } else if(!(o instanceof Telefone)) {
+            return false;
+        } else {
+            Telefone telefone = (Telefone) o;
+            return codigoArea.equals(telefone.codigoArea) &&
+                    numero.equals(telefone.numero) &&
+                    tipo == telefone.tipo &&
+                    pais == telefone.pais;
+        }
+    }
+
+    @Override
+    public int hashCode() {
+        return codigoArea.hashCode() + numero.hashCode() + tipo.hashCode() +
+                pais.hashCode();
     }
 }

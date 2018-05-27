@@ -9,9 +9,12 @@ package com.github.palmeidaprog.financeira.info;
  * Professor: Antonio Canvalcanti
  */
 
-import java.io.Serializable;
+import com.github.palmeidaprog.financeira.interfaces.ObservableSerializable;
 
-public class Cep implements Serializable {
+import java.io.Serializable;
+import java.util.Objects;
+
+public class Cep extends ObservableSerializable implements Serializable {
     private String numero;
 
     // deserializaco
@@ -21,6 +24,7 @@ public class Cep implements Serializable {
 
     public void setNumero(String numero) {
         this.numero = numero;
+        notifyChange(this);
     }
 
     public String getNumero() {
@@ -31,10 +35,29 @@ public class Cep implements Serializable {
         return numero;
     }
 
+    //--Objects override------------------------------------------------------
+
     @Override
     public String toString() {
         return "Cep{" +
                 "numero='" + numero + '\'' +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if(this == o) {
+            return true;
+        } else if(!(o instanceof Cep)) {
+            return false;
+        } else {
+            Cep cep = (Cep) o;
+            return numero.equals(cep.numero);
+        }
+    }
+
+    @Override
+    public int hashCode() {
+        return numero.hashCode();
     }
 }

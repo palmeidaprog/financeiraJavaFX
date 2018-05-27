@@ -2,6 +2,7 @@ package com.github.palmeidaprog.financeira.clientes;
 
 import java.io.Serializable;
 import java.security.InvalidParameterException;
+import java.util.Objects;
 
 /*
  * Financeira App
@@ -66,6 +67,29 @@ public class Automovel extends Bem implements Serializable {
 
     public int getAnoModelo() {
         return anoModelo;
+    }
+
+    //--Object override-------------------------------------------------------
+
+    @Override
+    public int hashCode() {
+        return super.hashCode() + anoFabricacao + anoModelo +
+                marca.hashCode() + modelo.hashCode();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        } else if(!(o instanceof Automovel)) {
+            return false;
+        } else {
+            Automovel automovel = (Automovel) o;
+            return super.equals(o) && anoFabricacao == automovel.anoFabricacao
+                    && anoModelo == automovel.anoModelo &&
+                    marca.equals(automovel.marca) &&
+                    modelo.equals(automovel.modelo);
+        }
     }
 
     @Override

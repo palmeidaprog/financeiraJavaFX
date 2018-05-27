@@ -12,50 +12,55 @@ package com.github.palmeidaprog.financeira.info;
 
 import com.github.palmeidaprog.financeira.exception.ImpossivelRemoverException;
 import com.github.palmeidaprog.financeira.exception.ProcuraSemResultadoException;
+import com.github.palmeidaprog.financeira.interfaces.ObservableSerializable;
 import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Observable;
-import java.util.Observer;
+import java.util.*;
 
-public class EnderecoController extends Observable implements Serializable,
-        Observer {
+public class EnderecoController extends ObservableSerializable implements
+        Serializable, Observer {
 
-    private List<Endereco> enderecosL;
-    private transient ObservableList<Endereco> enderecos;
+    private List<Endereco> enderecosL = new ArrayList<>();
+    private transient ObservableList<Endereco> enderecos =
+            FXCollections.observableList(enderecosL);
     private Endereco principal;
-    private List<Observable> observables = new ArrayList<>();
 
     public EnderecoController(Endereco endereco) {
-        inicializaListas();
         principal = endereco;
         enderecos.add(endereco);
+        evento();
     }
 
     // deserializaçào
     public EnderecoController(List<Endereco> enderecos, Endereco principal) {
-        inicializaListas(enderecos);
+        this.enderecos.addAll(enderecos);
         this.principal = principal;
+        evento();
     }
 
-    //--Suporte para construtor-----------------------------------------------
+    //--Evento----------------------------------------------------------------
 
-    private void inicializaListas() {
-        inicializaListas(new ArrayList<>());
-    }
-
-    private void inicializaListas(List<Endereco> lista) {
-        this.enderecosL = lista;
-        this.enderecos = FXCollections.observableList(this.enderecosL);
+    public void evento() {
+        enderecos.addListener(new ListChangeListener<Endereco>() {
+            @Override
+            public void onChanged(Change<? extends Endereco> c) {
+                while(c.next()) {
+                    enderecosL.addAll(c.getAddedSubList());
+                    enderecosL.removeAll(c.getRemoved());
+                    EnderecoController.this.notifyChange(EnderecoController
+                            .this.enderecosL);
+                }
+            }
+        });
     }
 
     //--Observer interface----------------------------------------------------
 
     public void update(Observable o, Object obj) {
-
+        notifyChange(o);
     }
 
     //------------------------------------------------------------------------
@@ -93,6 +98,7 @@ public class EnderecoController extends Observable implements Serializable,
 
     public void setPrincipal(Endereco endereco) {
         principal = endereco;
+        notifyChange(principal);
     }
 
     public Endereco getPrincipal() {
@@ -213,11 +219,58 @@ public class EnderecoController extends Observable implements Serializable,
         return resultado;
     }
 
+    //--Object override-------------------------------------------------------
+
     @Override
     public String toString() {
         return "EnderecoController{" +
                 "enderecos=" + enderecos +
                 ", principal=" + principal +
                 '}';
+    }
+
+
+    @Override
+    public boolean equals(Object o) {
+        if(this == o) {
+            return true;
+        } else if(!(o instanceof EnderecoController)) {
+            return false;
+        } else {
+            EnderecoController endC = (EnderecoController) o;
+            return comparaList(enderecosL, endC.enderecosL) &&
+                    principal.equals(endC.principal);
+        }
+    }
+
+    @Override
+    public int hashCode() {
+        int soma = 0;
+        for(Endereco b : enderecos) {
+            soma += b.hashCode();
+        }
+        return soma + principal.hashCode();
+    }
+
+    // suporte para equals()
+    private <T> boolean comparaList(Collection<T> b, Collection<T> l) {
+        Iterator bi = b.iterator();
+        Iterator li = l.iterator();
+
+        if(b.size() != l.size()) {
+            return false;
+        }
+        while(bi.hasNext()) {
+            Object bo = bi.next();
+            Object lo = li.next();
+
+            if(bo instanceof Endereco) {
+                Endereco end = (Endereco) bo;
+                if(!end.equals(lo)) {
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 }

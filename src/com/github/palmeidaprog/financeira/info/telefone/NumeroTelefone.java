@@ -28,10 +28,29 @@ public class NumeroTelefone implements Serializable {
         return numero;
     }
 
+    //--Object override-------------------------------------------------------
+
     @Override
     public String toString() {
         return "NumeroTelefone{" +
                 "numero='" + numero + '\'' +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if(this == o) {
+            return true;
+        } else if(!(o instanceof NumeroTelefone)) {
+            return false;
+        } else {
+            NumeroTelefone that = (NumeroTelefone) o;
+            return numero.equals(that.numero);
+        }
+    }
+
+    @Override
+    public int hashCode() {
+        return numero.hashCode();
     }
 }

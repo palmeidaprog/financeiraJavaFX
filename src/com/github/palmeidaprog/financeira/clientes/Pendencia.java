@@ -12,7 +12,6 @@ package com.github.palmeidaprog.financeira.clientes;
 import com.github.palmeidaprog.financeira.interfaces.ValorDescrito;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
-
 import java.io.Serializable;
 import java.util.Locale;
 
@@ -71,11 +70,35 @@ public class Pendencia implements Serializable, ValorDescrito {
         return valorFormatado(valor) + " " + descricao;
     }
 
+    //--Object override-------------------------------------------------------
+
     @Override
     public String toString() {
         return "Pendencia{" +
                 "valor=" + valor +
                 ", descricao='" + descricao + '\'' +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        } else if(!(o instanceof Pendencia)) {
+            return false;
+        } else {
+            Pendencia pendencia = (Pendencia) o;
+            return pendencia.valor == valor &&
+                    valorP.getValue().equals(pendencia.valorP.getValue()) &&
+                    descricaoP.getValue().equals(pendencia.descricaoP
+                            .getValue()) &&
+                    descricao.equals(pendencia.descricao);
+        }
+    }
+
+    @Override
+    public int hashCode() {
+        return Double.hashCode(valor) + valorP.getValue().hashCode() +
+                descricaoP.getValue().hashCode() + descricao.hashCode();
     }
 }

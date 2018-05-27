@@ -16,8 +16,6 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import java.io.Serializable;
 import java.util.Locale;
-import java.util.Map;
-
 
 public class Bem extends ObservableSerializable implements Serializable,
         ValorDescrito {
@@ -30,11 +28,11 @@ public class Bem extends ObservableSerializable implements Serializable,
 
     // construtor de deserializacao
     public Bem(double valor, String descricao, PendenciaController pendencias) {
+        this.pendencias = pendencias;
         this.valor = valor;
         valorP.setValue(valorFormatado(valorLiquido()));
         descricaoP.setValue(descricao);
         this.descricao = descricao;
-        this.pendencias = pendencias;
         this.valLiqFormatado = valorFormatado(valorLiquido());
     }
 
@@ -92,6 +90,8 @@ public class Bem extends ObservableSerializable implements Serializable,
         notifyChange(descricao);
     }
 
+    //--Object override-------------------------------------------------------
+
     @Override
     public String toString() {
         return "Bem{" +
@@ -104,23 +104,25 @@ public class Bem extends ObservableSerializable implements Serializable,
 
     @Override
     public int hashCode() {
-        return Double.hashCode(valor) + valorP.hashCode() + descricaoP
-                .hashCode() + descricao.hashCode() + valLiqFormatado
-                .hashCode() + pendencias.hashCode();
+        return Double.hashCode(valor) + valorP.getValue().hashCode() +
+                descricaoP.getValue().hashCode() + descricao.hashCode() +
+                valLiqFormatado.hashCode() + pendencias.hashCode();
     }
 
     @Override
     public boolean equals(Object obj) {
-        System.out.println("equals obj");
-        if (obj == this) {
+        if(this == obj) {
             return true;
+        } else if(!(obj instanceof Bem)) {
+            return false;
+        } else {
+            Bem b = (Bem) obj;
+            return valor == b.valor &&
+                    valorP.getValue().equals(b.valorP.getValue()) &&
+                    descricaoP.getValue().equals(b.descricaoP.getValue()) &&
+                    descricao.equals(b.descricao) &&
+                    valLiqFormatado.equals(b.valLiqFormatado) &&
+                    pendencias.equals(b.pendencias);
         }
-        return false;
     }
-
-    public boolean equals(Bem b) {
-        System.out.println("equals bem");
-        return true;
-    }
-
 }

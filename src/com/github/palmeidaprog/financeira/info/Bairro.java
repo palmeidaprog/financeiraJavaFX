@@ -10,11 +10,11 @@ package com.github.palmeidaprog.financeira.info;
  * Professor: Antonio Canvalcanti
  */
 
-import com.github.palmeidaprog.financeira.exception.DadoVazioException;
+import com.github.palmeidaprog.financeira.interfaces.ObservableSerializable;
 
 import java.io.Serializable;
 
-public class Bairro implements Serializable {
+public class Bairro extends ObservableSerializable implements Serializable {
     private String nome;
 
     public Bairro(String nome) {
@@ -23,6 +23,7 @@ public class Bairro implements Serializable {
 
     public void setNome(String nome) {
         this.nome = nome;
+        notifyChange(this);
     }
 
     public String getNome() {
@@ -33,10 +34,29 @@ public class Bairro implements Serializable {
         return nome;
     }
 
+    //--Objects override------------------------------------------------------
+
     @Override
     public String toString() {
         return "Bairro{" +
                 "nome='" + nome + '\'' +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if(this == o) {
+            return true;
+        } else if(!(o instanceof Bairro)) {
+            return false;
+        } else {
+            Bairro bairro = (Bairro) o;
+            return nome.equals(bairro.nome);
+        }
+    }
+
+    @Override
+    public int hashCode() {
+        return nome.hashCode();
     }
 }

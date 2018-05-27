@@ -15,6 +15,7 @@ import com.github.palmeidaprog.financeira.info.telefone.Telefone;
 import com.github.palmeidaprog.financeira.info.telefone.TelefoneController;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 public class Imovel extends Bem implements Serializable {
     private String descricao;
@@ -77,6 +78,8 @@ public class Imovel extends Bem implements Serializable {
         notifyChange(descricao);
     }
 
+    //--Object override-------------------------------------------------------
+
     @Override
     public String toString() {
         return "Imovel{" +
@@ -84,5 +87,25 @@ public class Imovel extends Bem implements Serializable {
                 ", endereco=" + endereco +
                 ", telefones=" + telefones +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if(this == o) {
+            return true;
+        } else if(!(o instanceof Imovel)) {
+            return false;
+        } else {
+            Imovel imovel = (Imovel) o;
+            return super.equals(o) && descricao.equals(imovel.descricao) &&
+                    endereco.equals(imovel.endereco) &&
+                    telefones.equals(imovel.telefones);
+        }
+    }
+
+    @Override
+    public int hashCode() {
+        return super.hashCode() + descricao.hashCode() + endereco.hashCode() +
+                telefones.hashCode();
     }
 }

@@ -12,30 +12,57 @@ package com.github.palmeidaprog.financeira.info.telefone;
 
 import com.github.palmeidaprog.financeira.exception.ImpossivelRemoverException;
 import com.github.palmeidaprog.financeira.exception.ProcuraSemResultadoException;
+import com.github.palmeidaprog.financeira.interfaces.ObservableSerializable;
+import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
+import javafx.collections.ObservableList;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
-public class TelefoneController implements Serializable {
-    private final List<Telefone> telefones;
+public class TelefoneController extends ObservableSerializable implements
+        Serializable, Observer {
+    private List<Telefone> telefonesL;
+    private ObservableList<Telefone> telefones;
     private Telefone principal;
+
+    //--Construtores----------------------------------------------------------
 
     // deserializacao
     public TelefoneController(List<Telefone> telefones, Telefone principal) {
-        this.telefones = telefones;
+        this.telefonesL = telefones;
         this.principal = principal;
+        addObserversToElements(this, telefonesL);
+        principal.addObserver(this);
     }
 
     public TelefoneController() {
-        telefones = new ArrayList<>();
+        telefonesL = new ArrayList<>();
+        telefones = FXCollections.observableList(telefonesL);
     }
 
     public TelefoneController(Telefone telefone) {
         this();
         principal = telefone;
+        telefone.addObserver(this);
         telefones.add(telefone);
     }
+
+    //--Evento observablelist-------------------------------------------------
+
+    private void evento() {
+        telefones.addListener(new ListChangeListener<Telefone>() {
+            @Override
+            public void onChanged(Change<? extends Telefone> c) {
+                while(c.next()) {
+                    telefones.addAll(c.getAddedSubList());
+                    telefones.removeAll(c.getRemoved());
+                }
+            }
+        });
+    }
+
+    //------------------------------------------------------------------------
 
     public void inserir(Telefone telefone) {
         telefones.add(telefone);
@@ -146,12 +173,59 @@ public class TelefoneController implements Serializable {
         return true;
     }
 
+    //--Object override-------------------------------------------------------
+
     @Override
     public String toString() {
         return "TelefoneController{" +
                 "telefones=" + telefones +
                 ", principal=" + principal +
                 '}';
+    }
+
+
+    @Override
+    public boolean equals(Object o) {
+        if(this == o) {
+            return true;
+        } else if(!(o instanceof TelefoneController)) {
+            return false;
+        } else {
+            TelefoneController that = (TelefoneController) o;
+            return comparaList(telefones, that.telefones) &&
+                    principal.equals(that.principal);
+        }
+    }
+
+    @Override
+    public int hashCode() {
+        int soma = 0;
+        for(Telefone b : telefones) {
+            soma += b.hashCode();
+        }
+        return soma + principal.hashCode();
+    }
+
+    // suporte para equals()
+    private <T> boolean comparaList(Collection<T> b, Collection<T> l) {
+        Iterator bi = b.iterator();
+        Iterator li = l.iterator();
+
+        if(b.size() != l.size()) {
+            return false;
+        }
+        while(bi.hasNext()) {
+            Object bo = bi.next();
+            Object lo = li.next();
+
+            if(bo instanceof Telefone) {
+                Telefone tel = (Telefone) bo;
+                if(!tel.equals(lo)) {
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 }
 

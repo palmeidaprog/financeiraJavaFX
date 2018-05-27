@@ -11,9 +11,13 @@ package com.github.palmeidaprog.financeira.info;
  */
 
 
+import com.github.palmeidaprog.financeira.interfaces.ObservableSerializable;
 import java.io.Serializable;
+import java.util.Observable;
+import java.util.Observer;
 
-public class InscricaoFiscal implements Serializable {
+public class InscricaoFiscal extends ObservableSerializable implements
+        Serializable, Observer {
     private String orgaoExpedidor;
     private Estado estado;
 
@@ -23,14 +27,17 @@ public class InscricaoFiscal implements Serializable {
     public InscricaoFiscal(String orgaoExpedidor, Estado estado) {
         this.orgaoExpedidor = orgaoExpedidor;
         this.estado = estado;
+        this.estado.addObserver(this);
     }
 
     public void setOrgaoExpedidor(String orgaoExpedidor) {
         this.orgaoExpedidor = orgaoExpedidor;
+        notifyChange(this);
     }
 
     public void setEstado(Estado estado) {
         this.estado = estado;
+        notifyChange(this);
     }
 
     public Estado getEstado() {
@@ -41,11 +48,38 @@ public class InscricaoFiscal implements Serializable {
         return orgaoExpedidor;
     }
 
+    //--Observer intereface---------------------------------------------------
+
+    @Override
+    public void update(Observable o, Object arg) {
+        notifyChange(arg);
+    }
+
+    //--Object override-------------------------------------------------------
+
     @Override
     public String toString() {
         return "InscricaoFiscal{" +
                 "orgaoExpedidor='" + orgaoExpedidor + '\'' +
                 ", estado=" + estado +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if(this == o) {
+            return true;
+        } else if(!(o instanceof InscricaoFiscal)) {
+            return false;
+        } else {
+            InscricaoFiscal insc = (InscricaoFiscal) o;
+            return orgaoExpedidor.equals(insc.orgaoExpedidor) &&
+                    estado.equals(insc.estado);
+        }
+    }
+
+    @Override
+    public int hashCode() {
+        return orgaoExpedidor.hashCode() + estado.hashCode();
     }
 }

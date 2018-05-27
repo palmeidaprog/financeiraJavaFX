@@ -9,7 +9,8 @@ package com.github.palmeidaprog.financeira.clientes;
  * Professor: Antonio Canvalcanti
  */
 
-import com.github.palmeidaprog.financeira.exception.ProcuraSemResultadoException;
+import com.github.palmeidaprog.financeira.exception
+        .ProcuraSemResultadoException;
 import com.github.palmeidaprog.financeira.info.Cnpj;
 import com.github.palmeidaprog.financeira.info.Cpf;
 import java.io.IOException;
@@ -23,7 +24,9 @@ public class ClienteController implements Observer {
 
     // Singleton
     private static volatile ClienteController instance;
-    private ClienteController() throws IOException { }
+    private ClienteController() throws IOException {
+        //Todo: add observers
+    }
 
     public synchronized static ClienteController getInstance() throws
             IOException {
@@ -66,24 +69,4 @@ public class ClienteController implements Observer {
             ProcuraSemResultadoException {
         return dao.procurar(nomeOuCometario);
     }
-
-    //--Metodos Antigos (Candidatos a serem removidos)------------------------
-
-
-    /*
-    public Cliente get(int index) {
-        return dao.get(index);
-    }*/
-
-    /*public int indexOf(Cliente cliente) throws ProcuraSemResultadoException {
-        return dao.indexOf(cliente);
-    }*/
-
-    /*
-    @Deprecated
-    public void remover(int index) throws IOException {
-        remover(get(index));
-    }*/
-
-
 }

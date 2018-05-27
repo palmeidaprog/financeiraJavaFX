@@ -10,9 +10,15 @@ package com.github.palmeidaprog.financeira.info;
  * Professor: Antonio Canvalcanti
  */
 
-import java.io.Serializable;
+import com.github.palmeidaprog.financeira.interfaces.ObservableSerializable;
 
-public class Endereco implements Serializable{
+import java.io.Serializable;
+import java.util.Objects;
+import java.util.Observable;
+import java.util.Observer;
+
+public class Endereco extends ObservableSerializable implements Serializable,
+        Observer {
     private String rua;
     private String numero;
     private Pais pais;
@@ -68,14 +74,17 @@ public class Endereco implements Serializable{
 
     public void setRua(String rua) {
         this.rua = rua;
+        notifyChange(this.rua);
     }
 
     public String getNumero() {
         return numero;
+
     }
 
     public void setNumero(String numero) {
         this.numero = numero;
+        notifyChange(this.numero);
     }
 
     public Pais getPais() {
@@ -84,14 +93,17 @@ public class Endereco implements Serializable{
 
     public void setPais(Pais pais) {
         this.pais = pais;
+        notifyChange(this.pais);
     }
 
     public Estado getEstado() {
         return estado;
+
     }
 
     public void setEstado(Estado estado) {
         this.estado = estado;
+        notifyChange(this.estado);
     }
 
     public Cidade getCidade() {
@@ -100,6 +112,7 @@ public class Endereco implements Serializable{
 
     public void setCidade(Cidade cidade) {
         this.cidade = cidade;
+        notifyChange(this.cidade);
     }
 
     public Bairro getBairro() {
@@ -108,6 +121,7 @@ public class Endereco implements Serializable{
 
     public void setBairro(Bairro bairro) {
         this.bairro = bairro;
+        notifyChange(this.bairro);
     }
 
     public Cep getCep() {
@@ -116,6 +130,7 @@ public class Endereco implements Serializable{
 
     public void setCep(Cep cep) {
         this.cep = cep;
+        notifyChange(this.cep);
     }
 
     public TipoEndereco getTipo() {
@@ -124,6 +139,7 @@ public class Endereco implements Serializable{
 
     public void setTipo(TipoEndereco tipo) {
         this.tipo = tipo;
+        notifyChange(this.tipo);
     }
 
     public String getComplemento() {
@@ -132,6 +148,7 @@ public class Endereco implements Serializable{
 
     public void setComplemento(String complemento) {
         this.complemento = complemento;
+        notifyChange(this.complemento);
     }
 
     public String getReferencia() {
@@ -140,7 +157,17 @@ public class Endereco implements Serializable{
 
     public void setReferencia(String referencia) {
         this.referencia = referencia;
+        notifyChange(this.referencia);
     }
+
+    //--Observer method-------------------------------------------------------
+
+    @Override
+    public void update(Observable o, Object arg) {
+        notifyChange(o);
+    }
+
+    //--Object override-------------------------------------------------------
 
     @Override
     public String toString() {
@@ -156,5 +183,34 @@ public class Endereco implements Serializable{
                 ", complemento='" + complemento + '\'' +
                 ", referencia='" + referencia + '\'' +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if(this == o) {
+            return true;
+        } else if(!(o instanceof Endereco)) {
+            return false;
+        } else {
+            Endereco endereco = (Endereco) o;
+            return rua.equals(endereco.rua) &&
+                    numero.equals(endereco.numero) &&
+                    pais == endereco.pais &&
+                    estado.equals(endereco.estado) &&
+                    cidade.equals(endereco.cidade) &&
+                    bairro.equals(endereco.bairro) &&
+                    cep.equals(endereco.cep) &&
+                    tipo == endereco.tipo &&
+                    complemento.equals(endereco.complemento) &&
+                    referencia.equals(endereco.referencia);
+        }
+    }
+
+    @Override
+    public int hashCode() {
+        return rua.hashCode() + numero.hashCode() + pais.hashCode()
+                + estado.hashCode() + cidade.hashCode() + bairro.hashCode() +
+                cep.hashCode() + tipo.hashCode() + complemento.hashCode() +
+                referencia.hashCode();
     }
 }
