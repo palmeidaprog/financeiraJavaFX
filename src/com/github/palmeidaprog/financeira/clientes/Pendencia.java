@@ -9,13 +9,15 @@ package com.github.palmeidaprog.financeira.clientes;
  * Professor: Antonio Canvalcanti
  */
 
+import com.github.palmeidaprog.financeira.interfaces.ObservableSerializable;
 import com.github.palmeidaprog.financeira.interfaces.ValorDescrito;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import java.io.Serializable;
 import java.util.Locale;
 
-public class Pendencia implements Serializable, ValorDescrito {
+public class Pendencia extends ObservableSerializable implements Serializable,
+        ValorDescrito {
     private double valor;
     private StringProperty valorP = new SimpleStringProperty();
     private StringProperty descricaoP = new SimpleStringProperty();;
@@ -38,6 +40,7 @@ public class Pendencia implements Serializable, ValorDescrito {
     public void setValor(double valor) {
         this.valor = valor;
         valorP.setValue(valorFormatado(valor));
+        notifyChange(this.valor);
     }
 
     @Override
@@ -59,6 +62,7 @@ public class Pendencia implements Serializable, ValorDescrito {
     public void setDescricao(String descricao) {
         this.descricao = descricao;
         descricaoP.setValue(descricao);
+        notifyChange(this.descricao);
     }
 
     @Override

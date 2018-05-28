@@ -11,6 +11,7 @@ package com.github.palmeidaprog.financeira.clientes;
  */
 
 import com.github.palmeidaprog.financeira.exception.ProcuraSemResultadoException;
+import com.github.palmeidaprog.financeira.interfaces.ObservableSerializable;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
@@ -19,10 +20,9 @@ import javax.swing.text.html.HTMLDocument;
 import java.io.Serializable;
 import java.util.*;
 
-public class BemController extends Observable implements Serializable,
-        Observer {
-    private List<Bem> bensL;
-    private transient ObservableList<Bem> bens;
+public class BemController extends ObservableSerializable implements
+        Serializable, Observer {
+    private List<Bem> bens;
 
     //construtor de deserialização
     public BemController(List<Bem> bens) {
@@ -31,9 +31,7 @@ public class BemController extends Observable implements Serializable,
     }
 
     public BemController() {
-        bensL = new ArrayList<>();
-        bens = FXCollections.observableList(bensL);
-        ativarEvento();
+        bens = new ArrayList<>();
     }
 
     public BemController(Bem bem) {
@@ -41,43 +39,33 @@ public class BemController extends Observable implements Serializable,
         inserir(bem);
     }
 
-    //--Evento da observableList----------------------------------------------
-    private void ativarEvento() {
-        bens.addListener(new ListChangeListener<Bem>() {
-            @Override
-            public void onChanged(Change<? extends Bem> c) {
-                while(c.next()) {
-                    bensL.addAll(c.getAddedSubList());
-                    bensL.removeAll(c.getRemoved());
-                    update(BemController.this, bensL);
-                }
-            }
-        });
-    }
-
     //--Observer interface----------------------------------------------------
 
     @Override
     public void update(Observable o, Object arg) {
-
+        notifyChange(o);
     }
 
     //------------------------------------------------------------------------
 
     public void inserir(Bem bem) {
         bens.add(bem);
+        notifyChange(bens);
     }
 
     public void inserir(List<Bem> bens) {
-        this.bens.addAll(bens);
+        for(Bem b : bens) {
+            inserir(b);
+        }
     }
 
     public void remover(Bem bem) {
         bens.remove(bem);
+        notifyChange(this.bens);
     }
 
     public void remover(int index) {
-        bens.remove(index);
+        remover(get(index));
     }
 
     public Bem get(int index) {
@@ -192,14 +180,14 @@ public class BemController extends Observable implements Serializable,
             return false;
         } else {
             BemController b = (BemController) o;
-            return b.comparaList(this.bensL, b.bensL);
+            return b.comparaList(this.bens, b.bens);
         }
     }
 
     @Override
     public int hashCode() {
         int soma = 0;
-        for(Bem b : bensL) {
+        for(Bem b : bens) {
             if(b instanceof Automovel) {
                 Automovel auto = (Automovel) b;
                 soma += auto.hashCode();

@@ -12,31 +12,26 @@ package com.github.palmeidaprog.financeira.info.telefone;
 import com.github.palmeidaprog.financeira.exception.ImpossivelRemoverException;
 import com.github.palmeidaprog.financeira.exception.ProcuraSemResultadoException;
 import com.github.palmeidaprog.financeira.interfaces.ObservableSerializable;
-import javafx.collections.FXCollections;
-import javafx.collections.ListChangeListener;
-import javafx.collections.ObservableList;
 import java.io.Serializable;
 import java.util.*;
 
 public class TelefoneController extends ObservableSerializable implements
         Serializable, Observer {
-    private List<Telefone> telefonesL;
-    private ObservableList<Telefone> telefones;
+    private List<Telefone> telefones;
     private Telefone principal;
 
     //--Construtores----------------------------------------------------------
 
     // deserializacao
     public TelefoneController(List<Telefone> telefones, Telefone principal) {
-        this.telefonesL = telefones;
+        this.telefones = telefones;
         this.principal = principal;
-        addObserversToElements(this, telefonesL);
+        addObserversToElements(this, telefones);
         principal.addObserver(this);
     }
 
     public TelefoneController() {
-        telefonesL = new ArrayList<>();
-        telefones = FXCollections.observableList(telefonesL);
+        telefones = new ArrayList<>();
     }
 
     public TelefoneController(Telefone telefone) {
@@ -46,24 +41,13 @@ public class TelefoneController extends ObservableSerializable implements
         telefones.add(telefone);
     }
 
-    //--Evento observablelist-------------------------------------------------
-
-    private void evento() {
-        telefones.addListener(new ListChangeListener<Telefone>() {
-            @Override
-            public void onChanged(Change<? extends Telefone> c) {
-                while(c.next()) {
-                    inserir(c.getAddedSubList());
-                    remover(c.getRemoved());
-                }
-            }
-        });
-    }
 
     //------------------------------------------------------------------------
 
     public void inserir(Telefone telefone) {
+        telefone.addObserver(this);
         telefones.add(telefone);
+        notifyChange(telefone);
     }
 
     public void inserir(Telefone telefone, boolean isPrincipal) {

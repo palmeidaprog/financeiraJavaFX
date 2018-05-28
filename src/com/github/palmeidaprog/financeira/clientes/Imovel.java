@@ -29,20 +29,27 @@ public class Imovel extends Bem implements Serializable {
         super(valor, descricao, pendencias);
         this.descricao = descricao1;
         this.endereco = endereco;
+        this.endereco.addObserver(this);
         this.telefones = telefones;
+        this.telefones.addObserver(this);
     }
 
-    public Imovel(double valor, String descricao, Endereco endereco, TelefoneController telefones) {
+    public Imovel(double valor, String descricao, Endereco endereco,
+                  TelefoneController telefones) {
         super(valor);
         this.descricao = descricao;
         this.endereco = endereco;
+        this.endereco.addObserver(this);
         this.telefones = telefones;
+        this.telefones.addObserver(this);
     }
 
     public Imovel(Endereco endereco, double valor) {
         super(valor);
         this.endereco = endereco;
+        this.endereco.addObserver(this);
         telefones = new TelefoneController();
+        telefones.addObserver(this);
     }
 
     public Imovel(Endereco endereco, double valor, String descricao) {
@@ -53,6 +60,7 @@ public class Imovel extends Bem implements Serializable {
     public Imovel(Endereco endereco , Telefone telefone, double valor) {
         this(endereco, valor);
         telefones.inserir(telefone);
+
     }
 
     public Imovel(Endereco endereco , Telefone telefone, double valor, String

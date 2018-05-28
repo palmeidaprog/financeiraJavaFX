@@ -9,14 +9,16 @@ package com.github.palmeidaprog.financeira.clientes;
  * Professor: Antonio Canvalcanti
  */
 
+import com.github.palmeidaprog.financeira.interfaces.ObservableSerializable;
 import com.github.palmeidaprog.financeira.interfaces.ValorDescrito;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
-
 import java.io.Serializable;
 import java.util.Locale;
 
-public class Renda implements Serializable, ValorDescrito {
+
+public class Renda extends ObservableSerializable implements Serializable,
+        ValorDescrito {
     private double valor;
     private String descricao;
     private StringProperty descricaoP = new SimpleStringProperty();
@@ -50,6 +52,7 @@ public class Renda implements Serializable, ValorDescrito {
         this.valor = valor;
         valFormatado = valorFormatado();
         valorP.setValue(valorFormatado(valor));
+        notifyChange(this.valor);
     }
 
     private String valorFormatado() {
@@ -67,11 +70,14 @@ public class Renda implements Serializable, ValorDescrito {
     public void setDescricao(String descricao) {
         this.descricao = descricao;
         descricaoP.setValue(descricao);
+        notifyChange(this.descricao);
     }
 
     public String formatado() {
         return valorFormatado() + " - " + descricao + ".";
     }
+
+    //--Object override-------------------------------------------------------
 
     @Override
     public String toString() {
@@ -80,5 +86,28 @@ public class Renda implements Serializable, ValorDescrito {
                 ", descricao='" + descricao + '\'' +
                 ", valFormatado='" + valFormatado + '\'' +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if(this == o) {
+            return true;
+        } else if(!(o instanceof Renda)) {
+            return false;
+        } else {
+            Renda renda = (Renda) o;
+            return renda.valor == valor &&
+                    descricao.equals(renda.descricao) &&
+                    descricaoP.getValue().equals(renda.descricaoP.getValue())
+                    && valorP.getValue().equals(renda.valorP.getValue()) &&
+                    valFormatado.equals(renda.valFormatado);
+        }
+    }
+
+    @Override
+    public int hashCode() {
+        return Double.hashCode(valor) + descricao.hashCode() +
+                descricaoP.getValue().hashCode() +
+                valorP.getValue().hashCode() + valFormatado.hashCode();
     }
 }

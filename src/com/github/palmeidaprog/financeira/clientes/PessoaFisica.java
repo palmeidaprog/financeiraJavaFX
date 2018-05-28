@@ -14,6 +14,7 @@ import com.github.palmeidaprog.financeira.info.Endereco;
 import com.github.palmeidaprog.financeira.info.telefone.Telefone;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 public class PessoaFisica extends Cliente implements Serializable {
     private String primeiroNome;
@@ -61,6 +62,7 @@ public class PessoaFisica extends Cliente implements Serializable {
 
     public void setPrimeiroNome(String primeiroNome) {
         this.primeiroNome = primeiroNome;
+        notifyChange(this.primeiroNome);
     }
 
     public String getNomeDoMeio() {
@@ -69,6 +71,7 @@ public class PessoaFisica extends Cliente implements Serializable {
 
     public void setNomeDoMeio(String nomeDoMeio) {
         this.nomeDoMeio = nomeDoMeio;
+        notifyChange(this.nomeDoMeio);
     }
 
     public String getSobrenome() {
@@ -77,11 +80,14 @@ public class PessoaFisica extends Cliente implements Serializable {
 
     public void setSobrenome(String sobrenome) {
         this.sobrenome = sobrenome;
+        notifyChange(this.sobrenome);
     }
 
     public Cpf getCpf() {
         return cpf;
     }
+
+    //--Object override-------------------------------------------------------
 
     @Override
     public String toString() {
@@ -91,5 +97,27 @@ public class PessoaFisica extends Cliente implements Serializable {
                 ", sobrenome='" + sobrenome + '\'' +
                 ", cpf=" + cpf +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if(this == o) {
+            return true;
+        } else if(!(o instanceof PessoaFisica)) {
+            return false;
+        } else {
+            PessoaFisica that = (PessoaFisica) o;
+            return super.equals(o) &&
+                    primeiroNome.equals(that.primeiroNome) &&
+                    nomeDoMeio.equals(that.nomeDoMeio) &&
+                    sobrenome.equals(that.sobrenome) &&
+                    cpf.equals(that.cpf);
+        }
+    }
+
+    @Override
+    public int hashCode() {
+        return super.hashCode() + primeiroNome.hashCode() +
+                nomeDoMeio.hashCode() + sobrenome.hashCode() + cpf.hashCode();
     }
 }

@@ -14,6 +14,7 @@ import com.github.palmeidaprog.financeira.info.Endereco;
 import com.github.palmeidaprog.financeira.info.telefone.Telefone;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 public class PessoaJuridica extends Cliente implements Serializable {
     private String razaoSocial;
@@ -47,6 +48,7 @@ public class PessoaJuridica extends Cliente implements Serializable {
 
     public void setRazaoSocial(String razaoSocial) {
         this.razaoSocial = razaoSocial;
+        notifyChange(this.razaoSocial);
     }
 
     public String getNomeFantasia() {
@@ -55,11 +57,14 @@ public class PessoaJuridica extends Cliente implements Serializable {
 
     public void setNomeFantasia(String nomeFantasia) {
         this.nomeFantasia = nomeFantasia;
+        notifyChange(this.nomeFantasia);
     }
 
     public Cnpj getCnpj() {
         return cnpj;
     }
+
+    //--Object override-------------------------------------------------------
 
     @Override
     public String toString() {
@@ -68,5 +73,25 @@ public class PessoaJuridica extends Cliente implements Serializable {
                 ", nomeFantasia='" + nomeFantasia + '\'' +
                 ", cnpj=" + cnpj +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if(this == o) {
+            return true;
+        } else if(!(o instanceof PessoaFisica)) {
+            return false;
+        } else {
+            PessoaJuridica that = (PessoaJuridica) o;
+            return super.equals(o) && razaoSocial.equals(that.razaoSocial) &&
+                    nomeFantasia.equals(that.nomeFantasia) &&
+                    cnpj.equals(that.cnpj);
+        }
+    }
+
+    @Override
+    public int hashCode() {
+        return super.hashCode() + razaoSocial.hashCode() +
+                nomeFantasia.hashCode() + cnpj.hashCode();
     }
 }

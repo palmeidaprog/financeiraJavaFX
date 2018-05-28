@@ -10,56 +10,38 @@ package com.github.palmeidaprog.financeira.clientes;
  */
 
 import com.github.palmeidaprog.financeira.exception.ProcuraSemResultadoException;
-import javafx.collections.FXCollections;
-import javafx.collections.ListChangeListener;
-import javafx.collections.ObservableList;
-
+import com.github.palmeidaprog.financeira.interfaces.ObservableSerializable;
 import java.io.Serializable;
 import java.util.*;
 
-public class PendenciaController implements Serializable {
-    private List<Pendencia> pendenciasL;
-    private transient ObservableList<Pendencia> pendencias;
+public class PendenciaController extends ObservableSerializable implements
+        Serializable, Observer {
+    private List<Pendencia> pendencias;
 
     // desserialização
     public PendenciaController(List<Pendencia> pendencias) {
-        this.pendenciasL = pendencias;
-        this.pendencias = FXCollections.observableList(pendenciasL);
-        eventoLista();
+        this.pendencias = pendencias;
+        addObserversToElements(this, this.pendencias);
     }
 
     public PendenciaController() {
-        pendenciasL = new ArrayList<>();
-        this.pendencias = FXCollections.observableList(pendenciasL);
-        eventoLista();
-    }
-
-    //--Eventos---------------------------------------------------------------
-
-    private void eventoLista() {
-        pendencias.addListener(new ListChangeListener<Pendencia>() {
-            @Override
-            public void onChanged(Change<? extends Pendencia> c) {
-                while(c.next()) {
-                    pendenciasL.addAll(c.getAddedSubList());
-                    pendenciasL.removeAll(c.getRemoved());
-                }
-            }
-        });
+        pendencias = new ArrayList<>();
     }
 
     //------------------------------------------------------------------------
 
     public void inserir(Pendencia pendencia) {
         pendencias.add(pendencia);
+        notifyChange(pendencias);
     }
 
     public void remover(Pendencia pendencia) {
         pendencias.remove(pendencia);
+        notifyChange(pendencias);
     }
 
     public void remover(int index) {
-        pendencias.remove(index);
+        remover(get(index));
     }
 
     /* @param   descricao   Parte ou toda descricao
@@ -128,6 +110,14 @@ public class PendenciaController implements Serializable {
         return formataValor(total());
     }
 
+    //--Observer method-------------------------------------------------------
+
+    @Override
+    public void update(Observable o, Object arg) {
+        notifyChange(o);
+    }
+
+
     //--Object OVerride-------------------------------------------------------
 
     @Override
@@ -145,14 +135,14 @@ public class PendenciaController implements Serializable {
             return false;
         } else {
             PendenciaController b = (PendenciaController) o;
-            return b.comparaList(this.pendenciasL, b.pendenciasL);
+            return b.comparaList(this.pendencias, b.pendencias);
         }
     }
 
     @Override
     public int hashCode() {
         int soma = 0;
-        for(Pendencia b : pendenciasL) {
+        for(Pendencia b : pendencias) {
             soma += b.hashCode();
         }
         return soma;
@@ -180,5 +170,4 @@ public class PendenciaController implements Serializable {
         }
         return true;
     }
-
 }

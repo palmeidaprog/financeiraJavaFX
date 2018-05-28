@@ -24,22 +24,28 @@ public class Cadastro extends ObservableSerializable implements Serializable,
     //construtor de deserialzacao
     public Cadastro(Credito credito, RendaController rendas, BemController
             bens) {
+        observers();
         this.credito = credito;
         this.rendas = rendas;
         this.bens = bens;
     }
 
-    public Cadastro() { }
+    public Cadastro() {
+        observers();
+    }
 
     public Cadastro(Renda renda) {
+        this();
         rendas.inserir(renda);
     }
 
     public Cadastro(Bem bem) {
+        this();
         bens.inserir(bem);
     }
 
     public Cadastro(List<Bem> bens) {
+        this();
         this.bens.inserir(bens);
     }
 
@@ -51,6 +57,12 @@ public class Cadastro extends ObservableSerializable implements Serializable,
     public Cadastro(List<Bem> bens, Renda renda) {
         this(bens);
         rendas.inserir(renda);
+    }
+
+    private void observers() {
+        this.credito.addObserver(this);
+        this.rendas.addObserver(this);
+        this.bens.addObserver(this);
     }
 
     public BemController getBens() {

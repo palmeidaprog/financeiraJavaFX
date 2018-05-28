@@ -66,7 +66,7 @@ public abstract class Cliente extends ObservableSerializable implements
 
     @Override
     public void update(Observable o, Object arg) {
-        notifyChange(arg);
+        notifyChange(o);
     }
 
     //--Object override-------------------------------------------------------

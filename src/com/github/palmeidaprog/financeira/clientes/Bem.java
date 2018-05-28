@@ -16,9 +16,11 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import java.io.Serializable;
 import java.util.Locale;
+import java.util.Observable;
+import java.util.Observer;
 
 public class Bem extends ObservableSerializable implements Serializable,
-        ValorDescrito {
+        ValorDescrito, Observer {
     private double valor;
     private StringProperty valorP = new SimpleStringProperty();
     private StringProperty descricaoP = new SimpleStringProperty();
@@ -29,6 +31,7 @@ public class Bem extends ObservableSerializable implements Serializable,
     // construtor de deserializacao
     public Bem(double valor, String descricao, PendenciaController pendencias) {
         this.pendencias = pendencias;
+        pendencias.addObserver(this);
         this.valor = valor;
         valorP.setValue(valorFormatado(valorLiquido()));
         descricaoP.setValue(descricao);
@@ -39,6 +42,7 @@ public class Bem extends ObservableSerializable implements Serializable,
     public Bem(double valor) {
         this.valor = valor;
         pendencias = new PendenciaController();
+        pendencias.addObserver(this);
     }
 
     @Override
@@ -88,6 +92,13 @@ public class Bem extends ObservableSerializable implements Serializable,
         this.descricao = descricao;
         descricaoP.setValue(descricao);
         notifyChange(descricao);
+    }
+
+    //--Obersver method-------------------------------------------------------
+
+    @Override
+    public void update(Observable o, Object arg) {
+        notifyChange(o);
     }
 
     //--Object override-------------------------------------------------------

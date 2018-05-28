@@ -10,28 +10,22 @@ package com.github.palmeidaprog.financeira.clientes;
  */
 
 import com.github.palmeidaprog.financeira.exception.ProcuraSemResultadoException;
+import com.github.palmeidaprog.financeira.interfaces.ObservableSerializable;
 import javafx.beans.Observable;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Locale;
+import java.util.*;
 
-public class RendaController implements Serializable {
-    private List<Renda> rendaL = new ArrayList<>();
-    private transient ObservableList<Renda> rendas = FXCollections
-            .observableList(rendaL);
+public class RendaController extends ObservableSerializable implements
+        Serializable, Observer {
+    private List<Renda> rendas = new ArrayList<>();
 
     //deserializacao
     public RendaController(List<Renda> rendas) {
-        if(rendas != null) {
-            this.rendaL = rendas;
-            rendas = FXCollections.observableList(rendaL);
-        }
+        ;
+
     }
 
     public RendaController(Renda renda) {
@@ -42,18 +36,27 @@ public class RendaController implements Serializable {
     public RendaController() { }
 
     public void inserir(Renda renda) {
+        renda.addObserver(this);
         rendas.add(renda);
         sort(rendas);
+        notifyChange(this.rendas);
     }
 
-    //private void criarEventoClonar(int )
+    public void inserir(Collection<? extends Renda> c) {
+        for(Renda r : c) {
+            r.addObserver(this);
+            inserir(r);
+        }
+    }
 
     public void remover(Renda renda) {
         rendas.remove(renda);
+        renda.deleteObserver(this);
+        notifyChange(this.rendas);
     }
 
     public void remover(int index) {
-        rendas.remove(index);
+        remover(get(index));
     }
 
     public Renda get(int index) {
@@ -150,10 +153,63 @@ public class RendaController implements Serializable {
         return formataValor(total());
     }
 
+    //--Observer method-------------------------------------------------------
+
+    @Override
+    public void update(java.util.Observable o, Object arg) {
+        notifyChange(o);
+    }
+
+    //--Object override-------------------------------------------------------
+
     @Override
     public String toString() {
         return "RendaController{" +
                 "rendas=" + rendas +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if(this == o) {
+            return true;
+        } else if(!(o instanceof RendaController)) {
+            return false;
+        } else {
+            RendaController that = (RendaController) o;
+            return comparaList(rendas, that.rendas);
+        }
+    }
+
+    @Override
+    public int hashCode() {
+        int soma = 0;
+        for(Renda b : rendas) {
+            soma += b.hashCode();
+        }
+
+        return soma;
+    }
+
+    // suporte para equals()
+    private <T> boolean comparaList(Collection<T> b, Collection<T> l) {
+        Iterator bi = b.iterator();
+        Iterator li = l.iterator();
+
+        if(b.size() != l.size()) {
+            return false;
+        }
+        while(bi.hasNext()) {
+            Object bo = bi.next();
+            Object lo = li.next();
+
+            if(bo instanceof Renda) {
+                Renda parc = (Renda) bo;
+                if(!parc.equals(lo)) {
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 }
