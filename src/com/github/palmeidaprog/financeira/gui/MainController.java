@@ -11,6 +11,7 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.WindowEvent;
@@ -25,10 +26,12 @@ public class MainController implements Initializable {
     private volatile static MainController instance;
     @FXML private BorderPane mainPane;
     @FXML private TextField cpfText;
-    @FXML private Button okCpfBtn, criaBtn, escolherBtn;
+    @FXML private Button okCpfBtn;
+    @FXML private VBox criaBtn, escolherBtn;
     @FXML private RadioButton cpfRadio, cnpjRadio;
     @FXML private Label cpfLabel;
     @FXML private VBox escolherVBox;
+    @FXML private ImageView escolheImagem, criaImagem;
 
     private MainController() {
         try {
@@ -133,5 +136,29 @@ public class MainController implements Initializable {
         alert.setContentText(texto);
         alert.showAndWait();
     }
+
+    //--Enter Events--------------------------------------------
+
+    public void mouseEnterCria() {
+        /*addImage.setOpacity(0);*/
+        Effects.fadeAnim(criaImagem, 1);
+    }
+
+    public void mouseEnterEscolhe() {
+        /*addImage.setOpacity(0);*/
+        Effects.fadeAnim(escolheImagem, 1);
+    }
+
+
+    //--Mouse Exit Events--------------------------------------------
+
+    public void mouseExitCria() {
+        Effects.fadeAnim(criaImagem, 0);
+    }
+
+    public void mouseExitEscolhe() {
+        Effects.fadeAnim(escolheImagem, 0);
+    }
+
 
 }

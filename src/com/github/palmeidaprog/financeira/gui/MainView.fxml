@@ -6,6 +6,9 @@
 <?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.effect.Reflection?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
@@ -14,21 +17,46 @@
    <left>
       <VBox prefHeight="400.0" prefWidth="129.0" style="-fx-background-color: #2f2f2f;" BorderPane.alignment="CENTER">
          <children>
-            <HBox alignment="CENTER" prefHeight="65.0" prefWidth="129.0">
+            <HBox alignment="CENTER" prefHeight="36.0" prefWidth="129.0">
                <children>
                   <Label text="Clientes" textFill="WHITE" />
                </children>
             </HBox>
-            <HBox alignment="CENTER" prefHeight="61.0" prefWidth="129.0">
+            <VBox fx:id="escolherBtn" alignment="CENTER" disable="true" onMouseClicked="#escolherBtnClicked" prefHeight="201.0" prefWidth="129.0" spacing="15.0">
                <children>
-                  <Button fx:id="escolherBtn" disable="true" mnemonicParsing="false" onAction="#escolherBtnClicked" prefHeight="26.0" prefWidth="90.0" text="Escolher" />
+                  <Label text="Escolher" textFill="WHITE" />
+                  <ImageView fx:id="escolheImagem" fitHeight="80.0" fitWidth="79.0" onMouseEntered="#mouseEnterEscolhe" onMouseExited="#mouseExitEscolhe" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../../../resources/alo_mundo.png" />
+                     </image>
+                     <effect>
+                        <Reflection />
+                     </effect>
+                  </ImageView>
                </children>
-            </HBox>
-            <HBox alignment="CENTER" prefHeight="52.0" prefWidth="129.0">
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+               <padding>
+                  <Insets bottom="20.0" />
+               </padding>
+            </VBox>
+            <VBox fx:id="criaBtn" alignment="CENTER" onMouseClicked="#criaBtnClicked" prefHeight="125.0" prefWidth="129.0" spacing="15.0">
                <children>
-                  <Button fx:id="criaBtn" mnemonicParsing="false" onAction="#criaBtnClicked" prefWidth="90.0" text="Cria" />
+                  <Label text="Novo" textFill="WHITE" />
+                  <ImageView fx:id="criaImagem" fitHeight="79.0" fitWidth="89.0" onMouseEntered="#mouseEnterCria" onMouseExited="#mouseExitCria" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../../../resources/add.png" />
+                     </image>
+                     <effect>
+                        <Reflection />
+                     </effect>
+                  </ImageView>
                </children>
-            </HBox>
+               <padding>
+                  <Insets bottom="20.0" top="20.0" />
+               </padding>
+            </VBox>
             <HBox alignment="CENTER" prefHeight="52.0" prefWidth="129.0" />
          </children>
          <effect>
