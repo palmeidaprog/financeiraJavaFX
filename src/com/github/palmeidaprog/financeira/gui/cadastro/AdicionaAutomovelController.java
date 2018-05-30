@@ -37,12 +37,12 @@ public class AdicionaAutomovelController implements Initializable {
     @FXML
     private Button adicPendBtn, delPendBtn, criarBtn;
     @FXML
-    private TableView<ValorDescrito> pendTable;
+    private TableView<Pendencia> pendTable;
     @FXML
-    private TableColumn<ValorDescrito, String> descrPendCol;
+    private TableColumn<Pendencia, String> descrPendCol;
     @FXML
-    private TableColumn<ValorDescrito, String> valorPendCol;
-    private ObservableList<ValorDescrito> pendencias;
+    private TableColumn<Pendencia, String> valorPendCol;
+    private ObservableList<Pendencia> pendencias;
     private PendenciaController novaPendencias = new PendenciaController();
 
     //--Singleton-------------------------------------------------------------
@@ -59,8 +59,8 @@ public class AdicionaAutomovelController implements Initializable {
     //--Inicializacao---------------------------------------------------------
 
     public void initialize(URL u, ResourceBundle rb) {
-        EventosTabelaValorDescrito eventos = new EventosTabelaValorDescrito(
-                pendTable, novaPendencias);
+        EventosTabelaValorDescrito<Pendencia> eventos =
+                new EventosTabelaValorDescrito<Pendencia>(pendTable, novaPendencias);
         pendencias = eventos.getLista();
     }
 

@@ -12,38 +12,36 @@ import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
 
-public class EventosTabelaValorDescrito implements Observer {
-    private TableView<ValorDescrito> tabela;
-    private ObservableList<ValorDescrito> lista;
+public class EventosTabelaValorDescrito<T extends ValorDescrito> implements
+        Observer {
+    private TableView<T> tabela;
+    private ObservableList<T> lista;
     private ValorDescritoController obs;
 
-    public EventosTabelaValorDescrito<T extends ValorDescrito>(
-            TableView<T> tabela, ValorDescritoController obs) {
+    public EventosTabelaValorDescrito(TableView<T> tabela,
+                                      ValorDescritoController obs) {
         this.tabela = tabela;
         this.obs = obs;
         obs.addObserver(this);
         ativarEventos();
     }
 
-    public ObservableList<? extends ValorDescrito> getLista() {
+    public ObservableList<T> getLista() {
         return lista;
     }
-
-    private ObservableList<ValorDescrito>
-
 
     private void ativarEventos() {
         lista = obs.getLista();
         tabela.setItems(lista);
 
         @SuppressWarnings("unchecked")
-        TableColumn<ValorDescrito, String> c1 = (TableColumn<ValorDescrito,
-                String>) tabela.getColumns().get(0);
+        TableColumn<T, String> c1 =
+                (TableColumn<T, String>) tabela.getColumns().get(0);
         c1.setCellValueFactory(cellData -> cellData.getValue()
                 .descricaoPProperty());
         @SuppressWarnings("unchecked")
-        TableColumn<ValorDescrito, String> c2 = (TableColumn<ValorDescrito,
-                String>) tabela.getColumns().get(1);
+        TableColumn<T, String> c2 =
+                (TableColumn<T,String>) tabela.getColumns().get(1);
         c2.setCellValueFactory(cellData -> cellData.getValue()
                 .valorPProperty());
     }
