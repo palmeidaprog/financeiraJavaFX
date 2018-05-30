@@ -17,17 +17,19 @@ public class EventosTabelaValorDescrito implements Observer {
     private ObservableList<ValorDescrito> lista;
     private ValorDescritoController obs;
 
-    public EventosTabelaValorDescrito(TableView<ValorDescrito> tabela,
-                                      ValorDescritoController obs) {
+    public EventosTabelaValorDescrito<T extends ValorDescrito>(
+            TableView<T> tabela, ValorDescritoController obs) {
         this.tabela = tabela;
         this.obs = obs;
         obs.addObserver(this);
         ativarEventos();
     }
 
-    public ObservableList<ValorDescrito> getLista() {
+    public ObservableList<? extends ValorDescrito> getLista() {
         return lista;
     }
+
+    private ObservableList<ValorDescrito>
 
 
     private void ativarEventos() {
@@ -48,6 +50,7 @@ public class EventosTabelaValorDescrito implements Observer {
 
     @Override
     public void update(Observable o, Object arg) {
-        //TODO: Finalizar EventosTabela
+        System.out.println("O: " + o);
+        System.out.println("Arg: " + arg);
     }
 }

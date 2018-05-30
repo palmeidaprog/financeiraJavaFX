@@ -10,6 +10,7 @@ package com.github.palmeidaprog.financeira.clientes;
  */
 
 import com.github.palmeidaprog.financeira.exception.ProcuraSemResultadoException;
+import com.github.palmeidaprog.financeira.interfaces.ValorDescrito;
 import com.github.palmeidaprog.financeira.interfaces.ValorDescritoController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;

@@ -5,5 +5,5 @@ import javafx.collections.ObservableList;
 import java.util.Collection;
 
 public abstract class ValorDescritoController extends ObservableSerializable {
-    public abstract ObservableList<ValorDescrito> getLista();
+    public abstract ObservableList<? extends ValorDescrito> getLista();
 }
