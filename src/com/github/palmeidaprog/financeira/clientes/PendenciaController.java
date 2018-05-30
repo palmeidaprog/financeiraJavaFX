@@ -10,11 +10,14 @@ package com.github.palmeidaprog.financeira.clientes;
  */
 
 import com.github.palmeidaprog.financeira.exception.ProcuraSemResultadoException;
-import com.github.palmeidaprog.financeira.interfaces.ObservableSerializable;
+import com.github.palmeidaprog.financeira.interfaces.ValorDescritoController;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import java.io.Serializable;
 import java.util.*;
 
-public class PendenciaController extends ObservableSerializable implements
+// ObservableSerializable
+public class PendenciaController extends ValorDescritoController implements
         Serializable, Observer {
     private List<Pendencia> pendencias;
 
@@ -26,6 +29,16 @@ public class PendenciaController extends ObservableSerializable implements
 
     public PendenciaController() {
         pendencias = new ArrayList<>();
+    }
+
+    public ObservableList<Pendencia> getObservable() {
+        return FXCollections.observableList(pendencias);
+    }
+
+    //--ValorDescritoControlller----------------------------------------------
+
+    public ObservableList<Pendencia> getLista() {
+        return FXCollections.observableList(pendencias);
     }
 
     //------------------------------------------------------------------------

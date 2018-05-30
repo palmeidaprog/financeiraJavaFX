@@ -13,6 +13,7 @@ package com.github.palmeidaprog.financeira.gui.cadastro;
 import com.github.palmeidaprog.financeira.clientes.Automovel;
 import com.github.palmeidaprog.financeira.clientes.Cadastro;
 import com.github.palmeidaprog.financeira.clientes.Pendencia;
+import com.github.palmeidaprog.financeira.clientes.PendenciaController;
 import com.github.palmeidaprog.financeira.interfaces.ValorDescrito;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -42,6 +43,7 @@ public class AdicionaAutomovelController implements Initializable {
     @FXML
     private TableColumn<ValorDescrito, String> valorPendCol;
     private ObservableList<ValorDescrito> pendencias;
+    private PendenciaController novaPendencias = new PendenciaController();
 
     //--Singleton-------------------------------------------------------------
     private static volatile AdicionaAutomovelController instance;
@@ -58,7 +60,7 @@ public class AdicionaAutomovelController implements Initializable {
 
     public void initialize(URL u, ResourceBundle rb) {
         EventosTabelaValorDescrito eventos = new EventosTabelaValorDescrito(
-                pendTable);
+                pendTable, novaPendencias);
         pendencias = eventos.getLista();
     }
 

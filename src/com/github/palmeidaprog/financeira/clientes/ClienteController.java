@@ -24,9 +24,7 @@ public class ClienteController implements Observer {
 
     // Singleton
     private static volatile ClienteController instance;
-    private ClienteController() throws IOException {
-        //Todo: add observers
-    }
+    private ClienteController() throws IOException { }
 
     public synchronized static ClienteController getInstance() throws
             IOException {
