@@ -47,19 +47,50 @@ public class PendenciaController extends ValorDescritoController implements
     public <T extends TabelaValorDescrito> void addTabela(T o) {
         super.addObserver(o);
         @SuppressWarnings("unchecked")
-        ObservableList<? extends ValorDescrito> l = o.getLista();
-        l = FXCollections.observableList(pendencias);
+        o.setLista(FXCollections.observableList(pendencias));
+        //ObservableList<? extends ValorDescrito> l = o.getLista();
     }
 
 
-    //------------------------------------------------------------------------
-
-    public void inserir(Pendencia pendencia) {
-        pendencias.add(pendencia);
-        notifyChange(pendencias);
+    @Override
+    public <T extends ValorDescrito> void inserir(T pendencia) throws
+            InvalidParameterException {
+        if(pendencia instanceof Pendencia) {
+            Pendencia p = (Pendencia) pendencia;
+            pendencias.add(p);
+            notifyChange(p);
+        } else {
+            throw new InvalidParameterException(pendencia.getClass().getName()
+                    + " não é um tipo válido!");
+        }
     }
 
     @Override
+    public <T extends ValorDescrito> void remover(T pendencia) throws
+            InvalidParameterException {
+        if(pendencia instanceof Pendencia) {
+            pendencias.remove(pendencia);
+            notifyChange(pendencia);
+        } else {
+            throw new InvalidParameterException(pendencia.getClass().getName()
+                    + " não é um tipo válido!");
+        }
+    }
+
+    @Override
+    public <T extends ValorDescrito> int indexOf(T pendencia) throws
+            ProcuraSemResultadoException {
+
+        for(int i = 0; i < pendencias.size(); i++) {
+            if(pendencia.equals(pendencias.get(i))) {
+                return i;
+            }
+        }
+        throw new ProcuraSemResultadoException("Não existe a Pendencia " +
+                pendencia + ".");
+    }
+
+    //------------------------------------------------------------------------
 
 
     public void remover(int index) {
@@ -108,17 +139,6 @@ public class PendenciaController extends ValorDescritoController implements
     public Pendencia get(int index) {
         return pendencias.get(index);
     }
-
-    public int indexOf(Pendencia pendencia) throws
-            ProcuraSemResultadoException {
-        for(int i = 0; i < pendencias.size(); i++) {
-            if(pendencia.equals(pendencias.get(i))) {
-                return i;
-            }
-        }
-        throw new ProcuraSemResultadoException("Não existe a Pendencia " +
-                pendencia + ".");
-     }
 
     public double total() {
         double retorno = 0;
