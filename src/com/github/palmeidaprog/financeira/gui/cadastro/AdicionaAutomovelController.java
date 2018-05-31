@@ -10,11 +10,8 @@ package com.github.palmeidaprog.financeira.gui.cadastro;
  */
 
 
-import com.github.palmeidaprog.financeira.clientes.Automovel;
-import com.github.palmeidaprog.financeira.clientes.Cadastro;
-import com.github.palmeidaprog.financeira.clientes.Pendencia;
-import com.github.palmeidaprog.financeira.clientes.PendenciaController;
-import com.github.palmeidaprog.financeira.interfaces.ValorDescrito;
+import com.github.palmeidaprog.financeira.clientes.*;
+import com.github.palmeidaprog.financeira.clientes.adapter.TabelaValorDescrito;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -59,8 +56,8 @@ public class AdicionaAutomovelController implements Initializable {
     //--Inicializacao---------------------------------------------------------
 
     public void initialize(URL u, ResourceBundle rb) {
-        EventosTabelaValorDescrito<Pendencia> eventos =
-                new EventosTabelaValorDescrito<Pendencia>(pendTable, novaPendencias);
+        TabelaValorDescrito<Pendencia> eventos =
+                new TabelaValorDescrito<Pendencia>(pendTable, novaPendencias);
         pendencias = eventos.getLista();
     }
 
@@ -94,7 +91,8 @@ public class AdicionaAutomovelController implements Initializable {
 
     // evento Adicionar Pendencia na TableVoew
     public void adicPendBtnClicked() {
-        CadastroViewFrontController.getInstance().showNovaPendencia();
+        CadastroViewFrontController.getInstance()
+                .showNovaPendencia(novaPendencias);
     }
 
     // evento cancelar (adicionar automovel)
@@ -106,7 +104,8 @@ public class AdicionaAutomovelController implements Initializable {
     //--Metodos Suporte-------------------------------------------------------
 
     public void adicionaPendencia(Pendencia pendencia) {
-        pendencias.add(pendencia);
+        //pendencias.add(pendencia);
+        novaPendencias.inserir(pendencia);
     }
 
     // validáçào global de todos campos antes de adicioanr o automovel

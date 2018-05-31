@@ -1,6 +1,7 @@
 package com.github.palmeidaprog.financeira.gui.cadastro;
 
 import com.github.palmeidaprog.financeira.clientes.Cadastro;
+import com.github.palmeidaprog.financeira.clientes.PendenciaController;
 import com.github.palmeidaprog.financeira.gui.ViewFrontController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -71,10 +72,10 @@ public class CadastroViewFrontController {
             automovel.setTitle(title);
             AdicionaAutomovelController.getInstance().setCadastro(
                     cadastro);
-            automovel.show();
         } catch(IOException e) {
             e.printStackTrace();
         }
+        automovel.show();
     }
 
     // fecha janela de adicionar automovel
@@ -83,7 +84,7 @@ public class CadastroViewFrontController {
     }
 
     // Adicionar pendencia (Chamado de AdicionarAutomovel)
-    public void showNovaPendencia() {
+    public void showNovaPendencia(PendenciaController novaPendencias) {
         VBox root = null;
 
         if(pendencia != null && pendencia.isShowing()) {
@@ -94,14 +95,20 @@ public class CadastroViewFrontController {
                     ("AdicionaPendenciaView.fxml"));
             loader.setController(AdicionaPendenciaController.getInstance());
             pendencia.setTitle("Financeira - Adicionando Nova Pendencia");
-            try {
-                root = loader.load();
-                Scene scene = new Scene(root, 520, 220);
-                pendencia.setScene(scene);
-                pendencia.showAndWait();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            loadStage(loader, pendencia);
+            AdicionaPendenciaController.getInstance()
+                    .setPendencias(novaPendencias);
+            pendencia.showAndWait();
+        }
+    }
+
+    private void loadStage(FXMLLoader loader, Stage stage) {
+        try {
+            root = loader.load();
+            Scene scene = new Scene(root, 520, 220);
+            stage.setScene(scene);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
@@ -123,14 +130,8 @@ public class CadastroViewFrontController {
             loader.setController(AdicionaRendaController.getInstance());
             AdicionaRendaController.getInstance().setCadastro(cadastro);
             adiciona.setTitle("Financeira - Adicionando Nova Renda");
-            try {
-                root = loader.load();
-                Scene scene = new Scene(root, 520, 220);
-                adiciona.setScene(scene);
-                adiciona.showAndWait();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            loadStage(loader, adiciona);
+            adiciona.showAndWait();
         }
     }
 

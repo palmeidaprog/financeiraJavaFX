@@ -10,6 +10,7 @@ package com.github.palmeidaprog.financeira.gui.cadastro;
  */
 
 import com.github.palmeidaprog.financeira.clientes.Pendencia;
+import com.github.palmeidaprog.financeira.clientes.PendenciaController;
 import com.github.palmeidaprog.financeira.gui.validacoes.ValidaMoeda;
 import com.github.palmeidaprog.financeira.info.telefone.NumeroTelefone;
 import javafx.fxml.FXML;
@@ -28,6 +29,7 @@ public class AdicionaPendenciaController implements Initializable {
     private TextField descrText, valorText;
     @FXML
     private Button addBtn, cancelarBtn;
+    private PendenciaController pendencias;
 
     //--Singleton-------------------------------------------------------------
     private static volatile AdicionaPendenciaController instance;
@@ -39,6 +41,17 @@ public class AdicionaPendenciaController implements Initializable {
         }
         return instance;
     }
+
+    //--Get/Set---------------------------------------------------------------
+
+    public PendenciaController getPendencias() {
+        return pendencias;
+    }
+
+    public void setPendencias(PendenciaController pendencias) {
+        this.pendencias = pendencias;
+    }
+
 
     //--Initialize------------------------------------------------------------
 

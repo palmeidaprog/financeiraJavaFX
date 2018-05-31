@@ -9,7 +9,10 @@ package com.github.palmeidaprog.financeira.clientes;
  * Professor: Antonio Canvalcanti
  */
 
-import com.github.palmeidaprog.financeira.exception.ProcuraSemResultadoException;
+import com.github.palmeidaprog.financeira.clientes.adapter.TabelaValorDescrito;
+import com.github.palmeidaprog.financeira.exception
+        .ProcuraSemResultadoException;
+import com.github.palmeidaprog.financeira.interfaces.ObservableSerializable;
 import com.github.palmeidaprog.financeira.interfaces.ValorDescrito;
 import com.github.palmeidaprog.financeira.interfaces.ValorDescritoController;
 import javafx.collections.FXCollections;
@@ -38,9 +41,15 @@ public class PendenciaController extends ValorDescritoController implements
 
     //--ValorDescritoControlller----------------------------------------------
 
-    public ObservableList<Pendencia> getLista() {
-        return FXCollections.observableList(pendencias);
+    @Override
+    public <T extends TabelaValorDescrito, V extends ValorDescrito> void
+            addTabela(T o) {
+        super.addObserver(o);
+        @SuppressWarnings("unchecked")
+        ObservableList<V> l = o.getLista();
+        l = FXCollections.observableList(pendencias);
     }
+
 
     //------------------------------------------------------------------------
 
