@@ -15,6 +15,7 @@ import com.github.palmeidaprog.financeira.exception
 import com.github.palmeidaprog.financeira.interfaces.ObservableSerializable;
 import com.github.palmeidaprog.financeira.interfaces.ValorDescrito;
 import com.github.palmeidaprog.financeira.interfaces.ValorDescritoController;
+import com.sun.javaws.exceptions.InvalidArgumentException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import java.io.Serializable;
@@ -42,11 +43,10 @@ public class PendenciaController extends ValorDescritoController implements
     //--ValorDescritoControlller----------------------------------------------
 
     @Override
-    public <T extends TabelaValorDescrito, V extends ValorDescrito> void
-            addTabela(T o) {
+    public <T extends TabelaValorDescrito> void addTabela(T o) {
         super.addObserver(o);
         @SuppressWarnings("unchecked")
-        ObservableList<V> l = o.getLista();
+        ObservableList<? extends ValorDescrito> l = o.getLista();
         l = FXCollections.observableList(pendencias);
     }
 
@@ -58,9 +58,13 @@ public class PendenciaController extends ValorDescritoController implements
         notifyChange(pendencias);
     }
 
-    public void remover(Pendencia pendencia) {
-        pendencias.remove(pendencia);
-        notifyChange(pendencias);
+    public void <T extends ValorDescrito> remover(T pendencia) {
+        if(pendencia instanceof Pendencia) {
+            pendencias.remove(pendencia);
+            notifyChange(pendencias);
+        } else {
+            throw new InvalidArgumentException(pendencia.i "")
+        }
     }
 
     public void remover(int index) {

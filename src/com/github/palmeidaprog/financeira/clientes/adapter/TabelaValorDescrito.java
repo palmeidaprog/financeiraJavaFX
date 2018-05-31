@@ -2,6 +2,7 @@ package com.github.palmeidaprog.financeira.clientes.adapter;
 
 
 import com.github.palmeidaprog.financeira.clientes.Pendencia;
+import com.github.palmeidaprog.financeira.exception.ProcuraSemResultadoException;
 import com.github.palmeidaprog.financeira.interfaces.ValorDescrito;
 import com.github.palmeidaprog.financeira.interfaces.ValorDescritoController;
 import javafx.collections.ObservableList;
@@ -20,7 +21,7 @@ public class TabelaValorDescrito<T extends ValorDescrito> implements
                                ValorDescritoController obs) {
         this.tabela = tabela;
         this.obs = obs;
-        obs.addObserver(this);
+        obs.addTabela(this);
         ativarEventos();
     }
 
@@ -29,7 +30,6 @@ public class TabelaValorDescrito<T extends ValorDescrito> implements
     }
 
     private void ativarEventos() {
-        lista = obs.getLista();
         tabela.setItems(lista);
 
         @SuppressWarnings("unchecked")
@@ -49,6 +49,9 @@ public class TabelaValorDescrito<T extends ValorDescrito> implements
 
     @Override @SuppressWarnings("unchecked")
     public void update(Observable o, Object arg) {
-
+        try {
+        } catch(ProcuraSemResultadoException e) {
+            lista.remove(arg);
+        }
     }
 }
