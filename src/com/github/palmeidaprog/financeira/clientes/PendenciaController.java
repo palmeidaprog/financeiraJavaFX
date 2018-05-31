@@ -19,6 +19,7 @@ import com.sun.javaws.exceptions.InvalidArgumentException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import java.io.Serializable;
+import java.security.InvalidParameterException;
 import java.util.*;
 
 // ObservableSerializable
@@ -58,14 +59,8 @@ public class PendenciaController extends ValorDescritoController implements
         notifyChange(pendencias);
     }
 
-    public void <T extends ValorDescrito> remover(T pendencia) {
-        if(pendencia instanceof Pendencia) {
-            pendencias.remove(pendencia);
-            notifyChange(pendencias);
-        } else {
-            throw new InvalidArgumentException(pendencia.i "")
-        }
-    }
+    @Override
+
 
     public void remover(int index) {
         remover(get(index));

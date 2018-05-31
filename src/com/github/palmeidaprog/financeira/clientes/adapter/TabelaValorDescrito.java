@@ -50,6 +50,7 @@ public class TabelaValorDescrito<T extends ValorDescrito> implements
     @Override @SuppressWarnings("unchecked")
     public void update(Observable o, Object arg) {
         try {
+
         } catch(ProcuraSemResultadoException e) {
             lista.remove(arg);
         }
