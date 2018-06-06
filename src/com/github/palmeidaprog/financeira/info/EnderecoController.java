@@ -15,6 +15,7 @@ import com.github.palmeidaprog.financeira.exception.ProcuraSemResultadoException
 import com.github.palmeidaprog.financeira.interfaces.observador.EventoObs;
 import com.github.palmeidaprog.financeira.interfaces.observador.Observado;
 import com.github.palmeidaprog.financeira.interfaces.observador.Observador;
+import com.github.palmeidaprog.financeira.interfaces.observador.TipoEvento;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
@@ -69,10 +70,18 @@ public class EnderecoController extends Observado implements
 
     public void inserir(Endereco endereco) {
         enderecos.add(endereco);
+        endereco.adicionaObservador(this);
+        notificarEvento(endereco, TipoEvento.ADICIONADO, enderecosL);
+    }
+
+    public void inserir(Collection<Endereco> enderecos) {
+        for(Endereco e : enderecos) {
+            inserir(e);
+        }
     }
 
     public void inserir(Endereco endereco, boolean isPrincipal) {
-        enderecos.add(endereco);
+        inserir(endereco);
         if(isPrincipal) {
             principal = endereco;
         }
