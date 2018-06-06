@@ -11,12 +11,13 @@ package com.github.palmeidaprog.financeira.info;
  */
 
 
-import com.github.palmeidaprog.financeira.interfaces.ObservableSerializable;
+import com.github.palmeidaprog.financeira.interfaces.observador.Observado;
+
 import java.io.Serializable;
 import java.util.Observable;
 import java.util.Observer;
 
-public class InscricaoFiscal extends ObservableSerializable implements
+public class InscricaoFiscal extends Observado implements
         Serializable, Observer {
     private String orgaoExpedidor;
     private Estado estado;

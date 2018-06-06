@@ -9,12 +9,11 @@ package com.github.palmeidaprog.financeira.info;
  * Professor: Antonio Canvalcanti
  */
 
-import com.github.palmeidaprog.financeira.interfaces.ObservableSerializable;
+import com.github.palmeidaprog.financeira.interfaces.observador.Observado;
 
 import java.io.Serializable;
-import java.util.Objects;
 
-public class Cep extends ObservableSerializable implements Serializable {
+public class Cep extends Observado implements Serializable {
     private String numero;
 
     // deserializaco

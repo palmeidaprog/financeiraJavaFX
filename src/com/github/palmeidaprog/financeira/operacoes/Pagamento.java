@@ -9,10 +9,8 @@ package com.github.palmeidaprog.financeira.operacoes;
  * Professor: Antonio Canvalcanti
  */
 
-import com.github.palmeidaprog.financeira.interfaces.ObservableSerializable;
 import java.io.Serializable;
 import java.util.Date;
-import java.util.Objects;
 
 public class Pagamento implements Serializable {
     private final Date dataDePagto;

@@ -10,14 +10,13 @@ package com.github.palmeidaprog.financeira.info;
  * Professor: Antonio Canvalcanti
  */
 
-import com.github.palmeidaprog.financeira.interfaces.ObservableSerializable;
+import com.github.palmeidaprog.financeira.interfaces.observador.Observado;
 
 import java.io.Serializable;
-import java.util.Objects;
 import java.util.Observable;
 import java.util.Observer;
 
-public class Endereco extends ObservableSerializable implements Serializable,
+public class Endereco extends Observado implements Serializable,
         Observer {
     private String rua;
     private String numero;

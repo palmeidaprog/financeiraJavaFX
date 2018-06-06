@@ -11,11 +11,12 @@ package com.github.palmeidaprog.financeira.info.telefone;
 
 import com.github.palmeidaprog.financeira.exception.ImpossivelRemoverException;
 import com.github.palmeidaprog.financeira.exception.ProcuraSemResultadoException;
-import com.github.palmeidaprog.financeira.interfaces.ObservableSerializable;
+import com.github.palmeidaprog.financeira.interfaces.observador.Observado;
+
 import java.io.Serializable;
 import java.util.*;
 
-public class TelefoneController extends ObservableSerializable implements
+public class TelefoneController extends Observado implements
         Serializable, Observer {
     private List<Telefone> telefones;
     private Telefone principal;

@@ -10,11 +10,11 @@ package com.github.palmeidaprog.financeira.info;
  * Professor: Antonio Canvalcanti
  */
 
-import com.github.palmeidaprog.financeira.interfaces.ObservableSerializable;
+import com.github.palmeidaprog.financeira.interfaces.observador.Observado;
 
 import java.io.Serializable;
 
-public class Bairro extends ObservableSerializable implements Serializable {
+public class Bairro extends Observado implements Serializable {
     private String nome;
 
     public Bairro(String nome) {

@@ -10,13 +10,12 @@ package com.github.palmeidaprog.financeira.operacoes;
  */
 
 import com.github.palmeidaprog.financeira.exception.ProcuraSemResultadoException;
-import com.github.palmeidaprog.financeira.info.telefone.Telefone;
-import com.github.palmeidaprog.financeira.interfaces.ObservableSerializable;
+import com.github.palmeidaprog.financeira.interfaces.observador.Observado;
 
 import java.io.Serializable;
 import java.util.*;
 
-public class PagamentoController extends ObservableSerializable implements
+public class PagamentoController extends Observado implements
         Serializable, Observer {
     private List<Pagamento> pagamentos = new ArrayList<>();
 

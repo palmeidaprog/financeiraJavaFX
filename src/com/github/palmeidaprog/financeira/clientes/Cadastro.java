@@ -9,13 +9,13 @@ package com.github.palmeidaprog.financeira.clientes;
  * Professor: Antonio Canvalcanti
  */
 
-import com.github.palmeidaprog.financeira.interfaces.ObservableSerializable;
+import com.github.palmeidaprog.financeira.interfaces.observador.Observado;
 import java.io.Serializable;
 import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 
-public class Cadastro extends ObservableSerializable implements Serializable,
+public class Cadastro extends Observado implements Serializable,
         Observer {
     private Credito credito = new Credito();
     private RendaController rendas = new RendaController();

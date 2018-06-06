@@ -9,15 +9,14 @@ package com.github.palmeidaprog.financeira.operacoes;
  * Professor: Antonio Canvalcanti
  */
 
-import com.github.palmeidaprog.financeira.interfaces.ObservableSerializable;
+import com.github.palmeidaprog.financeira.interfaces.observador.Observado;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.Objects;
 import java.util.Observable;
 import java.util.Observer;
 
-public class Debito extends ObservableSerializable implements Serializable,
+public class Debito extends Observado implements Serializable,
         Observer {
     private final double valor;
     private Date vencimento;

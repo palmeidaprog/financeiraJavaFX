@@ -9,14 +9,14 @@ package com.github.palmeidaprog.financeira.clientes;
  * Professor: Antonio Canvalcanti
  */
 
-import com.github.palmeidaprog.financeira.interfaces.ObservableSerializable;
+import com.github.palmeidaprog.financeira.interfaces.observador.Observado;
 import com.github.palmeidaprog.financeira.interfaces.ValorDescrito;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import java.io.Serializable;
 import java.util.Locale;
 
-public class Pendencia extends ObservableSerializable implements Serializable,
+public class Pendencia extends Observado implements Serializable,
         ValorDescrito {
     private double valor;
     private StringProperty valorP = new SimpleStringProperty();

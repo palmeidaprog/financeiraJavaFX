@@ -12,17 +12,15 @@ package com.github.palmeidaprog.financeira.clientes;
 import com.github.palmeidaprog.financeira.clientes.adapter.TabelaValorDescrito;
 import com.github.palmeidaprog.financeira.exception
         .ProcuraSemResultadoException;
-import com.github.palmeidaprog.financeira.interfaces.ObservableSerializable;
 import com.github.palmeidaprog.financeira.interfaces.ValorDescrito;
 import com.github.palmeidaprog.financeira.interfaces.ValorDescritoController;
-import com.sun.javaws.exceptions.InvalidArgumentException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import java.io.Serializable;
 import java.security.InvalidParameterException;
 import java.util.*;
 
-// ObservableSerializable
+// Observado
 public class PendenciaController extends ValorDescritoController implements
         Serializable, Observer {
     private List<Pendencia> pendencias;

@@ -12,7 +12,7 @@ package com.github.palmeidaprog.financeira.info;
 
 import com.github.palmeidaprog.financeira.exception.ImpossivelRemoverException;
 import com.github.palmeidaprog.financeira.exception.ProcuraSemResultadoException;
-import com.github.palmeidaprog.financeira.interfaces.ObservableSerializable;
+import com.github.palmeidaprog.financeira.interfaces.observador.Observado;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
@@ -20,7 +20,7 @@ import javafx.collections.ObservableList;
 import java.io.Serializable;
 import java.util.*;
 
-public class EnderecoController extends ObservableSerializable implements
+public class EnderecoController extends Observado implements
         Serializable, Observer {
 
     private List<Endereco> enderecosL = new ArrayList<>();

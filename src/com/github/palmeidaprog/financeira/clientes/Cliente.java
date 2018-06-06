@@ -13,12 +13,13 @@ import com.github.palmeidaprog.financeira.info.Endereco;
 import com.github.palmeidaprog.financeira.info.EnderecoController;
 import com.github.palmeidaprog.financeira.info.telefone.Telefone;
 import com.github.palmeidaprog.financeira.info.telefone.TelefoneController;
-import com.github.palmeidaprog.financeira.interfaces.ObservableSerializable;
+import com.github.palmeidaprog.financeira.interfaces.observador.Observado;
+
 import java.io.Serializable;
 import java.util.Observable;
 import java.util.Observer;
 
-public abstract class Cliente extends ObservableSerializable implements
+public abstract class Cliente extends Observado implements
         Serializable, Observer {
     private final EnderecoController enderecos;
     private final TelefoneController telefones;

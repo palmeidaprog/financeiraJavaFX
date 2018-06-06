@@ -10,12 +10,12 @@ package com.github.palmeidaprog.financeira.operacoes;
  */
 
 import com.github.palmeidaprog.financeira.clientes.Cliente;
-import com.github.palmeidaprog.financeira.interfaces.ObservableSerializable;
+import com.github.palmeidaprog.financeira.interfaces.observador.Observado;
 
 import java.io.Serializable;
 import java.util.*;
 
-public class OperacaoCredito extends ObservableSerializable implements
+public class OperacaoCredito extends Observado implements
         Serializable, Observer {
     private double valorNominal;
     private double jurosAoMes;

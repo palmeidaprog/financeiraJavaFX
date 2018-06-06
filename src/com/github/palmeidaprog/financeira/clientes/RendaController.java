@@ -10,15 +10,12 @@ package com.github.palmeidaprog.financeira.clientes;
  */
 
 import com.github.palmeidaprog.financeira.exception.ProcuraSemResultadoException;
-import com.github.palmeidaprog.financeira.interfaces.ObservableSerializable;
-import javafx.beans.Observable;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
+import com.github.palmeidaprog.financeira.interfaces.observador.Observado;
 
 import java.io.Serializable;
 import java.util.*;
 
-public class RendaController extends ObservableSerializable implements
+public class RendaController extends Observado implements
         Serializable, Observer {
     private List<Renda> rendas = new ArrayList<>();
 

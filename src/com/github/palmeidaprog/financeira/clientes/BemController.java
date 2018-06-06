@@ -11,16 +11,12 @@ package com.github.palmeidaprog.financeira.clientes;
  */
 
 import com.github.palmeidaprog.financeira.exception.ProcuraSemResultadoException;
-import com.github.palmeidaprog.financeira.interfaces.ObservableSerializable;
-import javafx.collections.FXCollections;
-import javafx.collections.ListChangeListener;
-import javafx.collections.ObservableList;
+import com.github.palmeidaprog.financeira.interfaces.observador.Observado;
 
-import javax.swing.text.html.HTMLDocument;
 import java.io.Serializable;
 import java.util.*;
 
-public class BemController extends ObservableSerializable implements
+public class BemController extends Observado implements
         Serializable, Observer {
     private List<Bem> bens;
 

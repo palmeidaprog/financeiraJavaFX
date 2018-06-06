@@ -11,12 +11,11 @@ package com.github.palmeidaprog.financeira.info.telefone;
          */
 
 import com.github.palmeidaprog.financeira.info.Pais;
-import com.github.palmeidaprog.financeira.interfaces.ObservableSerializable;
+import com.github.palmeidaprog.financeira.interfaces.observador.Observado;
 
 import java.io.Serializable;
-import java.util.Objects;
 
-public class Telefone extends ObservableSerializable implements Serializable {
+public class Telefone extends Observado implements Serializable {
     private CodigoArea codigoArea;
     private NumeroTelefone numero;
     private TipoTelefone tipo;

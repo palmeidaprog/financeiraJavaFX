@@ -11,7 +11,7 @@ package com.github.palmeidaprog.financeira.clientes;
  */
 
 import com.github.palmeidaprog.financeira.interfaces.ValorDescrito;
-import com.github.palmeidaprog.financeira.interfaces.ObservableSerializable;
+import com.github.palmeidaprog.financeira.interfaces.observador.Observado;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import java.io.Serializable;
@@ -19,7 +19,7 @@ import java.util.Locale;
 import java.util.Observable;
 import java.util.Observer;
 
-public class Bem extends ObservableSerializable implements Serializable,
+public class Bem extends Observado implements Serializable,
         ValorDescrito, Observer {
     private double valor;
     private StringProperty valorP = new SimpleStringProperty();

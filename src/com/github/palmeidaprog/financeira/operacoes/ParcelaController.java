@@ -9,12 +9,12 @@ package com.github.palmeidaprog.financeira.operacoes;
  * Professor: Antonio Canvalcanti
  */
 
-import com.github.palmeidaprog.financeira.interfaces.ObservableSerializable;
+import com.github.palmeidaprog.financeira.interfaces.observador.Observado;
 
 import java.io.Serializable;
 import java.util.*;
 
-public class ParcelaController extends ObservableSerializable implements
+public class ParcelaController extends Observado implements
         Serializable, Observer {
     private List<Parcela> parcelas;
     private List<Parcela> pagas;

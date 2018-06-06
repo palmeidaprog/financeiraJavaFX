@@ -9,10 +9,10 @@ package com.github.palmeidaprog.financeira.clientes;
  * Professor: Antonio Canvalcanti
  */
 
-import com.github.palmeidaprog.financeira.interfaces.ObservableSerializable;
+import com.github.palmeidaprog.financeira.interfaces.observador.Observado;
 import java.io.Serializable;
 
-public class Credito extends ObservableSerializable implements Serializable {
+public class Credito extends Observado implements Serializable {
     private double financiamento;
     private double pessoal;
 

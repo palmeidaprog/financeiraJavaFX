@@ -10,10 +10,11 @@ package com.github.palmeidaprog.financeira.info;
  * Professor: Antonio Canvalcanti
  */
 
-import com.github.palmeidaprog.financeira.interfaces.ObservableSerializable;
+import com.github.palmeidaprog.financeira.interfaces.observador.Observado;
+
 import java.io.Serializable;
 
-public class Estado extends ObservableSerializable implements Serializable {
+public class Estado extends Observado implements Serializable {
     private String nome;
     private String sigla;
 
