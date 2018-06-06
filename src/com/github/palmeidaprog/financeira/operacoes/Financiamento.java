@@ -10,16 +10,19 @@ package com.github.palmeidaprog.financeira.operacoes;
  */
 
 import com.github.palmeidaprog.financeira.clientes.Bem;
-
+import com.github.palmeidaprog.financeira.interfaces.observador.EventoObs;
+import com.github.palmeidaprog.financeira.interfaces.observador.Observador;
 import java.util.Objects;
 
-public class Financiamento extends OperacaoCredito {
+public class Financiamento extends OperacaoCredito implements Observador {
     private Bem garantia;
 
     public Financiamento(double valorNominal, int numeroDeParcelas, double
             jurosAoMes, Parcela primeiraParcela, Bem garantia) {
         super(valorNominal, numeroDeParcelas, jurosAoMes, primeiraParcela);
         this.garantia = garantia;
+        this.garantia.adicionaObservador(this);
+
     }
 
     public Financiamento(double valorNominal, int numeroDeParcelas, double
@@ -28,6 +31,7 @@ public class Financiamento extends OperacaoCredito {
         super(valorNominal, numeroDeParcelas, jurosAoMes, primeiraParcela,
                 descricao);
         this.garantia = garantia;
+        this.garantia.adicionaObservador(this);
     }
 
     public Bem getGarantia() {
@@ -35,7 +39,16 @@ public class Financiamento extends OperacaoCredito {
     }
 
     public void setGarantia(Bem garantia) {
+        this.garantia.deletaObservador(this);
         this.garantia = garantia;
+        this.garantia.adicionaObservador(this);
+    }
+
+    //--Observador------------------------------------------------------------
+
+    @Override
+    public void atualizar(EventoObs ev) {
+        notificarEvento(ev);
     }
 
     //--Object override-------------------------------------------------------

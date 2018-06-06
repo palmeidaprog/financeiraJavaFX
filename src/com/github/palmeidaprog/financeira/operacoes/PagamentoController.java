@@ -11,6 +11,7 @@ package com.github.palmeidaprog.financeira.operacoes;
 
 import com.github.palmeidaprog.financeira.exception.ProcuraSemResultadoException;
 import com.github.palmeidaprog.financeira.interfaces.observador.Observado;
+import com.github.palmeidaprog.financeira.interfaces.observador.Observador;
 
 import java.io.Serializable;
 import java.util.*;

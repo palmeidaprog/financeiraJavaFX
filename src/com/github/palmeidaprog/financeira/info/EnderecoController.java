@@ -39,7 +39,7 @@ public class EnderecoController extends Observado implements
 
     // deserializaçào
     public EnderecoController(List<Endereco> enderecos, Endereco principal) {
-        this.enderecos.addAll(enderecos);
+        inserir(enderecos);
         this.principal = principal;
         evento();
     }
@@ -53,8 +53,6 @@ public class EnderecoController extends Observado implements
                 while(c.next()) {
                     enderecosL.addAll(c.getAddedSubList());
                     enderecosL.removeAll(c.getRemoved());
-                    EnderecoController.this.notificarEvento(EnderecoController
-                            .this.enderecosL);
                 }
             }
         });
@@ -91,12 +89,13 @@ public class EnderecoController extends Observado implements
     public void remover(Endereco endereco) throws ImpossivelRemoverException {
         if(isRemovivel(endereco)) {
             enderecos.remove(endereco);
+            endereco.deletaObservador(this);
+            notificarEvento(endereco, TipoEvento.REMOVIDO, enderecosL);
         }
     }
 
     public void remover(int index) throws ImpossivelRemoverException {
-        Endereco endereco = get(index);
-        remover(endereco);
+        remover(get(index));
     }
 
     public Endereco get(int index) {
@@ -109,7 +108,8 @@ public class EnderecoController extends Observado implements
 
     public void setPrincipal(Endereco endereco) {
         principal = endereco;
-        notificarEvento(principal);
+        principal.adicionaObservador(this);
+        notificarEvento(principal, TipoEvento.EDITADO, enderecosL);
     }
 
     public Endereco getPrincipal() {

@@ -10,7 +10,10 @@ package com.github.palmeidaprog.financeira.operacoes;
  */
 
 import com.github.palmeidaprog.financeira.clientes.Cliente;
+import com.github.palmeidaprog.financeira.interfaces.observador.EventoObs;
 import com.github.palmeidaprog.financeira.interfaces.observador.Observado;
+import com.github.palmeidaprog.financeira.interfaces.observador.Observador;
+import com.github.palmeidaprog.financeira.interfaces.observador.TipoEvento;
 
 import java.io.Serializable;
 import java.util.*;
@@ -76,7 +79,7 @@ public class OperacaoCredito extends Observado implements
 
     public void setValorNominal(double valorNominal) {
         this.valorNominal = valorNominal;
-        notificarEvento(this.valorNominal);
+        notificarEvento(this.valorNominal, TipoEvento.EDITADO);
     }
 
     public String getDescricao() {
@@ -85,7 +88,7 @@ public class OperacaoCredito extends Observado implements
 
     public void setDescricao(String descricao) {
         this.descricao = descricao;
-        notificarEvento(this.descricao);
+        notificarEvento(this.descricao, TipoEvento.EDITADO);
     }
 
     public double getJurosAoMes() {
@@ -94,7 +97,7 @@ public class OperacaoCredito extends Observado implements
 
     public void setJurosAoMes(double jurosAoMes) {
         this.jurosAoMes = jurosAoMes;
-        notificarEvento(this.jurosAoMes);
+        notificarEvento(this.jurosAoMes, TipoEvento.EDITADO);
     }
 
     public Cliente getAvalista() {
@@ -102,14 +105,17 @@ public class OperacaoCredito extends Observado implements
     }
 
     public void setAvalista(Cliente avalista) {
+        this.avalista.deletaObservador(this);
         this.avalista = avalista;
+        this.avalista.adicionaObservador(this);
+        notificarEvento(this.avalista, TipoEvento.EDITADO);
     }
 
     //--Observador method-------------------------------------------------------
 
     @Override
     public void atualizar(EventoObs ev) {
-        notificarEvento(o);
+        notificarEvento(ev);
     }
 
     //--Object override-------------------------------------------------------

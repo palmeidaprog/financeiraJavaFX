@@ -11,10 +11,13 @@ package com.github.palmeidaprog.financeira.info;
  */
 
 
+import com.github.palmeidaprog.financeira.interfaces.observador.EventoObs;
 import com.github.palmeidaprog.financeira.interfaces.observador.Observado;
+import com.github.palmeidaprog.financeira.interfaces.observador.Observador;
+import com.github.palmeidaprog.financeira.interfaces.observador.TipoEvento;
 
 import java.io.Serializable;
-import java.util.Observable;
+
 
 
 public class InscricaoFiscal extends Observado implements
@@ -33,12 +36,14 @@ public class InscricaoFiscal extends Observado implements
 
     public void setOrgaoExpedidor(String orgaoExpedidor) {
         this.orgaoExpedidor = orgaoExpedidor;
-        notificarEvento(this);
+        notificarEvento(this.orgaoExpedidor, TipoEvento.EDITADO);
     }
 
     public void setEstado(Estado estado) {
+        this.estado.deletaObservador(this);
         this.estado = estado;
-        notificarEvento(this);
+        this.estado.adicionaObservador(this);
+        notificarEvento(this.estado, TipoEvento.EDITADO);
     }
 
     public Estado getEstado() {
@@ -53,7 +58,7 @@ public class InscricaoFiscal extends Observado implements
 
     @Override
     public void atualizar(EventoObs ev) {
-        notificarEvento(o);
+        notificarEvento(ev);
     }
 
     //--Object override-------------------------------------------------------

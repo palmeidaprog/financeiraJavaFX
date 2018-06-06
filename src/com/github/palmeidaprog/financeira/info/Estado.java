@@ -11,6 +11,7 @@ package com.github.palmeidaprog.financeira.info;
  */
 
 import com.github.palmeidaprog.financeira.interfaces.observador.Observado;
+import com.github.palmeidaprog.financeira.interfaces.observador.TipoEvento;
 
 import java.io.Serializable;
 
@@ -37,12 +38,12 @@ public class Estado extends Observado implements Serializable {
 
     public void setSigla(String sigla) {
         this.sigla = sigla;
-        notificarEvento(this);
+        notificarEvento(this.sigla, TipoEvento.EDITADO);
     }
 
     public void setNome(String nome) {
         this.nome = nome;
-        notificarEvento(this);
+        notificarEvento(this.nome, TipoEvento.EDITADO);
     }
 
     public boolean equals(Estado estado) {
