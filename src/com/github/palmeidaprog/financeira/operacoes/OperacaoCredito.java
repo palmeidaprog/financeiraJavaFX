@@ -32,11 +32,11 @@ public class OperacaoCredito extends Observado implements
         this.jurosAoMes = jurosAoMes;
         this.descricao = descricao;
         this.avalista = avalista;
-        this.avalista.addObserver(this);
+        this.avalista.adicionaObservador(this);
         this.parcelas = parcelas;
-        this.parcelas.addObserver(this);
+        this.parcelas.adicionaObservador(this);
         this.pagamentos = pagamentos;
-        this.pagamentos.addObserver(this);
+        this.pagamentos.adicionaObservador(this);
     }
 
     public OperacaoCredito(double valorNominal, int numeroDeParcelas, double
@@ -44,9 +44,9 @@ public class OperacaoCredito extends Observado implements
         this.valorNominal = valorNominal;
         this.jurosAoMes = jurosAoMes;
         parcelas = new ParcelaController(numeroDeParcelas, primeiraParcela);
-        parcelas.addObserver(this);
+        parcelas.adicionaObservador(this);
         pagamentos = new PagamentoController();
-        pagamentos.addObserver(this);
+        pagamentos.adicionaObservador(this);
     }
 
     public OperacaoCredito(double valorNominal, int numeroDeParcelas, double
@@ -108,7 +108,7 @@ public class OperacaoCredito extends Observado implements
     //--Observer method-------------------------------------------------------
 
     @Override
-    public void update(Observable o, Object arg) {
+    public void atualizar(EventoObservado ev) {
         notifyChange(o);
     }
 

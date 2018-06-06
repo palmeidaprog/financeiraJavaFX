@@ -28,7 +28,7 @@ public class PendenciaController extends ValorDescritoController implements
     // desserialização
     public PendenciaController(List<Pendencia> pendencias) {
         this.pendencias = pendencias;
-        addObserversToElements(this, this.pendencias);
+        observarElementos(this, this.pendencias);
     }
 
     public PendenciaController() {
@@ -43,7 +43,7 @@ public class PendenciaController extends ValorDescritoController implements
 
     @Override
     public <T extends TabelaValorDescrito> void addTabela(T o) {
-        super.addObserver(o);
+        super.adicionaObservador(o);
         @SuppressWarnings("unchecked")
         o.setLista(FXCollections.observableList(pendencias));
         //ObservableList<? extends ValorDescrito> l = o.getLista();
@@ -153,7 +153,7 @@ public class PendenciaController extends ValorDescritoController implements
     //--Observer method-------------------------------------------------------
 
     @Override
-    public void update(Observable o, Object arg) {
+    public void atualizar(EventoObservado ev) {
         notifyChange(o);
     }
 

@@ -18,7 +18,7 @@ import java.util.Observable;
 import java.util.Observer;
 
 public class InscricaoFiscal extends Observado implements
-        Serializable, Observer {
+        Serializable, Observador {
     private String orgaoExpedidor;
     private Estado estado;
 
@@ -28,7 +28,7 @@ public class InscricaoFiscal extends Observado implements
     public InscricaoFiscal(String orgaoExpedidor, Estado estado) {
         this.orgaoExpedidor = orgaoExpedidor;
         this.estado = estado;
-        this.estado.addObserver(this);
+        this.estado.adicionaObservador(this);
     }
 
     public void setOrgaoExpedidor(String orgaoExpedidor) {
@@ -49,10 +49,10 @@ public class InscricaoFiscal extends Observado implements
         return orgaoExpedidor;
     }
 
-    //--Observer intereface---------------------------------------------------
+    //--Observador intereface---------------------------------------------------
 
     @Override
-    public void update(Observable o, Object arg) {
+    public void atualizar(EventoObservado ev) {
         notifyChange(o);
     }
 

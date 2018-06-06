@@ -108,7 +108,7 @@ public class PagamentoController extends Observado implements
     //--Observer method-------------------------------------------------------
 
     @Override
-    public void update(Observable o, Object arg) {
+    public void atualizar(EventoObservado ev) {
         notifyChange(o);
     }
 

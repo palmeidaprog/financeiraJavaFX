@@ -130,7 +130,7 @@ public class ArquivoClienteDao extends ClienteDao implements Memento {
     //--Observer--------------------------------------------------------------
 
     @Override
-    public void update(Observable o, Object arg) {
+    public void atualizar(EventoObservado ev) {
         try {
             setState();
         } catch (IOException e) {

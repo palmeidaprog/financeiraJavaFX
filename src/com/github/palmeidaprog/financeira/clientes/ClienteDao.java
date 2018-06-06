@@ -12,8 +12,8 @@ import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 
-//@design Bridge that implements Observer
-public abstract class ClienteDao implements Observer {
+//@design Bridge that implements Observador
+public abstract class ClienteDao implements Observador {
     private ObservableList<Cliente> obs;
 
     abstract void inserir(Cliente cliente) throws IOException;
@@ -33,7 +33,7 @@ public abstract class ClienteDao implements Observer {
     abstract public List<Cliente> procurar(String nomeOuCometario) throws
             ProcuraSemResultadoException;
     // Observer
-    abstract public void update(Observable o, Object obj);
+    abstract public void atualizar(EventoObservado ev);
 
 
 }

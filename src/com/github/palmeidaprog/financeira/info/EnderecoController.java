@@ -21,7 +21,7 @@ import java.io.Serializable;
 import java.util.*;
 
 public class EnderecoController extends Observado implements
-        Serializable, Observer {
+        Serializable, Observador {
 
     private List<Endereco> enderecosL = new ArrayList<>();
     private transient ObservableList<Endereco> enderecos =
@@ -57,9 +57,9 @@ public class EnderecoController extends Observado implements
         });
     }
 
-    //--Observer interface----------------------------------------------------
+    //--Observador interface----------------------------------------------------
 
-    public void update(Observable o, Object obj) {
+    public void atualizar(EventoObservado ev) {
         notifyChange(o);
     }
 

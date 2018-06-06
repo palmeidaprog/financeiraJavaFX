@@ -29,11 +29,11 @@ public abstract class Cliente extends Observado implements
     protected Cliente(Endereco endereco, Telefone telefone, Cadastro
             cadastro) {
         enderecos = new EnderecoController(endereco);
-        enderecos.addObserver(this);
+        enderecos.adicionaObservador(this);
         telefones = new TelefoneController(telefone);
-        telefones.addObserver(this);
+        telefones.adicionaObservador(this);
         this.cadastro = cadastro;
-        this.cadastro.addObserver(this);
+        this.cadastro.adicionaObservador(this);
     }
 
     // usado tambem para deserializacao
@@ -66,7 +66,7 @@ public abstract class Cliente extends Observado implements
     //--Observer--------------------------------------------------------------
 
     @Override
-    public void update(Observable o, Object arg) {
+    public void atualizar(EventoObservado ev) {
         notifyChange(o);
     }
 

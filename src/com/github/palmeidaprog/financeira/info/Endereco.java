@@ -17,7 +17,7 @@ import java.util.Observable;
 import java.util.Observer;
 
 public class Endereco extends Observado implements Serializable,
-        Observer {
+        Observador {
     private String rua;
     private String numero;
     private Pais pais;
@@ -159,10 +159,10 @@ public class Endereco extends Observado implements Serializable,
         notifyChange(this.referencia);
     }
 
-    //--Observer method-------------------------------------------------------
+    //--Observador method-------------------------------------------------------
 
     @Override
-    public void update(Observable o, Object arg) {
+    public void atualizar(EventoObservado ev) {
         notifyChange(o);
     }
 

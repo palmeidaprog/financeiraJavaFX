@@ -11,12 +11,13 @@ package com.github.palmeidaprog.financeira.clientes;
 
 import com.github.palmeidaprog.financeira.exception.ProcuraSemResultadoException;
 import com.github.palmeidaprog.financeira.interfaces.observador.Observado;
+import com.github.palmeidaprog.financeira.interfaces.observador.Observador;
 
 import java.io.Serializable;
 import java.util.*;
 
 public class RendaController extends Observado implements
-        Serializable, Observer {
+        Serializable, Observador {
     private List<Renda> rendas = new ArrayList<>();
 
     //deserializacao
@@ -33,7 +34,7 @@ public class RendaController extends Observado implements
     public RendaController() { }
 
     public void inserir(Renda renda) {
-        renda.addObserver(this);
+        renda.adicionaObservador(this);
         rendas.add(renda);
         sort(rendas);
         notifyChange(this.rendas);
@@ -41,7 +42,7 @@ public class RendaController extends Observado implements
 
     public void inserir(Collection<? extends Renda> c) {
         for(Renda r : c) {
-            r.addObserver(this);
+            r.adicionaObservador(this);
             inserir(r);
         }
     }
@@ -153,7 +154,7 @@ public class RendaController extends Observado implements
     //--Observer method-------------------------------------------------------
 
     @Override
-    public void update(java.util.Observable o, Object arg) {
+    public void atualizar(EventoObservado ev) {
         notifyChange(o);
     }
 

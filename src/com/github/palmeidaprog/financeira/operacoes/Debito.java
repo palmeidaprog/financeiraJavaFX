@@ -89,7 +89,7 @@ public class Debito extends Observado implements Serializable,
     //--Observer methods------------------------------------------------------
 
     @Override
-    public void update(Observable o, Object arg) {
+    public void atualizar(EventoObservado ev) {
         notifyChange(o);
     }
 

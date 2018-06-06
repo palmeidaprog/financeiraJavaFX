@@ -1,20 +1,54 @@
 package com.github.palmeidaprog.financeira.interfaces.observador;
 
 import java.util.Collection;
-import java.util.Observable;
-import java.util.Observer;
+import java.util.Vector;
 
-public abstract class Observado extends Observable {
+public abstract class Observado {
+    private Vector<Observador> obs = new Vector<>();
 
-    protected void notifyChange(Object obj) {
-        setChanged();
-        notifyObservers(obj);
+
+    public synchronized void adicionaObservador(Observador o) {
+        obs.add(o);
     }
 
-    public <T extends Observable> void addObserversToElements(
-            Observer o, Collection<T> c) {
-        for(Observable elem : c) {
-            elem.addObserver(o);
+    public synchronized void deletaObservador(Observador o) {
+        obs.remove(o);
+    }
+
+    public int numeroDeObservadores() {
+        return obs.size();
+    }
+
+    public synchronized void deletaTodosObservadores() {
+        obs.clear();
+    }
+
+    // notificação do evento ocorrido aos observadores
+    protected void notificarEvento(Object obj, TipoEvento tipo) {
+        EventoObservado evento = new EventoObservado(this, obj, tipo);
+        notificaObserservadores(evento);
+    }
+
+    // repasse de notificação entre observadores que contem o observador
+    // original
+    protected  void notificarEvento(EventoObservado evento) {
+        evento.adicionaObservado(this);
+        notificaObserservadores(evento);
+    }
+
+    // suporte para notificarEvento
+    private void notificaObserservadores(EventoObservado evento) {
+        for(int i = 0; i < obs.size(); i++) {
+            obs.get(i).atualizar(evento);
+        }
+    }
+
+    // metodo que adiciona um Observador a todos elementos observaveis de uma
+    // colecão (observa cada elemento individualmente, não observa a colecao)
+    public <T extends Observado> void observarElementos(
+            Observador o, Collection<T> c) {
+        for(Observado elem : c) {
+            elem.adicionaObservador(o);
         }
     }
 }

@@ -31,7 +31,7 @@ public class Bem extends Observado implements Serializable,
     // construtor de deserializacao
     public Bem(double valor, String descricao, PendenciaController pendencias) {
         this.pendencias = pendencias;
-        pendencias.addObserver(this);
+        pendencias.adicionaObservador(this);
         this.valor = valor;
         valorP.setValue(valorFormatado(valorLiquido()));
         descricaoP.setValue(descricao);
@@ -42,7 +42,7 @@ public class Bem extends Observado implements Serializable,
     public Bem(double valor) {
         this.valor = valor;
         pendencias = new PendenciaController();
-        pendencias.addObserver(this);
+        pendencias.adicionaObservador(this);
     }
 
     @Override
@@ -97,7 +97,7 @@ public class Bem extends Observado implements Serializable,
     //--Obersver method-------------------------------------------------------
 
     @Override
-    public void update(Observable o, Object arg) {
+    public void atualizar(EventoObservado ev) {
         notifyChange(o);
     }
 

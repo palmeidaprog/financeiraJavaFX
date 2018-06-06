@@ -19,7 +19,7 @@ import java.util.Observable;
 import java.util.Observer;
 
 // @design observer
-public class ClienteController implements Observer {
+public class ClienteController implements Observador {
     ClienteDao dao = FactoryClienteDao.getInstance();
 
     // Singleton
@@ -49,7 +49,7 @@ public class ClienteController implements Observer {
     }
 
     @Override
-    public void update(Observable o, Object arg) {
+    public void atualizar(EventoObservado ev) {
         dao.update(o, arg);
     }
 

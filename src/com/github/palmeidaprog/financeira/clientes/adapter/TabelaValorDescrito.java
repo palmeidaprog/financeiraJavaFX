@@ -51,7 +51,7 @@ public class TabelaValorDescrito<T extends ValorDescrito> implements
 
 
     @Override @SuppressWarnings("unchecked")
-    public void update(Observable o, Object arg) {
+    public void atualizar(EventoObservado ev) {
         System.out.println(arg);
         T p = (T) arg;
         System.out.println(p);

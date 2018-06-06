@@ -10,13 +10,15 @@ package com.github.palmeidaprog.financeira.clientes;
  */
 
 import com.github.palmeidaprog.financeira.interfaces.observador.Observado;
+import com.github.palmeidaprog.financeira.interfaces.observador.Observador;
+
 import java.io.Serializable;
 import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 
 public class Cadastro extends Observado implements Serializable,
-        Observer {
+        Observador {
     private Credito credito = new Credito();
     private RendaController rendas = new RendaController();
     private BemController bens = new BemController();
@@ -60,9 +62,9 @@ public class Cadastro extends Observado implements Serializable,
     }
 
     private void observers() {
-        this.credito.addObserver(this);
-        this.rendas.addObserver(this);
-        this.bens.addObserver(this);
+        this.credito.adicionaObservador(this);
+        this.rendas.adicionaObservador(this);
+        this.bens.adicionaObservador(this);
     }
 
     public BemController getBens() {
@@ -80,7 +82,7 @@ public class Cadastro extends Observado implements Serializable,
     //--Observer implementação------------------------------------------------
 
     @Override
-    public void update(Observable o, Object arg) {
+    public void atualizar(EventoObservado ev) {
         notifyChange(arg);
     }
 

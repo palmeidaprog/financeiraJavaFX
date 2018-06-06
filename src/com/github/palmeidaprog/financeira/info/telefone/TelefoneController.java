@@ -17,7 +17,7 @@ import java.io.Serializable;
 import java.util.*;
 
 public class TelefoneController extends Observado implements
-        Serializable, Observer {
+        Serializable, Observador {
     private List<Telefone> telefones;
     private Telefone principal;
 
@@ -27,8 +27,8 @@ public class TelefoneController extends Observado implements
     public TelefoneController(List<Telefone> telefones, Telefone principal) {
         this.telefones = telefones;
         this.principal = principal;
-        addObserversToElements(this, telefones);
-        principal.addObserver(this);
+        observarElementos(this, telefones);
+        principal.adicionaObservador(this);
     }
 
     public TelefoneController() {
@@ -38,7 +38,7 @@ public class TelefoneController extends Observado implements
     public TelefoneController(Telefone telefone) {
         this();
         principal = telefone;
-        telefone.addObserver(this);
+        telefone.adicionaObservador(this);
         telefones.add(telefone);
     }
 
@@ -46,13 +46,13 @@ public class TelefoneController extends Observado implements
     //------------------------------------------------------------------------
 
     public void inserir(Telefone telefone) {
-        telefone.addObserver(this);
+        telefone.adicionaObservador(this);
         telefones.add(telefone);
         notifyChange(telefone);
     }
 
     public void inserir(Telefone telefone, boolean isPrincipal) {
-        telefone.addObserver(this);
+        telefone.adicionaObservador(this);
         telefones.add(telefone);
         if(isPrincipal) {
             principal = telefone;
@@ -174,10 +174,10 @@ public class TelefoneController extends Observado implements
         return true;
     }
 
-    //--Observer--------------------------------------------------------------
+    //--Observador--------------------------------------------------------------
 
     @Override
-    public void update(Observable o, Object arg) {
+    public void atualizar(EventoObservado ev) {
         notifyChange(o);
     }
 

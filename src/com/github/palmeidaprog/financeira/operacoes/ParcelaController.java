@@ -28,8 +28,8 @@ public class ParcelaController extends Observado implements
                              int parcelasRestantes) {
         this.parcelas = parcelas;
         this.pagas = pagas;
-        addObserversToElements(this, parcelas);
-        addObserversToElements(this, pagas);
+        observarElementos(this, parcelas);
+        observarElementos(this, pagas);
         this.numeroDeParcelas = numeroDeParcelas;
         this.valorParcela = valorParcela;
         this.parcelasRestantes = parcelasRestantes;
@@ -48,11 +48,11 @@ public class ParcelaController extends Observado implements
             primeiraParcela) {
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(primeiraParcela.getVencimento());
-        primeiraParcela.addObserver(this);
+        primeiraParcela.adicionaObservador(this);
         parcelas.add(0, primeiraParcela);
         for(int i = 1; i < numeroDeParcelas; i++) {
             Parcela p = parcelas.get(i - 1).proximaParcela();
-            p.addObserver(this);
+            p.adicionaObservador(this);
             parcelas.add(i, p);
         }
     }
@@ -72,7 +72,7 @@ public class ParcelaController extends Observado implements
     //--Observer method-------------------------------------------------------
 
     @Override
-    public void update(Observable o, Object arg) {
+    public void atualizar(EventoObservado ev) {
         if(arg instanceof Pagamento && o instanceof Parcela) {
             parcelas.remove(o);
             pagas.add((Parcela) o);
