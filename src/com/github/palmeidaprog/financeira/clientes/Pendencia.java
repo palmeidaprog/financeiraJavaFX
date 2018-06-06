@@ -11,6 +11,7 @@ package com.github.palmeidaprog.financeira.clientes;
 
 import com.github.palmeidaprog.financeira.interfaces.observador.Observado;
 import com.github.palmeidaprog.financeira.interfaces.ValorDescrito;
+import com.github.palmeidaprog.financeira.interfaces.observador.TipoEvento;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import java.io.Serializable;
@@ -40,7 +41,7 @@ public class Pendencia extends Observado implements Serializable,
     public void setValor(double valor) {
         this.valor = valor;
         valorP.setValue(valorFormatado(valor));
-        notificarEvento(this.valor);
+        notificarEvento(this.valor, TipoEvento.EDITADO);
     }
 
     @Override
@@ -62,7 +63,7 @@ public class Pendencia extends Observado implements Serializable,
     public void setDescricao(String descricao) {
         this.descricao = descricao;
         descricaoP.setValue(descricao);
-        notificarEvento(this.descricao);
+        notificarEvento(this.descricao, TipoEvento.EDITADO);
     }
 
     @Override

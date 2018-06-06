@@ -13,9 +13,9 @@ package com.github.palmeidaprog.financeira.clientes;
 import com.github.palmeidaprog.financeira.info.Endereco;
 import com.github.palmeidaprog.financeira.info.telefone.Telefone;
 import com.github.palmeidaprog.financeira.info.telefone.TelefoneController;
-
+import com.github.palmeidaprog.financeira.interfaces.observador.TipoEvento;
 import java.io.Serializable;
-import java.util.Objects;
+
 
 public class Imovel extends Bem implements Serializable {
     private String descricao;
@@ -83,7 +83,7 @@ public class Imovel extends Bem implements Serializable {
 
     public void setDescricao(String descricao) {
         this.descricao = descricao;
-        notificarEvento(descricao);
+        notificarEvento(this.descricao, TipoEvento.EDITADO);
     }
 
     //--Object override-------------------------------------------------------

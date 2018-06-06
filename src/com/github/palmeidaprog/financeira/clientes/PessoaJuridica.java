@@ -12,6 +12,7 @@ package com.github.palmeidaprog.financeira.clientes;
 import com.github.palmeidaprog.financeira.info.Cnpj;
 import com.github.palmeidaprog.financeira.info.Endereco;
 import com.github.palmeidaprog.financeira.info.telefone.Telefone;
+import com.github.palmeidaprog.financeira.interfaces.observador.TipoEvento;
 
 import java.io.Serializable;
 import java.util.Objects;
@@ -48,7 +49,7 @@ public class PessoaJuridica extends Cliente implements Serializable {
 
     public void setRazaoSocial(String razaoSocial) {
         this.razaoSocial = razaoSocial;
-        notificarEvento(this.razaoSocial);
+        notificarEvento(this.razaoSocial, TipoEvento.EDITADO);
     }
 
     public String getNomeFantasia() {
@@ -57,7 +58,7 @@ public class PessoaJuridica extends Cliente implements Serializable {
 
     public void setNomeFantasia(String nomeFantasia) {
         this.nomeFantasia = nomeFantasia;
-        notificarEvento(this.nomeFantasia);
+        notificarEvento(this.nomeFantasia, TipoEvento.EDITADO);
     }
 
     public Cnpj getCnpj() {

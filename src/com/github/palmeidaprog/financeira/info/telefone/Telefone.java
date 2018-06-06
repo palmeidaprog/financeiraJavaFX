@@ -12,6 +12,7 @@ package com.github.palmeidaprog.financeira.info.telefone;
 
 import com.github.palmeidaprog.financeira.info.Pais;
 import com.github.palmeidaprog.financeira.interfaces.observador.Observado;
+import com.github.palmeidaprog.financeira.interfaces.observador.TipoEvento;
 
 import java.io.Serializable;
 
@@ -36,7 +37,7 @@ public class Telefone extends Observado implements Serializable {
 
     public void setPais(Pais pais) {
         this.pais = pais;
-        notificarEvento(this.pais);
+        notificarEvento(this.pais, TipoEvento.EDITADO);
     }
 
     public CodigoArea getCodigoArea() {
@@ -45,7 +46,7 @@ public class Telefone extends Observado implements Serializable {
 
     public void setCodigoArea(CodigoArea codigoArea) {
         this.codigoArea = codigoArea;
-        notificarEvento(this.codigoArea);
+        notificarEvento(this.codigoArea, TipoEvento.EDITADO);
     }
 
     public NumeroTelefone getNumero() {
@@ -54,12 +55,12 @@ public class Telefone extends Observado implements Serializable {
 
     public void setNumero(NumeroTelefone numero) {
         this.numero = numero;
-        notificarEvento(this.numero);
+        notificarEvento(this.numero, TipoEvento.EDITADO);
     }
 
     public void setTipo(TipoTelefone tipo) {
         this.tipo = tipo;
-        notificarEvento(this.tipo);
+        notificarEvento(this.tipo, TipoEvento.EDITADO);
     }
 
     public TipoTelefone getTipo() {

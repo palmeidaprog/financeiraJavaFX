@@ -13,7 +13,10 @@ import com.github.palmeidaprog.financeira.info.Endereco;
 import com.github.palmeidaprog.financeira.info.EnderecoController;
 import com.github.palmeidaprog.financeira.info.telefone.Telefone;
 import com.github.palmeidaprog.financeira.info.telefone.TelefoneController;
+import com.github.palmeidaprog.financeira.interfaces.observador.EventoObs;
 import com.github.palmeidaprog.financeira.interfaces.observador.Observado;
+import com.github.palmeidaprog.financeira.interfaces.observador.Observador;
+import com.github.palmeidaprog.financeira.interfaces.observador.TipoEvento;
 
 import java.io.Serializable;
 import java.util.Observable;
@@ -57,6 +60,7 @@ public abstract class Cliente extends Observado implements
 
     public void setComentario(String comentario) {
         this.comentario = comentario;
+        notificarEvento(this.comentario, TipoEvento.EDITADO);
     }
 
     public Cadastro getCadastro() {
@@ -66,8 +70,8 @@ public abstract class Cliente extends Observado implements
     //--Observador--------------------------------------------------------------
 
     @Override
-    public void atualizar(EventoObservado ev) {
-        notificarEvento(o);
+    public void atualizar(EventoObs ev) {
+        notificarEvento(ev);
     }
 
     //--Object override-------------------------------------------------------

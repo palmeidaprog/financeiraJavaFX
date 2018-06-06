@@ -10,6 +10,7 @@ package com.github.palmeidaprog.financeira.clientes;
  */
 
 import com.github.palmeidaprog.financeira.interfaces.observador.Observado;
+import com.github.palmeidaprog.financeira.interfaces.observador.TipoEvento;
 import java.io.Serializable;
 
 public class Credito extends Observado implements Serializable {
@@ -33,7 +34,7 @@ public class Credito extends Observado implements Serializable {
 
     public void setFinanciamento(double financiamento) {
         this.financiamento = financiamento;
-        notificarEvento(this);
+        notificarEvento(this.financiamento, TipoEvento.EDITADO);
     }
 
     public double getPessoal() {
@@ -42,7 +43,7 @@ public class Credito extends Observado implements Serializable {
 
     public void setPessoal(double pessoal) {
         this.pessoal = pessoal;
-        notificarEvento(this);
+        notificarEvento(this.pessoal, TipoEvento.EDITADO);
     }
 
     //--Object override-------------------------------------------------------

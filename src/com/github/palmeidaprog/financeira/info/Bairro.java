@@ -11,6 +11,7 @@ package com.github.palmeidaprog.financeira.info;
  */
 
 import com.github.palmeidaprog.financeira.interfaces.observador.Observado;
+import com.github.palmeidaprog.financeira.interfaces.observador.TipoEvento;
 
 import java.io.Serializable;
 
@@ -23,7 +24,7 @@ public class Bairro extends Observado implements Serializable {
 
     public void setNome(String nome) {
         this.nome = nome;
-        notificarEvento(this);
+        notificarEvento(this.nome, TipoEvento.EDITADO);
     }
 
     public String getNome() {

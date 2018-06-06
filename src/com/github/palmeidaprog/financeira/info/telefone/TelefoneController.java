@@ -11,7 +11,10 @@ package com.github.palmeidaprog.financeira.info.telefone;
 
 import com.github.palmeidaprog.financeira.exception.ImpossivelRemoverException;
 import com.github.palmeidaprog.financeira.exception.ProcuraSemResultadoException;
+import com.github.palmeidaprog.financeira.interfaces.observador.EventoObs;
 import com.github.palmeidaprog.financeira.interfaces.observador.Observado;
+import com.github.palmeidaprog.financeira.interfaces.observador.Observador;
+import com.github.palmeidaprog.financeira.interfaces.observador.TipoEvento;
 
 import java.io.Serializable;
 import java.util.*;
@@ -48,12 +51,12 @@ public class TelefoneController extends Observado implements
     public void inserir(Telefone telefone) {
         telefone.adicionaObservador(this);
         telefones.add(telefone);
-        notificarEvento(telefone);
+        notificarEvento(telefone, TipoEvento.ADICIONADO, telefones);
     }
 
     public void inserir(Telefone telefone, boolean isPrincipal) {
         telefone.adicionaObservador(this);
-        telefones.add(telefone);
+        inserir(telefone);
         if(isPrincipal) {
             principal = telefone;
         }
@@ -67,7 +70,8 @@ public class TelefoneController extends Observado implements
 
     public void remover(Telefone telefone) throws ImpossivelRemoverException {
         if(isRemovivel(telefone)) {
-            telefone.deleteObservador(this);
+            telefone.deletaObservador(this);
+            notificarEvento(telefone, TipoEvento.REMOVIDO, telefones);
             telefones.remove(telefone);
         }
     }
@@ -83,9 +87,7 @@ public class TelefoneController extends Observado implements
     }
 
     public void remover(int index) throws ImpossivelRemoverException {
-        Telefone telefone = get(index);
-        telefone.deleteObservador(this);
-        remover(telefone);
+        remover(get(index));
     }
 
     public Telefone get(int index) {
@@ -102,6 +104,8 @@ public class TelefoneController extends Observado implements
 
     public void setPrincipal(Telefone principal) {
         this.principal = principal;
+        this.principal.adicionaObservador(this);
+        notificarEvento(this.principal, TipoEvento.EDITADO);
     }
 
     /*
@@ -126,7 +130,7 @@ public class TelefoneController extends Observado implements
     public Telefone procurar(NumeroTelefone numero) throws
             ProcuraSemResultadoException {
         for(Telefone t: telefones) {
-            if(numero.equals(t.getNumero().getNumero())) {
+            if(numero.equals(t.getNumero())) {
                 return t;
             }
         }
@@ -177,8 +181,8 @@ public class TelefoneController extends Observado implements
     //--Observador--------------------------------------------------------------
 
     @Override
-    public void atualizar(EventoObservado ev) {
-        notificarEvento(o);
+    public void atualizar(EventoObs ev) {
+        notificarEvento(ev);
     }
 
     //--Object override-------------------------------------------------------

@@ -1,5 +1,5 @@
 package com.github.palmeidaprog.financeira.interfaces.observador;
 
 public interface Observador {
-    void atualizar(EventoObservado ev);
+    void atualizar(EventoObs ev);
 }

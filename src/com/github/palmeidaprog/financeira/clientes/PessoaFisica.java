@@ -12,6 +12,7 @@ package com.github.palmeidaprog.financeira.clientes;
 import com.github.palmeidaprog.financeira.info.Cpf;
 import com.github.palmeidaprog.financeira.info.Endereco;
 import com.github.palmeidaprog.financeira.info.telefone.Telefone;
+import com.github.palmeidaprog.financeira.interfaces.observador.TipoEvento;
 
 import java.io.Serializable;
 import java.util.Objects;
@@ -62,7 +63,7 @@ public class PessoaFisica extends Cliente implements Serializable {
 
     public void setPrimeiroNome(String primeiroNome) {
         this.primeiroNome = primeiroNome;
-        notificarEvento(this.primeiroNome);
+        notificarEvento(this.primeiroNome, TipoEvento.EDITADO);
     }
 
     public String getNomeDoMeio() {
@@ -71,7 +72,7 @@ public class PessoaFisica extends Cliente implements Serializable {
 
     public void setNomeDoMeio(String nomeDoMeio) {
         this.nomeDoMeio = nomeDoMeio;
-        notificarEvento(this.nomeDoMeio);
+        notificarEvento(this.nomeDoMeio, TipoEvento.EDITADO);
     }
 
     public String getSobrenome() {
@@ -80,7 +81,7 @@ public class PessoaFisica extends Cliente implements Serializable {
 
     public void setSobrenome(String sobrenome) {
         this.sobrenome = sobrenome;
-        notificarEvento(this.sobrenome);
+        notificarEvento(this.sobrenome, TipoEvento.EDITADO);
     }
 
     public Cpf getCpf() {

@@ -4,7 +4,7 @@ package com.github.palmeidaprog.financeira.clientes.adapter;
 import com.github.palmeidaprog.financeira.exception.ProcuraSemResultadoException;
 import com.github.palmeidaprog.financeira.interfaces.ValorDescrito;
 import com.github.palmeidaprog.financeira.interfaces.ValorDescritoController;
-import com.github.palmeidaprog.financeira.interfaces.observador.EventoObservado;
+import com.github.palmeidaprog.financeira.interfaces.observador.EventoObs;
 import com.github.palmeidaprog.financeira.interfaces.observador.Observador;
 import javafx.collections.ObservableList;
 import javafx.scene.control.TableColumn;
@@ -50,8 +50,8 @@ public class TabelaValorDescrito<T extends ValorDescrito> implements
     }
 
     @Override @SuppressWarnings("unchecked")
-    public void atualizar(EventoObservado ev) {
-        T p = (T) ev.getObjetoModificado();
+    public void atualizar(EventoObs ev) {
+        T p = (T) ev.getModificado();
         //todo: olhar codigo e substituir por logica do TipoEvento
         try {
             System.out.println(controller.indexOf(p));

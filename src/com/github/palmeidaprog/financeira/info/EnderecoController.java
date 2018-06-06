@@ -12,11 +12,12 @@ package com.github.palmeidaprog.financeira.info;
 
 import com.github.palmeidaprog.financeira.exception.ImpossivelRemoverException;
 import com.github.palmeidaprog.financeira.exception.ProcuraSemResultadoException;
+import com.github.palmeidaprog.financeira.interfaces.observador.EventoObs;
 import com.github.palmeidaprog.financeira.interfaces.observador.Observado;
+import com.github.palmeidaprog.financeira.interfaces.observador.Observador;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
-
 import java.io.Serializable;
 import java.util.*;
 
@@ -30,6 +31,7 @@ public class EnderecoController extends Observado implements
 
     public EnderecoController(Endereco endereco) {
         principal = endereco;
+        this.principal.adicionaObservador(this);
         enderecos.add(endereco);
         evento();
     }
@@ -59,8 +61,8 @@ public class EnderecoController extends Observado implements
 
     //--Observador interface----------------------------------------------------
 
-    public void atualizar(EventoObservado ev) {
-        notificarEvento(o);
+    public void atualizar(EventoObs ev) {
+        notificarEvento(ev);
     }
 
     //------------------------------------------------------------------------

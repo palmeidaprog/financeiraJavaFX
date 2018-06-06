@@ -10,10 +10,13 @@ package com.github.palmeidaprog.financeira.info;
  * Professor: Antonio Canvalcanti
  */
 
+import com.github.palmeidaprog.financeira.interfaces.observador.EventoObs;
 import com.github.palmeidaprog.financeira.interfaces.observador.Observado;
+import com.github.palmeidaprog.financeira.interfaces.observador.Observador;
+import com.github.palmeidaprog.financeira.interfaces.observador.TipoEvento;
 
 import java.io.Serializable;
-import java.util.Observable;
+
 
 
 public class Endereco extends Observado implements Serializable,
@@ -37,9 +40,13 @@ public class Endereco extends Observado implements Serializable,
         this.numero = numero;
         this.pais = pais;
         this.estado = estado;
+        this.estado.adicionaObservador(this);
         this.cidade = cidade;
+        this.cidade.adicionaObservador(this);
         this.bairro = bairro;
+        this.bairro.adicionaObservador(this);
         this.cep = cep;
+        this.cep.adicionaObservador(this);
         this.tipo = tipo;
     }
 
@@ -51,9 +58,13 @@ public class Endereco extends Observado implements Serializable,
         this.numero = numero;
         this.pais = pais;
         this.estado = estado;
+        this.estado.adicionaObservador(this);
         this.cidade = cidade;
+        this.cidade.adicionaObservador(this);
         this.bairro = bairro;
+        this.bairro.adicionaObservador(this);
         this.cep = cep;
+        this.cep.adicionaObservador(this);
         this.tipo = tipo;
         this.complemento = complemento;
         this.referencia = referencia;
@@ -73,7 +84,7 @@ public class Endereco extends Observado implements Serializable,
 
     public void setRua(String rua) {
         this.rua = rua;
-        notificarEvento(this.rua);
+        notificarEvento(this.rua, TipoEvento.EDITADO);
     }
 
     public String getNumero() {
@@ -83,7 +94,7 @@ public class Endereco extends Observado implements Serializable,
 
     public void setNumero(String numero) {
         this.numero = numero;
-        notificarEvento(this.numero);
+        notificarEvento(this.numero, TipoEvento.EDITADO);
     }
 
     public Pais getPais() {
@@ -92,7 +103,7 @@ public class Endereco extends Observado implements Serializable,
 
     public void setPais(Pais pais) {
         this.pais = pais;
-        notificarEvento(this.pais);
+        notificarEvento(this.pais, TipoEvento.EDITADO);
     }
 
     public Estado getEstado() {
@@ -102,7 +113,8 @@ public class Endereco extends Observado implements Serializable,
 
     public void setEstado(Estado estado) {
         this.estado = estado;
-        notificarEvento(this.estado);
+        this.estado.adicionaObservador(this);
+        notificarEvento(this.estado, TipoEvento.EDITADO);
     }
 
     public Cidade getCidade() {
@@ -111,7 +123,8 @@ public class Endereco extends Observado implements Serializable,
 
     public void setCidade(Cidade cidade) {
         this.cidade = cidade;
-        notificarEvento(this.cidade);
+        this.cidade.adicionaObservador(this);
+        notificarEvento(this.cidade, TipoEvento.EDITADO);
     }
 
     public Bairro getBairro() {
@@ -120,7 +133,8 @@ public class Endereco extends Observado implements Serializable,
 
     public void setBairro(Bairro bairro) {
         this.bairro = bairro;
-        notificarEvento(this.bairro);
+        this.bairro.adicionaObservador(this);
+        notificarEvento(this.bairro, TipoEvento.EDITADO);
     }
 
     public Cep getCep() {
@@ -129,7 +143,8 @@ public class Endereco extends Observado implements Serializable,
 
     public void setCep(Cep cep) {
         this.cep = cep;
-        notificarEvento(this.cep);
+        this.cep.adicionaObservador(this);
+        notificarEvento(this.cep, TipoEvento.EDITADO);
     }
 
     public TipoEndereco getTipo() {
@@ -138,7 +153,7 @@ public class Endereco extends Observado implements Serializable,
 
     public void setTipo(TipoEndereco tipo) {
         this.tipo = tipo;
-        notificarEvento(this.tipo);
+        notificarEvento(this.tipo, TipoEvento.EDITADO);
     }
 
     public String getComplemento() {
@@ -147,7 +162,7 @@ public class Endereco extends Observado implements Serializable,
 
     public void setComplemento(String complemento) {
         this.complemento = complemento;
-        notificarEvento(this.complemento);
+        notificarEvento(this.complemento, TipoEvento.EDITADO);
     }
 
     public String getReferencia() {
@@ -156,14 +171,14 @@ public class Endereco extends Observado implements Serializable,
 
     public void setReferencia(String referencia) {
         this.referencia = referencia;
-        notificarEvento(this.referencia);
+        notificarEvento(this.referencia, TipoEvento.EDITADO);
     }
 
     //--Observador method-------------------------------------------------------
 
     @Override
-    public void atualizar(EventoObservado ev) {
-        notificarEvento(o);
+    public void atualizar(EventoObs ev) {
+        notificarEvento(ev);
     }
 
     //--Object override-------------------------------------------------------

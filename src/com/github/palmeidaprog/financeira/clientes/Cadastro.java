@@ -9,6 +9,7 @@ package com.github.palmeidaprog.financeira.clientes;
  * Professor: Antonio Canvalcanti
  */
 
+import com.github.palmeidaprog.financeira.interfaces.observador.EventoObs;
 import com.github.palmeidaprog.financeira.interfaces.observador.Observado;
 import com.github.palmeidaprog.financeira.interfaces.observador.Observador;
 
@@ -82,8 +83,8 @@ public class Cadastro extends Observado implements Serializable,
     //--Observador implementação------------------------------------------------
 
     @Override
-    public void atualizar(EventoObservado ev) {
-        notificarEvento(arg);
+    public void atualizar(EventoObs ev) {
+        notificarEvento(ev);
     }
 
     //--Object override-------------------------------------------------------

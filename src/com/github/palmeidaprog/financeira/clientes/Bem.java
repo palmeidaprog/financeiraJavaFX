@@ -11,10 +11,7 @@ package com.github.palmeidaprog.financeira.clientes;
  */
 
 import com.github.palmeidaprog.financeira.interfaces.ValorDescrito;
-import com.github.palmeidaprog.financeira.interfaces.observador.EventoObservado;
-import com.github.palmeidaprog.financeira.interfaces.observador.Observado;
-import com.github.palmeidaprog.financeira.interfaces.observador.Observador;
-import com.github.palmeidaprog.financeira.interfaces.observador.TipoEvento;
+import com.github.palmeidaprog.financeira.interfaces.observador.*;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import java.io.Serializable;
@@ -99,7 +96,7 @@ public class Bem extends Observado implements Serializable,
     //--Obersver method-------------------------------------------------------
 
     @Override
-    public void atualizar(EventoObservado ev) {
+    public void atualizar(EventoObs ev) {
         notificarEvento(ev);
     }
 

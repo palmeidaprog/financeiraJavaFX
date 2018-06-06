@@ -108,7 +108,7 @@ public class OperacaoCredito extends Observado implements
     //--Observador method-------------------------------------------------------
 
     @Override
-    public void atualizar(EventoObservado ev) {
+    public void atualizar(EventoObs ev) {
         notificarEvento(o);
     }
 

@@ -1,14 +1,12 @@
 package com.github.palmeidaprog.financeira.interfaces.observador;
 
-import java.util.ArrayDeque;
-import java.util.Collection;
-import java.util.Deque;
+import java.util.*;
 
 public class EventoObservado implements EventoObs {
     private final Object objetoModificado;
     private final Deque<Observado> observados = new ArrayDeque<>();
     private final TipoEvento tipo;
-    private final T container;
+    private Collection<? extends Observado> lista;
 
     public EventoObservado(Observado obs, Object objetoModificado,
                            TipoEvento tipo) {
@@ -21,15 +19,22 @@ public class EventoObservado implements EventoObs {
         observados.addFirst(o);
     }
 
-    public Enum getTipo() {
-        return tipo;
+    @SuppressWarnings("unchecked") // seguro
+    public <T extends Enum> T getTipo() {
+        return (T) tipo;
     }
 
     public Object getModificado() {
         return objetoModificado;
     }
 
+    public Collection<? extends Observado> getLista() {
+        return lista;
+    }
 
+    public void setLista(Collection<? extends Observado> lista) {
+        this.lista = lista;
+    }
 
     public Deque<Observado> getObservados() {
         return observados;

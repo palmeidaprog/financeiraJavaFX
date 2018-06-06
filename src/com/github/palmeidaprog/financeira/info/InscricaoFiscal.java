@@ -52,7 +52,7 @@ public class InscricaoFiscal extends Observado implements
     //--Observador intereface---------------------------------------------------
 
     @Override
-    public void atualizar(EventoObservado ev) {
+    public void atualizar(EventoObs ev) {
         notificarEvento(o);
     }
 

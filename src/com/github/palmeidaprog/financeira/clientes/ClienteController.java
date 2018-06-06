@@ -13,14 +13,17 @@ import com.github.palmeidaprog.financeira.exception
         .ProcuraSemResultadoException;
 import com.github.palmeidaprog.financeira.info.Cnpj;
 import com.github.palmeidaprog.financeira.info.Cpf;
+import com.github.palmeidaprog.financeira.interfaces.observador.EventoObs;;
+import com.github.palmeidaprog.financeira.interfaces.observador.Observador;
+
 import java.io.IOException;
 import java.util.List;
-import java.util.Observable;
+
 
 
 // @design Observador
 public class ClienteController implements Observador {
-    ClienteDao dao = FactoryClienteDao.getInstance();
+    private ClienteDao dao = FactoryClienteDao.getInstance();
 
     // Singleton
     private static volatile ClienteController instance;
@@ -42,15 +45,17 @@ public class ClienteController implements Observador {
 
     public void inserir(Cliente cliente) throws IOException {
         dao.inserir(cliente);
+        cliente.adicionaObservador(this);
     }
 
     public void remover(Cliente cliente) throws IOException {
         dao.remover(cliente);
+        cliente.adicionaObservador(this);
     }
 
     @Override
-    public void atualizar(EventoObservado ev) {
-        dao.update(o, arg);
+    public void atualizar(EventoObs ev) {
+        dao.atualizar(ev);
     }
 
     public PessoaFisica procurar(Cpf cpf) throws

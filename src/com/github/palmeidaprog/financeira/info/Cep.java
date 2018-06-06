@@ -10,6 +10,7 @@ package com.github.palmeidaprog.financeira.info;
  */
 
 import com.github.palmeidaprog.financeira.interfaces.observador.Observado;
+import com.github.palmeidaprog.financeira.interfaces.observador.TipoEvento;
 
 import java.io.Serializable;
 
@@ -23,7 +24,7 @@ public class Cep extends Observado implements Serializable {
 
     public void setNumero(String numero) {
         this.numero = numero;
-        notificarEvento(this);
+        notificarEvento(this.numero, TipoEvento.EDITADO);
     }
 
     public String getNumero() {

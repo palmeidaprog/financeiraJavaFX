@@ -11,9 +11,7 @@ package com.github.palmeidaprog.financeira.clientes;
  */
 
 import com.github.palmeidaprog.financeira.exception.ProcuraSemResultadoException;
-import com.github.palmeidaprog.financeira.interfaces.observador.EventoObservado;
-import com.github.palmeidaprog.financeira.interfaces.observador.Observado;
-import com.github.palmeidaprog.financeira.interfaces.observador.Observador;
+import com.github.palmeidaprog.financeira.interfaces.observador.*;
 
 import java.io.Serializable;
 import java.util.*;
@@ -40,7 +38,7 @@ public class BemController extends Observado implements
     //--Observador interface----------------------------------------------------
 
     @Override
-    public void atualizar(EventoObservado ev) {
+    public void atualizar(EventoObs ev) {
         notificarEvento(ev);
     }
 
@@ -48,7 +46,8 @@ public class BemController extends Observado implements
 
     public void inserir(Bem bem) {
         bens.add(bem);
-        notificarEvento(bem);
+        bem.adicionaObservador(this);
+        notificarEvento(bem, TipoEvento.ADICIONADO, bens);
     }
 
     public void inserir(List<Bem> bens) {
@@ -59,7 +58,8 @@ public class BemController extends Observado implements
 
     public void remover(Bem bem) {
         bens.remove(bem);
-        notificarEvento(this.bens);
+        bem.deletaObservador(this);
+        notificarEvento(bem, TipoEvento.REMOVIDO, bens);
     }
 
     public void remover(int index) {

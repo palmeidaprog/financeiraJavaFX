@@ -4,7 +4,8 @@ import com.github.palmeidaprog.financeira.exception.ProcuraSemResultadoException
 import com.github.palmeidaprog.financeira.info.Cnpj;
 import com.github.palmeidaprog.financeira.info.Cpf;
 import com.github.palmeidaprog.financeira.interfaces.Memento;
-import com.github.palmeidaprog.financeira.interfaces.observador.EventoObservado;
+import com.github.palmeidaprog.financeira.interfaces.observador.EventoObs;
+import com.github.palmeidaprog.financeira.interfaces.observador.Observador;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
@@ -15,8 +16,9 @@ import java.util.List;
 // @design memento
 // Implementação SalvaTudo no arquivo nas mudanças
 // Tb conhecido co0mo Surubão Design Pattern
-public class ArquivoClienteDao extends ClienteDao implements Memento {
-    private final String ARQUIVO = "clientes.ser";
+public class ArquivoClienteDao extends ClienteDao implements Memento,
+        Observador {
+    private static final String ARQUIVO = "clientes.ser";
     private ObservableList<Cliente> clientes = FXCollections
             .observableArrayList(); // persistenciaa
 
@@ -99,16 +101,13 @@ public class ArquivoClienteDao extends ClienteDao implements Memento {
         }
     }
 
-    /*public ObservableList<Cliente> getClientes() {
-        return clientes;
-    }*/
-
     //--Memento Design--------------------------------------------------------
 
-    @Override
+    @Override @SuppressWarnings("unchecked")
     public void getState() throws IOException {
         try(ObjectInputStream objIn  = new ObjectInputStream(new
                 FileInputStream(ARQUIVO))) {
+
             clientes = FXCollections.observableArrayList
                     ((List<Cliente>) objIn.readObject());
         } catch(ClassNotFoundException e) {
@@ -119,8 +118,7 @@ public class ArquivoClienteDao extends ClienteDao implements Memento {
     public void setState() throws IOException {
         try(ObjectOutputStream objOut  = new ObjectOutputStream(new
                 FileOutputStream(ARQUIVO))) {
-            List<Cliente> cl = new ArrayList<>();
-            cl.addAll(clientes);
+            ArrayList<Cliente> cl = new ArrayList<>(clientes);
             objOut.writeObject(cl);
         }
     }
@@ -128,7 +126,7 @@ public class ArquivoClienteDao extends ClienteDao implements Memento {
     //--Observador--------------------------------------------------------------
 
     @Override
-    public void atualizar(EventoObservado ev) {
+    public void atualizar(EventoObs ev) {
         try {
             setState();
         } catch (IOException e) {

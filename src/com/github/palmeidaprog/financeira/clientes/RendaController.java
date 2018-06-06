@@ -10,8 +10,10 @@ package com.github.palmeidaprog.financeira.clientes;
  */
 
 import com.github.palmeidaprog.financeira.exception.ProcuraSemResultadoException;
+import com.github.palmeidaprog.financeira.interfaces.observador.EventoObs;
 import com.github.palmeidaprog.financeira.interfaces.observador.Observado;
 import com.github.palmeidaprog.financeira.interfaces.observador.Observador;
+import com.github.palmeidaprog.financeira.interfaces.observador.TipoEvento;
 
 import java.io.Serializable;
 import java.util.*;
@@ -22,13 +24,14 @@ public class RendaController extends Observado implements
 
     //deserializacao
     public RendaController(List<Renda> rendas) {
-        ;
-
+        this.rendas = rendas;
+        observarElementos(this, this.rendas);
     }
 
     public RendaController(Renda renda) {
         this();
         rendas.add(renda);
+        renda.adicionaObservador(this);
     }
 
     public RendaController() { }
@@ -37,20 +40,19 @@ public class RendaController extends Observado implements
         renda.adicionaObservador(this);
         rendas.add(renda);
         sort(rendas);
-        notificarEvento(this.rendas);
+        notificarEvento(renda, TipoEvento.ADICIONADO, this.rendas);
     }
 
     public void inserir(Collection<? extends Renda> c) {
         for(Renda r : c) {
-            r.adicionaObservador(this);
             inserir(r);
         }
     }
 
     public void remover(Renda renda) {
         rendas.remove(renda);
-        renda.deleteObservador(this);
-        notificarEvento(this.rendas);
+        renda.deletaObservador(this);
+        notificarEvento(renda, TipoEvento.REMOVIDO, this.rendas);
     }
 
     public void remover(int index) {
@@ -154,8 +156,8 @@ public class RendaController extends Observado implements
     //--Observador method-------------------------------------------------------
 
     @Override
-    public void atualizar(EventoObservado ev) {
-        notificarEvento(o);
+    public void atualizar(EventoObs ev) {
+        notificarEvento(ev);
     }
 
     //--Object override-------------------------------------------------------

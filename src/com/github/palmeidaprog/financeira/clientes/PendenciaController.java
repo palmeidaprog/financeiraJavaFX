@@ -14,6 +14,9 @@ import com.github.palmeidaprog.financeira.exception
         .ProcuraSemResultadoException;
 import com.github.palmeidaprog.financeira.interfaces.ValorDescrito;
 import com.github.palmeidaprog.financeira.interfaces.ValorDescritoController;
+import com.github.palmeidaprog.financeira.interfaces.observador.EventoObs;
+import com.github.palmeidaprog.financeira.interfaces.observador.Observador;
+import com.github.palmeidaprog.financeira.interfaces.observador.TipoEvento;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import java.io.Serializable;
@@ -41,10 +44,9 @@ public class PendenciaController extends ValorDescritoController implements
 
     //--ValorDescritoControlller----------------------------------------------
 
-    @Override
+    @Override @SuppressWarnings("unchecked")
     public <T extends TabelaValorDescrito> void addTabela(T o) {
         super.adicionaObservador(o);
-        @SuppressWarnings("unchecked")
         o.setLista(FXCollections.observableList(pendencias));
         //ObservableList<? extends ValorDescrito> l = o.getLista();
     }
@@ -56,7 +58,8 @@ public class PendenciaController extends ValorDescritoController implements
         if(pendencia instanceof Pendencia) {
             Pendencia p = (Pendencia) pendencia;
             pendencias.add(p);
-            notificarEvento(p);
+            p.adicionaObservador(this);
+            notificarEvento(p, TipoEvento.ADICIONADO, pendencias);
         } else {
             throw new InvalidParameterException(pendencia.getClass().getName()
                     + " não é um tipo válido!");
@@ -67,8 +70,10 @@ public class PendenciaController extends ValorDescritoController implements
     public <T extends ValorDescrito> void remover(T pendencia) throws
             InvalidParameterException {
         if(pendencia instanceof Pendencia) {
-            pendencias.remove(pendencia);
-            notificarEvento(pendencia);
+            Pendencia p = (Pendencia) pendencia;
+            pendencias.remove(p);
+            p.deletaObservador(this);
+            notificarEvento(p, TipoEvento.REMOVIDO, pendencias);
         } else {
             throw new InvalidParameterException(pendencia.getClass().getName()
                     + " não é um tipo válido!");
@@ -153,8 +158,8 @@ public class PendenciaController extends ValorDescritoController implements
     //--Observador method-------------------------------------------------------
 
     @Override
-    public void atualizar(EventoObservado ev) {
-        notificarEvento(o);
+    public void atualizar(EventoObs ev) {
+        notificarEvento(ev);
     }
 
 

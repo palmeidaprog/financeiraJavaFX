@@ -72,7 +72,7 @@ public class ParcelaController extends Observado implements
     //--Observador method-------------------------------------------------------
 
     @Override
-    public void atualizar(EventoObservado ev) {
+    public void atualizar(EventoObs ev) {
         if(arg instanceof Pagamento && o instanceof Parcela) {
             parcelas.remove(o);
             pagas.add((Parcela) o);
