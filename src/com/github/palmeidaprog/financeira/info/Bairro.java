@@ -23,7 +23,7 @@ public class Bairro extends Observado implements Serializable {
 
     public void setNome(String nome) {
         this.nome = nome;
-        notifyChange(this);
+        notificarEvento(this);
     }
 
     public String getNome() {

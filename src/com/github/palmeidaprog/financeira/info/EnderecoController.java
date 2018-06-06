@@ -50,7 +50,7 @@ public class EnderecoController extends Observado implements
                 while(c.next()) {
                     enderecosL.addAll(c.getAddedSubList());
                     enderecosL.removeAll(c.getRemoved());
-                    EnderecoController.this.notifyChange(EnderecoController
+                    EnderecoController.this.notificarEvento(EnderecoController
                             .this.enderecosL);
                 }
             }
@@ -60,7 +60,7 @@ public class EnderecoController extends Observado implements
     //--Observador interface----------------------------------------------------
 
     public void atualizar(EventoObservado ev) {
-        notifyChange(o);
+        notificarEvento(o);
     }
 
     //------------------------------------------------------------------------
@@ -98,7 +98,7 @@ public class EnderecoController extends Observado implements
 
     public void setPrincipal(Endereco endereco) {
         principal = endereco;
-        notifyChange(principal);
+        notificarEvento(principal);
     }
 
     public Endereco getPrincipal() {

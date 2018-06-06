@@ -17,10 +17,10 @@ import com.github.palmeidaprog.financeira.interfaces.observador.Observado;
 
 import java.io.Serializable;
 import java.util.Observable;
-import java.util.Observer;
+
 
 public abstract class Cliente extends Observado implements
-        Serializable, Observer {
+        Serializable, Observador {
     private final EnderecoController enderecos;
     private final TelefoneController telefones;
     private String comentario;
@@ -63,11 +63,11 @@ public abstract class Cliente extends Observado implements
         return cadastro;
     }
 
-    //--Observer--------------------------------------------------------------
+    //--Observador--------------------------------------------------------------
 
     @Override
     public void atualizar(EventoObservado ev) {
-        notifyChange(o);
+        notificarEvento(o);
     }
 
     //--Object override-------------------------------------------------------

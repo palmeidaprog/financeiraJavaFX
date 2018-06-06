@@ -48,7 +48,7 @@ public class TelefoneController extends Observado implements
     public void inserir(Telefone telefone) {
         telefone.adicionaObservador(this);
         telefones.add(telefone);
-        notifyChange(telefone);
+        notificarEvento(telefone);
     }
 
     public void inserir(Telefone telefone, boolean isPrincipal) {
@@ -67,7 +67,7 @@ public class TelefoneController extends Observado implements
 
     public void remover(Telefone telefone) throws ImpossivelRemoverException {
         if(isRemovivel(telefone)) {
-            telefone.deleteObserver(this);
+            telefone.deleteObservador(this);
             telefones.remove(telefone);
         }
     }
@@ -84,7 +84,7 @@ public class TelefoneController extends Observado implements
 
     public void remover(int index) throws ImpossivelRemoverException {
         Telefone telefone = get(index);
-        telefone.deleteObserver(this);
+        telefone.deleteObservador(this);
         remover(telefone);
     }
 
@@ -178,7 +178,7 @@ public class TelefoneController extends Observado implements
 
     @Override
     public void atualizar(EventoObservado ev) {
-        notifyChange(o);
+        notificarEvento(o);
     }
 
     //--Object override-------------------------------------------------------

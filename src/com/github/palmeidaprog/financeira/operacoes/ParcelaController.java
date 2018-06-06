@@ -15,7 +15,7 @@ import java.io.Serializable;
 import java.util.*;
 
 public class ParcelaController extends Observado implements
-        Serializable, Observer {
+        Serializable, Observador {
     private List<Parcela> parcelas;
     private List<Parcela> pagas;
     private int numeroDeParcelas;
@@ -69,7 +69,7 @@ public class ParcelaController extends Observado implements
         return parcelas.get(0);
     }
 
-    //--Observer method-------------------------------------------------------
+    //--Observador method-------------------------------------------------------
 
     @Override
     public void atualizar(EventoObservado ev) {
@@ -77,7 +77,7 @@ public class ParcelaController extends Observado implements
             parcelas.remove(o);
             pagas.add((Parcela) o);
         }
-        notifyChange(parcelas);
+        notificarEvento(parcelas);
     }
 
     //--Object override-------------------------------------------------------

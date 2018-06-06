@@ -4,14 +4,15 @@ package com.github.palmeidaprog.financeira.clientes.adapter;
 import com.github.palmeidaprog.financeira.exception.ProcuraSemResultadoException;
 import com.github.palmeidaprog.financeira.interfaces.ValorDescrito;
 import com.github.palmeidaprog.financeira.interfaces.ValorDescritoController;
+import com.github.palmeidaprog.financeira.interfaces.observador.EventoObservado;
+import com.github.palmeidaprog.financeira.interfaces.observador.Observador;
 import javafx.collections.ObservableList;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import java.util.Observable;
-import java.util.Observer;
+
 
 public class TabelaValorDescrito<T extends ValorDescrito> implements
-        Observer {
+        Observador {
     private TableView<T> tabela;
     private ObservableList<T> lista;
     private ValorDescritoController controller;
@@ -48,13 +49,10 @@ public class TabelaValorDescrito<T extends ValorDescrito> implements
                 .valorPProperty());
     }
 
-
-
     @Override @SuppressWarnings("unchecked")
     public void atualizar(EventoObservado ev) {
-        System.out.println(arg);
-        T p = (T) arg;
-        System.out.println(p);
+        T p = (T) ev.getObjetoModificado();
+        //todo: olhar codigo e substituir por logica do TipoEvento
         try {
             System.out.println(controller.indexOf(p));
             lista.add(p);

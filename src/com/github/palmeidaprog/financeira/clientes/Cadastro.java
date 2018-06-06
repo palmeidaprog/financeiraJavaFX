@@ -15,7 +15,7 @@ import com.github.palmeidaprog.financeira.interfaces.observador.Observador;
 import java.io.Serializable;
 import java.util.List;
 import java.util.Observable;
-import java.util.Observer;
+
 
 public class Cadastro extends Observado implements Serializable,
         Observador {
@@ -26,14 +26,14 @@ public class Cadastro extends Observado implements Serializable,
     //construtor de deserialzacao
     public Cadastro(Credito credito, RendaController rendas, BemController
             bens) {
-        observers();
+        Observadors();
         this.credito = credito;
         this.rendas = rendas;
         this.bens = bens;
     }
 
     public Cadastro() {
-        observers();
+        Observadors();
     }
 
     public Cadastro(Renda renda) {
@@ -61,7 +61,7 @@ public class Cadastro extends Observado implements Serializable,
         rendas.inserir(renda);
     }
 
-    private void observers() {
+    private void Observadors() {
         this.credito.adicionaObservador(this);
         this.rendas.adicionaObservador(this);
         this.bens.adicionaObservador(this);
@@ -79,11 +79,11 @@ public class Cadastro extends Observado implements Serializable,
         return rendas;
     }
 
-    //--Observer implementação------------------------------------------------
+    //--Observador implementação------------------------------------------------
 
     @Override
     public void atualizar(EventoObservado ev) {
-        notifyChange(arg);
+        notificarEvento(arg);
     }
 
     //--Object override-------------------------------------------------------

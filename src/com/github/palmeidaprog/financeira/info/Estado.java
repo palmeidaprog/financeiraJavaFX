@@ -37,12 +37,12 @@ public class Estado extends Observado implements Serializable {
 
     public void setSigla(String sigla) {
         this.sigla = sigla;
-        notifyChange(this);
+        notificarEvento(this);
     }
 
     public void setNome(String nome) {
         this.nome = nome;
-        notifyChange(this);
+        notificarEvento(this);
     }
 
     public boolean equals(Estado estado) {

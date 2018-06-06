@@ -16,7 +16,7 @@ import java.io.Serializable;
 import java.util.*;
 
 public class OperacaoCredito extends Observado implements
-        Serializable, Observer {
+        Serializable, Observador {
     private double valorNominal;
     private double jurosAoMes;
     private String descricao;
@@ -76,7 +76,7 @@ public class OperacaoCredito extends Observado implements
 
     public void setValorNominal(double valorNominal) {
         this.valorNominal = valorNominal;
-        notifyChange(this.valorNominal);
+        notificarEvento(this.valorNominal);
     }
 
     public String getDescricao() {
@@ -85,7 +85,7 @@ public class OperacaoCredito extends Observado implements
 
     public void setDescricao(String descricao) {
         this.descricao = descricao;
-        notifyChange(this.descricao);
+        notificarEvento(this.descricao);
     }
 
     public double getJurosAoMes() {
@@ -94,7 +94,7 @@ public class OperacaoCredito extends Observado implements
 
     public void setJurosAoMes(double jurosAoMes) {
         this.jurosAoMes = jurosAoMes;
-        notifyChange(this.jurosAoMes);
+        notificarEvento(this.jurosAoMes);
     }
 
     public Cliente getAvalista() {
@@ -105,11 +105,11 @@ public class OperacaoCredito extends Observado implements
         this.avalista = avalista;
     }
 
-    //--Observer method-------------------------------------------------------
+    //--Observador method-------------------------------------------------------
 
     @Override
     public void atualizar(EventoObservado ev) {
-        notifyChange(o);
+        notificarEvento(o);
     }
 
     //--Object override-------------------------------------------------------

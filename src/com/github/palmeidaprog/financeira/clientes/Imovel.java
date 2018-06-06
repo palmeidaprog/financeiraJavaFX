@@ -83,7 +83,7 @@ public class Imovel extends Bem implements Serializable {
 
     public void setDescricao(String descricao) {
         this.descricao = descricao;
-        notifyChange(descricao);
+        notificarEvento(descricao);
     }
 
     //--Object override-------------------------------------------------------

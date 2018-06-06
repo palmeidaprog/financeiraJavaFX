@@ -62,7 +62,7 @@ public class PessoaFisica extends Cliente implements Serializable {
 
     public void setPrimeiroNome(String primeiroNome) {
         this.primeiroNome = primeiroNome;
-        notifyChange(this.primeiroNome);
+        notificarEvento(this.primeiroNome);
     }
 
     public String getNomeDoMeio() {
@@ -71,7 +71,7 @@ public class PessoaFisica extends Cliente implements Serializable {
 
     public void setNomeDoMeio(String nomeDoMeio) {
         this.nomeDoMeio = nomeDoMeio;
-        notifyChange(this.nomeDoMeio);
+        notificarEvento(this.nomeDoMeio);
     }
 
     public String getSobrenome() {
@@ -80,7 +80,7 @@ public class PessoaFisica extends Cliente implements Serializable {
 
     public void setSobrenome(String sobrenome) {
         this.sobrenome = sobrenome;
-        notifyChange(this.sobrenome);
+        notificarEvento(this.sobrenome);
     }
 
     public Cpf getCpf() {

@@ -4,15 +4,13 @@ import com.github.palmeidaprog.financeira.exception.ProcuraSemResultadoException
 import com.github.palmeidaprog.financeira.info.Cnpj;
 import com.github.palmeidaprog.financeira.info.Cpf;
 import com.github.palmeidaprog.financeira.interfaces.Memento;
+import com.github.palmeidaprog.financeira.interfaces.observador.EventoObservado;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Observable;
-import java.util.Observer;
-
 
 // @design memento
 // Implementação SalvaTudo no arquivo nas mudanças
@@ -127,7 +125,7 @@ public class ArquivoClienteDao extends ClienteDao implements Memento {
         }
     }
 
-    //--Observer--------------------------------------------------------------
+    //--Observador--------------------------------------------------------------
 
     @Override
     public void atualizar(EventoObservado ev) {

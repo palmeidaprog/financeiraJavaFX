@@ -2,7 +2,6 @@ package com.github.palmeidaprog.financeira.clientes;
 
 import java.io.Serializable;
 import java.security.InvalidParameterException;
-import java.util.Objects;
 
 /*
  * Financeira App

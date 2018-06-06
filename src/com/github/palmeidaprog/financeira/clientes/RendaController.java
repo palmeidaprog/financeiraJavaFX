@@ -37,7 +37,7 @@ public class RendaController extends Observado implements
         renda.adicionaObservador(this);
         rendas.add(renda);
         sort(rendas);
-        notifyChange(this.rendas);
+        notificarEvento(this.rendas);
     }
 
     public void inserir(Collection<? extends Renda> c) {
@@ -49,8 +49,8 @@ public class RendaController extends Observado implements
 
     public void remover(Renda renda) {
         rendas.remove(renda);
-        renda.deleteObserver(this);
-        notifyChange(this.rendas);
+        renda.deleteObservador(this);
+        notificarEvento(this.rendas);
     }
 
     public void remover(int index) {
@@ -151,11 +151,11 @@ public class RendaController extends Observado implements
         return formataValor(total());
     }
 
-    //--Observer method-------------------------------------------------------
+    //--Observador method-------------------------------------------------------
 
     @Override
     public void atualizar(EventoObservado ev) {
-        notifyChange(o);
+        notificarEvento(o);
     }
 
     //--Object override-------------------------------------------------------

@@ -15,7 +15,7 @@ import com.github.palmeidaprog.financeira.interfaces.observador.Observado;
 
 import java.io.Serializable;
 import java.util.Observable;
-import java.util.Observer;
+
 
 public class InscricaoFiscal extends Observado implements
         Serializable, Observador {
@@ -33,12 +33,12 @@ public class InscricaoFiscal extends Observado implements
 
     public void setOrgaoExpedidor(String orgaoExpedidor) {
         this.orgaoExpedidor = orgaoExpedidor;
-        notifyChange(this);
+        notificarEvento(this);
     }
 
     public void setEstado(Estado estado) {
         this.estado = estado;
-        notifyChange(this);
+        notificarEvento(this);
     }
 
     public Estado getEstado() {
@@ -53,7 +53,7 @@ public class InscricaoFiscal extends Observado implements
 
     @Override
     public void atualizar(EventoObservado ev) {
-        notifyChange(o);
+        notificarEvento(o);
     }
 
     //--Object override-------------------------------------------------------

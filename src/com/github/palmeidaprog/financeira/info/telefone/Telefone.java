@@ -36,7 +36,7 @@ public class Telefone extends Observado implements Serializable {
 
     public void setPais(Pais pais) {
         this.pais = pais;
-        notifyChange(this.pais);
+        notificarEvento(this.pais);
     }
 
     public CodigoArea getCodigoArea() {
@@ -45,7 +45,7 @@ public class Telefone extends Observado implements Serializable {
 
     public void setCodigoArea(CodigoArea codigoArea) {
         this.codigoArea = codigoArea;
-        notifyChange(this.codigoArea);
+        notificarEvento(this.codigoArea);
     }
 
     public NumeroTelefone getNumero() {
@@ -54,12 +54,12 @@ public class Telefone extends Observado implements Serializable {
 
     public void setNumero(NumeroTelefone numero) {
         this.numero = numero;
-        notifyChange(this.numero);
+        notificarEvento(this.numero);
     }
 
     public void setTipo(TipoTelefone tipo) {
         this.tipo = tipo;
-        notifyChange(this.tipo);
+        notificarEvento(this.tipo);
     }
 
     public TipoTelefone getTipo() {

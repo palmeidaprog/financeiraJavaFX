@@ -52,7 +52,7 @@ public class Renda extends Observado implements Serializable,
         this.valor = valor;
         valFormatado = valorFormatado();
         valorP.setValue(valorFormatado(valor));
-        notifyChange(this.valor);
+        notificarEvento(this.valor);
     }
 
     private String valorFormatado() {
@@ -70,7 +70,7 @@ public class Renda extends Observado implements Serializable,
     public void setDescricao(String descricao) {
         this.descricao = descricao;
         descricaoP.setValue(descricao);
-        notifyChange(this.descricao);
+        notificarEvento(this.descricao);
     }
 
     public String formatado() {

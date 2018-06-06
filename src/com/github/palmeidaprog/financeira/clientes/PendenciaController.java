@@ -22,7 +22,7 @@ import java.util.*;
 
 // Observado
 public class PendenciaController extends ValorDescritoController implements
-        Serializable, Observer {
+        Serializable, Observador {
     private List<Pendencia> pendencias;
 
     // desserialização
@@ -56,7 +56,7 @@ public class PendenciaController extends ValorDescritoController implements
         if(pendencia instanceof Pendencia) {
             Pendencia p = (Pendencia) pendencia;
             pendencias.add(p);
-            notifyChange(p);
+            notificarEvento(p);
         } else {
             throw new InvalidParameterException(pendencia.getClass().getName()
                     + " não é um tipo válido!");
@@ -68,7 +68,7 @@ public class PendenciaController extends ValorDescritoController implements
             InvalidParameterException {
         if(pendencia instanceof Pendencia) {
             pendencias.remove(pendencia);
-            notifyChange(pendencia);
+            notificarEvento(pendencia);
         } else {
             throw new InvalidParameterException(pendencia.getClass().getName()
                     + " não é um tipo válido!");
@@ -150,11 +150,11 @@ public class PendenciaController extends ValorDescritoController implements
         return formataValor(total());
     }
 
-    //--Observer method-------------------------------------------------------
+    //--Observador method-------------------------------------------------------
 
     @Override
     public void atualizar(EventoObservado ev) {
-        notifyChange(o);
+        notificarEvento(o);
     }
 
 

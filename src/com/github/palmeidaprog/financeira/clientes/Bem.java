@@ -11,16 +11,18 @@ package com.github.palmeidaprog.financeira.clientes;
  */
 
 import com.github.palmeidaprog.financeira.interfaces.ValorDescrito;
+import com.github.palmeidaprog.financeira.interfaces.observador.EventoObservado;
 import com.github.palmeidaprog.financeira.interfaces.observador.Observado;
+import com.github.palmeidaprog.financeira.interfaces.observador.Observador;
+import com.github.palmeidaprog.financeira.interfaces.observador.TipoEvento;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import java.io.Serializable;
 import java.util.Locale;
-import java.util.Observable;
-import java.util.Observer;
+
 
 public class Bem extends Observado implements Serializable,
-        ValorDescrito, Observer {
+        ValorDescrito, Observador {
     private double valor;
     private StringProperty valorP = new SimpleStringProperty();
     private StringProperty descricaoP = new SimpleStringProperty();
@@ -70,7 +72,7 @@ public class Bem extends Observado implements Serializable,
         this.valor = valor;
         this.valLiqFormatado = valorFormatado(valorLiquido());
         valorP.setValue(valLiqFormatado);
-        notifyChange(this.valor);
+        notificarEvento(this.valor, TipoEvento.EDITADO);
     }
 
     @Override
@@ -91,14 +93,14 @@ public class Bem extends Observado implements Serializable,
     public void setDescricao(String descricao) {
         this.descricao = descricao;
         descricaoP.setValue(descricao);
-        notifyChange(descricao);
+        notificarEvento(this.descricao, TipoEvento.EDITADO);
     }
 
     //--Obersver method-------------------------------------------------------
 
     @Override
     public void atualizar(EventoObservado ev) {
-        notifyChange(o);
+        notificarEvento(ev);
     }
 
     //--Object override-------------------------------------------------------

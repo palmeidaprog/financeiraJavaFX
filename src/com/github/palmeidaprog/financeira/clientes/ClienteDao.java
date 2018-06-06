@@ -3,6 +3,8 @@ package com.github.palmeidaprog.financeira.clientes;
 import com.github.palmeidaprog.financeira.exception.ProcuraSemResultadoException;
 import com.github.palmeidaprog.financeira.info.Cnpj;
 import com.github.palmeidaprog.financeira.info.Cpf;
+import com.github.palmeidaprog.financeira.interfaces.observador.EventoObservado;
+import com.github.palmeidaprog.financeira.interfaces.observador.Observador;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -10,7 +12,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
-import java.util.Observer;
+
 
 //@design Bridge that implements Observador
 public abstract class ClienteDao implements Observador {
@@ -32,7 +34,7 @@ public abstract class ClienteDao implements Observador {
 
     abstract public List<Cliente> procurar(String nomeOuCometario) throws
             ProcuraSemResultadoException;
-    // Observer
+    // Observador
     abstract public void atualizar(EventoObservado ev);
 
 

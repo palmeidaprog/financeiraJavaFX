@@ -16,12 +16,12 @@ import java.io.Serializable;
 import java.util.*;
 
 public class PagamentoController extends Observado implements
-        Serializable, Observer {
+        Serializable, Observador {
     private List<Pagamento> pagamentos = new ArrayList<>();
 
     public void inserir(Pagamento pagamento) {
         pagamentos.add(pagamento);
-        notifyChange(pagamentos);
+        notificarEvento(pagamentos);
     }
 
     public void inserir(Collection<Pagamento> pagamentos) {
@@ -38,7 +38,7 @@ public class PagamentoController extends Observado implements
 
     public void remover(Pagamento pagamento) {
         pagamentos.remove(pagamento);
-        notifyChange(pagamentos);
+        notificarEvento(pagamentos);
     }
 
     public void remover(int index) {
@@ -105,11 +105,11 @@ public class PagamentoController extends Observado implements
         return soma;
     }
 
-    //--Observer method-------------------------------------------------------
+    //--Observador method-------------------------------------------------------
 
     @Override
     public void atualizar(EventoObservado ev) {
-        notifyChange(o);
+        notificarEvento(o);
     }
 
     //--Object Override-------------------------------------------------------

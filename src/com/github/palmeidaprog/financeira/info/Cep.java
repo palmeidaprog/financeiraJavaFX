@@ -23,7 +23,7 @@ public class Cep extends Observado implements Serializable {
 
     public void setNumero(String numero) {
         this.numero = numero;
-        notifyChange(this);
+        notificarEvento(this);
     }
 
     public String getNumero() {

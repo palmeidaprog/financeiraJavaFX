@@ -16,9 +16,9 @@ import com.github.palmeidaprog.financeira.info.Cpf;
 import java.io.IOException;
 import java.util.List;
 import java.util.Observable;
-import java.util.Observer;
 
-// @design observer
+
+// @design Observador
 public class ClienteController implements Observador {
     ClienteDao dao = FactoryClienteDao.getInstance();
 

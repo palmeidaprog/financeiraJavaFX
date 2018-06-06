@@ -47,7 +47,7 @@ public class Quitacao extends Debito implements Serializable {
 
     public void setTotal(double total) {
         this.total = total;
-        notifyChange(this.total);
+        notificarEvento(this.total);
     }
 
     public double getDesconto() {
@@ -56,7 +56,7 @@ public class Quitacao extends Debito implements Serializable {
 
     public void setDesconto(double desconto) {
         this.desconto = desconto;
-        notifyChange(desconto);
+        notificarEvento(desconto);
     }
 
     //--Object override-------------------------------------------------------

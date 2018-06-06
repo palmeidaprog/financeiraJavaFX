@@ -48,7 +48,7 @@ public class PessoaJuridica extends Cliente implements Serializable {
 
     public void setRazaoSocial(String razaoSocial) {
         this.razaoSocial = razaoSocial;
-        notifyChange(this.razaoSocial);
+        notificarEvento(this.razaoSocial);
     }
 
     public String getNomeFantasia() {
@@ -57,7 +57,7 @@ public class PessoaJuridica extends Cliente implements Serializable {
 
     public void setNomeFantasia(String nomeFantasia) {
         this.nomeFantasia = nomeFantasia;
-        notifyChange(this.nomeFantasia);
+        notificarEvento(this.nomeFantasia);
     }
 
     public Cnpj getCnpj() {

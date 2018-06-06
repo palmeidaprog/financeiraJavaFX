@@ -14,10 +14,10 @@ import com.github.palmeidaprog.financeira.interfaces.observador.Observado;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Observable;
-import java.util.Observer;
+
 
 public class Debito extends Observado implements Serializable,
-        Observer {
+        Observador {
     private final double valor;
     private Date vencimento;
     private double multa;
@@ -56,7 +56,7 @@ public class Debito extends Observado implements Serializable,
 
     public void setVencimento(Date vencimento) {
         this.vencimento = vencimento;
-        notifyChange(this.vencimento);
+        notificarEvento(this.vencimento);
     }
 
     public double getMulta() {
@@ -65,7 +65,7 @@ public class Debito extends Observado implements Serializable,
 
     public void setMulta(double multa) {
         this.multa = multa;
-        notifyChange(this.multa);
+        notificarEvento(this.multa);
     }
 
     public double getJurosPorDia() {
@@ -74,7 +74,7 @@ public class Debito extends Observado implements Serializable,
 
     public void setJurosPorDia(double jurosPorDia) {
         this.jurosPorDia = jurosPorDia;
-        notifyChange(this.jurosPorDia);
+        notificarEvento(this.jurosPorDia);
     }
 
     public Pagamento getPagamento() {
@@ -83,14 +83,14 @@ public class Debito extends Observado implements Serializable,
 
     public void setPagamento(Pagamento pagamento) {
         this.pagamento = pagamento;
-        notifyChange(this.pagamento);
+        notificarEvento(this.pagamento);
     }
 
-    //--Observer methods------------------------------------------------------
+    //--Observador methods------------------------------------------------------
 
     @Override
     public void atualizar(EventoObservado ev) {
-        notifyChange(o);
+        notificarEvento(o);
     }
 
     //--Object override-------------------------------------------------------

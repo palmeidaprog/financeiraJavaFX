@@ -33,7 +33,7 @@ public class Credito extends Observado implements Serializable {
 
     public void setFinanciamento(double financiamento) {
         this.financiamento = financiamento;
-        notifyChange(this);
+        notificarEvento(this);
     }
 
     public double getPessoal() {
@@ -42,7 +42,7 @@ public class Credito extends Observado implements Serializable {
 
     public void setPessoal(double pessoal) {
         this.pessoal = pessoal;
-        notifyChange(this);
+        notificarEvento(this);
     }
 
     //--Object override-------------------------------------------------------
