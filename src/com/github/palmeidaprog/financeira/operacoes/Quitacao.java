@@ -9,6 +9,8 @@ package com.github.palmeidaprog.financeira.operacoes;
  * Professor: Antonio Canvalcanti
  */
 
+import com.github.palmeidaprog.financeira.interfaces.observador.TipoEvento;
+
 import java.io.Serializable;
 import java.util.Date;
 
@@ -47,7 +49,7 @@ public class Quitacao extends Debito implements Serializable {
 
     public void setTotal(double total) {
         this.total = total;
-        notificarEvento(this.total);
+        notificarEvento(this.total, TipoEvento.EDITADO);
     }
 
     public double getDesconto() {
@@ -56,7 +58,7 @@ public class Quitacao extends Debito implements Serializable {
 
     public void setDesconto(double desconto) {
         this.desconto = desconto;
-        notificarEvento(desconto);
+        notificarEvento(this.desconto, TipoEvento.EDITADO);
     }
 
     //--Object override-------------------------------------------------------

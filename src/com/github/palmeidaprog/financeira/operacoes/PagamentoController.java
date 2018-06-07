@@ -10,8 +10,10 @@ package com.github.palmeidaprog.financeira.operacoes;
  */
 
 import com.github.palmeidaprog.financeira.exception.ProcuraSemResultadoException;
+import com.github.palmeidaprog.financeira.interfaces.observador.EventoObs;
 import com.github.palmeidaprog.financeira.interfaces.observador.Observado;
 import com.github.palmeidaprog.financeira.interfaces.observador.Observador;
+import com.github.palmeidaprog.financeira.interfaces.observador.TipoEvento;
 
 import java.io.Serializable;
 import java.util.*;
@@ -22,7 +24,7 @@ public class PagamentoController extends Observado implements
 
     public void inserir(Pagamento pagamento) {
         pagamentos.add(pagamento);
-        notificarEvento(pagamentos);
+        notificarEvento(pagamentos, TipoEvento.ADICIONADO);
     }
 
     public void inserir(Collection<Pagamento> pagamentos) {
@@ -39,7 +41,7 @@ public class PagamentoController extends Observado implements
 
     public void remover(Pagamento pagamento) {
         pagamentos.remove(pagamento);
-        notificarEvento(pagamentos);
+        notificarEvento(pagamento, TipoEvento.REMOVIDO);
     }
 
     public void remover(int index) {
@@ -110,7 +112,7 @@ public class PagamentoController extends Observado implements
 
     @Override
     public void atualizar(EventoObs ev) {
-        notificarEvento(o);
+        notificarEvento(ev);
     }
 
     //--Object Override-------------------------------------------------------

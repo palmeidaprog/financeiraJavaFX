@@ -9,7 +9,10 @@ package com.github.palmeidaprog.financeira.operacoes;
  * Professor: Antonio Canvalcanti
  */
 
+import com.github.palmeidaprog.financeira.interfaces.observador.EventoObs;
 import com.github.palmeidaprog.financeira.interfaces.observador.Observado;
+import com.github.palmeidaprog.financeira.interfaces.observador.Observador;
+import com.github.palmeidaprog.financeira.interfaces.observador.TipoEvento;
 
 import java.io.Serializable;
 import java.util.*;
@@ -71,13 +74,18 @@ public class ParcelaController extends Observado implements
 
     //--Observador method-------------------------------------------------------
 
-    @Override
+    @Override @SuppressWarnings("unchecked") // confiavel
     public void atualizar(EventoObs ev) {
-        if(arg instanceof Pagamento && o instanceof Parcela) {
-            parcelas.remove(o);
-            pagas.add((Parcela) o);
+        if(ev.getModificado() instanceof Pagamento &&
+                ev.getModificado() instanceof Parcela) {
+            parcelas.remove(ev.getModificado());
+            pagas.add((Parcela) ev.getModificado());
+            //notificarEvento(ev.getModificado(), TipoEvento.REMOVIDO,
+            //        parcelas);
+            notificarEvento(ev.getModificado(), TipoEvento.ADICIONADO,
+                    pagas);
         }
-        notificarEvento(parcelas);
+        notificarEvento(parcelas, TipoEvento.EDITADO);
     }
 
     //--Object override-------------------------------------------------------

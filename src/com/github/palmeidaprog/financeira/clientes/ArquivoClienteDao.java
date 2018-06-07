@@ -15,7 +15,7 @@ import java.util.List;
 
 // @design memento
 // Implementação SalvaTudo no arquivo nas mudanças
-// Tb conhecido co0mo Surubão Design Pattern
+// Tb conhecido co0mo Surubão Design Pattern // memento nao se aplcia
 public class ArquivoClienteDao extends ClienteDao implements Memento,
         Observador {
     private static final String ARQUIVO = "clientes.ser";
